@@ -47,6 +47,7 @@ namespace PocCamera.Droid
 
             var mediaFile = await data.GetMediaFileExtraAsync(Forms.Context);
             System.Diagnostics.Debug.WriteLine(mediaFile.Path);
+            MessagingCenter.Send<IPictureTaker, string>(this, "pictureTaken", mediaFile.Path);
         }
     }
 }

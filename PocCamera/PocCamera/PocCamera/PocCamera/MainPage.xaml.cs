@@ -19,6 +19,12 @@ namespace PocCamera
             IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
 
             pictureTake.SnapPic();
+
+            MessagingCenter.Subscribe<IPictureTaker, string>(this, "pictureTaken",
+                                                            (s, arg) =>
+                                                            {
+                                                                imgTaken.Source = ImageSource.FromFile(arg);
+                                                            });
         }
     }
 }

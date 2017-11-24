@@ -8,6 +8,10 @@
            VerticalOptions="Center" 
            HorizontalOptions="Center" 
            />
-    <Button x:Name="btnOpenCamera" Clicked="btnOpenCamera_Clicked"></Button>
+    <StackLayout>
+        <Button x:Name="btnOpenCamera" Clicked="btnOpenCamera_Clicked" Text="Tomar Foto"></Button>
+        <Image x:Name="imgTaken"></Image>
+    </StackLayout>
+    
 
 </ContentPage>
