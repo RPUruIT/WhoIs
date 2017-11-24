@@ -25,7 +25,15 @@ namespace WhoIs.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            ResolveDependencies();
+
             return base.FinishedLaunching(app, options);
+        }
+
+        private void ResolveDependencies()
+        {
+            DependencyContainer.InitializeCore();
+            iOSDependencyContainer.Initialize(DependencyContainer.Container);
         }
     }
 }

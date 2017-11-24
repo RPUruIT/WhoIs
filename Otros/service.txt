@@ -1,0 +1,936 @@
+[
+    {
+        "_id": "551952b252a9d05f87e79b2d",
+        "name": "Sebastian Mastrogiovanni",
+        "username": "smastrogiovanni@carrasco.uruit.com",
+        "mail": "sebastian.mastrogiovanni@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b2e",
+        "name": "Gonzalo Mesorio",
+        "username": "gmesorio@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b32",
+        "name": "Gimena Cassola",
+        "username": "gcassola@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b33",
+        "name": "Nicolas Brandl",
+        "username": "nbrandl@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b3b",
+        "name": "Sebastian Machado",
+        "username": "emachado@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b3d",
+        "name": "Alejandro Reyes",
+        "username": "areyes@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b41",
+        "name": "Marcelo avalos",
+        "username": "mavalos@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b42",
+        "name": "Matias Varini",
+        "username": "mvarini@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b46",
+        "name": "Ignacio Villaverde",
+        "username": "ivillaverde@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b48",
+        "name": "Iran Reyes",
+        "username": "ireyes@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b4d",
+        "name": "Rolando Larrainci",
+        "username": "rlarrainci@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b50",
+        "name": "Jen Cesarkas",
+        "username": "jcesarkas@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b55",
+        "name": "Ignacio Picun",
+        "username": "ipicun@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "5522cac652a9d05f87e79b95",
+        "name": "Romina Pons",
+        "username": "rpons@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "5522cac652a9d05f87e79b96",
+        "name": "Carolina Morquio",
+        "username": "cmorquio@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "554a5a3cd9c9e91cfa6e8e14",
+        "name": "Saul Mizrahi",
+        "username": "smizrahi@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "558d6578e23b85c6fc1e8d5b",
+        "name": "Giuliana Corbo",
+        "username": "gcorbo@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "55c0bde15c510b1fe608bc57",
+        "name": "Michel Camarota",
+        "username": "mcamarotta@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "55e886b35c510b1fe608bc66",
+        "name": "Nicolas Darriulat",
+        "username": "ndarriulat@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "5612b3435c510b1fe608bc6c",
+        "name": "Ana Maria Machado",
+        "username": "amachado@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "563cfe115c510b1fe608bc6e",
+        "name": "Katherine Ramirez",
+        "username": "kramirez@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "56d70effbbcac92f67fbb951",
+        "name": "Ernesto Cruz",
+        "username": "ecruz@carrasco.uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "57434d061ff5f2ce130647d7",
+        "name": "Ingresos",
+        "username": "Ingresos",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5751e8f01ff5f2ce130649ba",
+        "name": "Agustín Baratelli",
+        "username": "abaratelli@carrasco.uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "579f781f8a642e6d42913948",
+        "name": "Daniel Frascarelli",
+        "username": "dfrascarelli@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "daniel.frascarelli@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "57c713f5553938530b5e74eb",
+        "name": "Jose Soarez",
+        "username": "jose.soarez@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "57e95c1d26645afdf41023d2",
+        "name": "Maximiliano Chiesa",
+        "username": "mchiesa@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "maximiliano.chiesa@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "586bbeacf8b67ac7b013a1d6",
+        "name": "Regiane Folter",
+        "username": "rfolter@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "58f52b87f8b67ac7b013b1bd",
+        "name": "Christopher Latridis",
+        "username": "ciatridis@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "christopher.iatridis@crmgamified.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b26",
+        "name": "Marcelo Lopez",
+        "username": "marcelol@carrasco.uruit.com",
+        "mail": "marcelo.lopez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b27",
+        "name": "Iang Yim",
+        "username": "iang@carrasco.uruit.com",
+        "mail": "iang.yim@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b28",
+        "name": "Matias Delgado",
+        "username": "matiasd@carrasco.uruit.com",
+        "mail": "matias.delgado@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b29",
+        "name": "Marcelo Martinez",
+        "username": "mmartinez@carrasco.uruit.com",
+        "mail": "marcelo.martinez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b2a",
+        "name": "Sebastian Rodriguez",
+        "username": "srodriguez@carrasco.uruit.com",
+        "mail": "sebastian.rodriguez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b2b",
+        "name": "Pablo Piriz",
+        "username": "ppiriz@carrasco.uruit.com",
+        "mail": "pablo.piriz@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b2c",
+        "name": "Pablo Peralta",
+        "username": "pperalta@carrasco.uruit.com",
+        "mail": "pablo.peralta@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b2f",
+        "name": "Agustina Secco",
+        "username": "asecco@carrasco.uruit.com",
+        "mail": "agustina.secco@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b30",
+        "name": "Sergio Cabrera",
+        "username": "scabrera@carrasco.uruit.com",
+        "mail": "sebastian.cabrera@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b31",
+        "name": "Rodrigo Rivera",
+        "username": "rrivera@carrasco.uruit.com",
+        "mail": "rodrigo.rivera@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b34",
+        "name": "Santiago Gonzalez",
+        "username": "sgonzalez@carrasco.uruit.com",
+        "mail": "santiago.gonzalez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b35",
+        "name": "Milton Rodriguez",
+        "username": "mrodriguez@carrasco.uruit.com",
+        "mail": "milton.rodriguez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b36",
+        "name": "Juan Pablo Turielli",
+        "username": "jpturielli@carrasco.uruit.com",
+        "mail": "juan.turielli@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b37",
+        "name": "Martin Mari",
+        "username": "mmari@carrasco.uruit.com",
+        "mail": "martin.mari@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b38",
+        "name": "Fabian Lewkowicz",
+        "username": "flewkowicz@carrasco.uruit.com",
+        "mail": "fabian.lewkowicz@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b39",
+        "name": "Martin Ferreira",
+        "username": "mferreira@carrasco.uruit.com",
+        "mail": "martin.ferreira@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b3a",
+        "name": "Mauricio Repetto",
+        "username": "mrepetto@carrasco.uruit.com",
+        "mail": "mauricio.repetto@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b3c",
+        "name": "Pablo Guillen",
+        "username": "pguillen@carrasco.uruit.com",
+        "mail": "pablo.guillen@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b3e",
+        "name": "Adrian Claveri",
+        "username": "aclaveri@carrasco.uruit.com",
+        "mail": "adrian.claveri@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b3f",
+        "name": "Ignacio Jorcin",
+        "username": "ijorcin@carrasco.uruit.com",
+        "mail": "ignacio.jorcin@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b40",
+        "name": "Gonzalo Barbitta",
+        "username": "gbarbitta@carrasco.uruit.com",
+        "mail": "gonzalo.barbitta@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b43",
+        "name": "Esperanza Garcia",
+        "username": "egarcia@carrasco.uruit.com",
+        "mail": "esperanza.garcia@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b44",
+        "name": "Alejandro Morales",
+        "username": "amorales@carrasco.uruit.com",
+        "mail": "alejandro.morales@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b45",
+        "name": "Marcos Bacelo",
+        "username": "mbacelo@carrasco.uruit.com",
+        "mail": "marcos.bacelo@crmgamified.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b47",
+        "name": "Carlos Lorenzo",
+        "username": "clorenzo@carrasco.uruit.com",
+        "mail": "carlos.lorenzo@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b49",
+        "name": "Ana Maria Curbelo",
+        "username": "acurbelo@carrasco.uruit.com",
+        "mail": "ana.curbelo@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "551952b252a9d05f87e79b4a",
+        "name": "Ana Paula Jorcin",
+        "username": "ajorcin@carrasco.uruit.com",
+        "mail": "ana.jorcin@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b4b",
+        "name": "Victoria Lavella",
+        "username": "vlavella@carrasco.uruit.com",
+        "mail": "victoria.lavella@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b4c",
+        "name": "Joaquin Sosa",
+        "username": "jsosa@carrasco.uruit.com",
+        "mail": "joaquin.sosa@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b4e",
+        "name": "Bruno Hartmann",
+        "username": "bhartmann@carrasco.uruit.com",
+        "mail": "bruno.hartmann@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b4f",
+        "name": "Waldemar Lopez",
+        "username": "wlopez@carrasco.uruit.com",
+        "mail": "waldemar.lopez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b51",
+        "name": "Marcelo Leonetti",
+        "username": "mleonetti@carrasco.uruit.com",
+        "mail": "marcelo.leonetti@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b52",
+        "name": "Carloluis Rodriguez",
+        "username": "crodriguez@carrasco.uruit.com",
+        "mail": "carloluis.rodriguez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b53",
+        "name": "Gaston Lasalt",
+        "username": "glasalt@carrasco.uruit.com",
+        "mail": "gaston.lasalt@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b56",
+        "name": "Victor Piriz",
+        "username": "vpiriz@carrasco.uruit.com",
+        "mail": "victor.piriz@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b57",
+        "name": "Gonzalo Waszczuk",
+        "username": "gwaszczuk@carrasco.uruit.com",
+        "mail": "gonzalo.waszczuk@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b58",
+        "name": "Majo Sanguinetti",
+        "username": "mjsanguinetti@carrasco.uruit.com",
+        "mail": "majo@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b59",
+        "name": "Camila Gimenez",
+        "username": "cgimenez@carrasco.uruit.com",
+        "mail": "camila.gimenez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551c3ffa10f2940e6de69ead",
+        "name": "Andres Baez",
+        "username": "abaez@carrasco.uruit.com",
+        "mail": "andres.baez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "558dafdee23b85c6fc1e8d5d",
+        "name": "Leosvel Perez",
+        "username": "lperez@carrasco.uruit.com",
+        "mail": "leosvel.perez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "55db5ccb5c510b1fe608bc64",
+        "name": "Sebastian Pereira",
+        "username": "spereira@carrasco.uruit.com",
+        "mail": "sebastian.pereira@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "55e886855c510b1fe608bc65",
+        "name": "Lorena Acosta",
+        "username": "lacosta@carrasco.uruit.com",
+        "mail": "lorena.acosta@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "55e887285c510b1fe608bc68",
+        "name": "Wilmer Alcivar",
+        "username": "walcivar@carrasco.uruit.com",
+        "mail": "wilmer.alcivar@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "55e887395c510b1fe608bc69",
+        "name": "Andres Perri",
+        "username": "aperri@carrasco.uruit.com",
+        "mail": "andres.perri@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "55f1e7495c510b1fe608bc6a",
+        "name": "Colo",
+        "username": "epereira@carrasco.uruit.com",
+        "mail": "sebastian.pereiraj@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "561683a15c510b1fe608bc6d",
+        "name": "Jorge Lira",
+        "username": "jlira@carrasco.uruit.com",
+        "mail": "jorge.lira@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "563cfe355c510b1fe608bc6f",
+        "name": "Andrea Ubilla",
+        "username": "aubilla@carrasco.uruit.com",
+        "mail": "andrea@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "563cfe605c510b1fe608bc70",
+        "name": "Pablo Gonzalez",
+        "username": "pgonzalez@carrasco.uruit.com",
+        "mail": "pablo.gonzalez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "56cb0d688c23dfa724480142",
+        "name": "Danier Estevez",
+        "username": "destevez@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "danier.estevez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "56d9eaf4bbcac92f67fbb952",
+        "name": "Santi G Ayçaguer",
+        "username": "jsgonzalez@carrasco.uruit.com",
+        "mail": "santiago@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "570277cdbbcac92f67fbb953",
+        "name": "Tania Berjis",
+        "username": "tberjis@carrasco.uruit.com",
+        "mail": "tania.berjis@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "571fcbd9bbcac92f67fbb954",
+        "name": "Santiago Bermúdez",
+        "username": "sbermudez@carrasco.uruit.com",
+        "mail": "santiago.bermudez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "571fcc04bbcac92f67fbb955",
+        "name": "Santiago Mussio",
+        "username": "smussio@carrasco.uruit.com",
+        "mail": "santiago.mussio@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "571fcc33bbcac92f67fbb956",
+        "name": "Sebastian Delgado",
+        "username": "sdelgado@carrasco.uruit.com",
+        "mail": "sebastian.delgado@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5745d1521ff5f2ce13064835",
+        "name": "Agustina Jorcin",
+        "username": "agjorcin@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "agustina.jorcin@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "575724601ff5f2ce13064a69",
+        "name": "Nicolás Rosado",
+        "username": "nrosado@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "nicolas.rosado@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "577a6c4db77f63629a09f8b6",
+        "name": "Mathias Braga",
+        "username": "mbraga@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "mathias.braga@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "578e1edf8a642e6d42913694",
+        "name": "Juan Slinger",
+        "username": "jslinger@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "juan.slinger@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "579f77bf8a642e6d42913947",
+        "name": "Guzman Porro",
+        "username": "gporro@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "guzman.porro@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "579f78398a642e6d42913949",
+        "name": "Gustavo Clemente",
+        "username": "gclemente@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "gustavo.clemente@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "57c713dc553938530b5e74ea",
+        "name": "Matias Gutierrez",
+        "username": "mgutierrez@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "matias.gutierrez@crmgamified.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "57e95c3526645afdf41023d6",
+        "name": "Martín Dutra",
+        "username": "mdutra@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "martin.dutra@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "580f6333f8b67ac7b0139649",
+        "name": "Hugo Morillo",
+        "username": "hmorillo@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "hugo.morillo@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "581a73ddf8b67ac7b01397f1",
+        "name": "Florencia Ramirez",
+        "username": "framirez@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "florencia.ramirez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "581ce00ef8b67ac7b0139842",
+        "name": "Viviana Roviello",
+        "username": "vroviello@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "viviana.roviello@crmgamified.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "586bca9ff8b67ac7b013a1d9",
+        "name": "Regie Folter",
+        "username": "rfolter@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "regiane.folter@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "587cb5eaf8b67ac7b013a332",
+        "name": "Ximena Blanco",
+        "username": "xblanco@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "ximena.blanco@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "588278d7f8b67ac7b013a47d",
+        "name": "Lucia Leites",
+        "username": "lleites@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "lucia.leites@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "58cc4e37f8b67ac7b013ad4c",
+        "name": "Juan Rucks",
+        "username": "jrucks@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "juan.rucks@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "58e80ff5f8b67ac7b013b0dc",
+        "name": "Sofia Muro",
+        "username": "smuro@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "sofia.muro@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5900a66c4f47d98ce80a0509",
+        "name": "Luis Miguel Alonzo",
+        "username": "lmalonzo@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "luis.miguel.alonzo@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5900f13f4f47d98ce80a053a",
+        "name": "Dulces Creaciones",
+        "username": "cgonzalez@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "cynthia.gonzalez@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "551952b252a9d05f87e79b54",
+        "name": "Shirley Ojeda",
+        "username": "sojeda@carrasco.uruit.com",
+        "mail": "shirley.ojeda@uruit.com",
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5939ac804fc9da0001e5ed13",
+        "name": "Contado",
+        "username": "contado@carrasco.uruit.com",
+        "mail": "contado@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": true,
+        "deleted": false
+    },
+    {
+        "_id": "59414d0a4fc9da0001e5ee49",
+        "name": "Marina Acosta",
+        "username": "macosta@carrasco.uruit.com",
+        "mail": "marina.acosta@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5956bfec8496100001388433",
+        "name": "Ana Iturralde",
+        "username": "aiturralde@carrasco.uruit.com",
+        "mail": "ana.iturralde@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5968c4de458476000114da75",
+        "name": "Pamela Ramirez",
+        "username": "pramirez",
+        "mail": "pamela.ramirez@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5979ff50458476000114dcd4",
+        "name": "Julio Ruiz",
+        "username": "jruiz@carrasco.uruit.com",
+        "mail": "julio.ruiz@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5979ff65458476000114dcd5",
+        "name": "Matias Fierro",
+        "username": "mfierro@carrasco.uruit.com",
+        "mail": "matias.fierro@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5979ff81458476000114dcd6",
+        "name": "Rodrigo Vilar",
+        "username": "rvilar@carrasco.uruit.com",
+        "mail": "rodrigo.vilar@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "598b7806ab22fc0001b40221",
+        "name": "Mauricio Perrone",
+        "username": "mperrone@carrasco.uruit.com",
+        "mail": "mauricio.perrone@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": true
+    },
+    {
+        "_id": "59b2d9f9685c990001c1fe71",
+        "name": "Guillermo Dotta",
+        "username": "gdotta",
+        "mail": "guillermo.dotta@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "59e0f7f2e17dd000014eeb29",
+        "name": "Bruna Valada",
+        "username": "bvalada@carrasco.uruit.com",
+        "mail": "bruna@crmgamified.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "59e0f810e17dd000014eeb2a",
+        "name": "Juan Rahi",
+        "username": "jrahi@carrasco.com.uy",
+        "mail": "juan.rahi@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "5a05e0d01dedd40001f39e99",
+        "name": "Rodrigo Pintos",
+        "username": "rpintos@carrasco.uruit.com",
+        "mail": "rodrigo.pintos@uruit.com",
+        "__v": 0,
+        "notifyPurchasesToAdmin": false,
+        "deleted": false
+    },
+    {
+        "_id": "57434da71ff5f2ce130647d8",
+        "name": "Invitados URUIT",
+        "username": "uruit@carrasco.uruit.com",
+        "__v": 0,
+        "mail": "invitados@uruit.com",
+        "notifyPurchasesToAdmin": true,
+        "deleted": false
+    }
+]

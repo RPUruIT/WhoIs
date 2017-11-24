@@ -20,7 +20,16 @@ namespace WhoIs.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            ResolveDependencies();
+
             LoadApplication(new App());
+        }
+
+        private void ResolveDependencies()
+        {
+            DependencyContainer.InitializeCore();
+            AndroidDependencyContainer.Initialize(DependencyContainer.Container);
         }
     }
 }

@@ -4,7 +4,42 @@
              x:Class="WhoIs.App">
 	<Application.Resources>
 
-		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <!--Fonts Family INI-->
 
-	</Application.Resources>
+            <OnPlatform x:Key="SemiBold" x:TypeArguments="x:String" iOS="OpenSans-Semibold" Android="fonts/OpenSans-SemiBold.ttf#OpenSans-SemiBold" />
+            <OnPlatform x:Key="Regular" x:TypeArguments="x:String" iOS="OpenSans-Regular" Android="fonts/OpenSans-Regular.ttf#OpenSans-Regular" />
+
+            <!--Fonts Family FIN-->
+
+            <!--Colors INI-->
+
+            <Color x:Key="PrimaryColor">#21282F</Color>
+            <Color x:Key="SecondaryColor">#1ED760</Color>
+
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="LigthGrayColor">LightGray</Color>
+
+            <!--Colors FIN-->
+
+            <!--<OnPlatform x:Key="EntryTextColor" x:TypeArguments="x:String" iOS="{StaticResource LigthGrayColor}" Android="{StaticResource WhiteColor}" />-->
+
+            <Style TargetType="Label">
+                <!--<Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>-->
+            </Style>
+            <Style TargetType="Entry">
+                <!--<Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>-->
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="PlaceholderColor" Value="{StaticResource LigthGrayColor}"></Setter>
+            </Style>
+            <Style TargetType="Button">
+                <!--<Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>-->
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+            </Style>
+            
+         </ResourceDictionary>
+
+    </Application.Resources>
 </Application>
