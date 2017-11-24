@@ -13,8 +13,9 @@ namespace WhoIs.ViewModels
 
         public LoginViewModel(INavigationService navigationService) : base(navigationService)
         {
-            IService service1 = DependencyContainer.Container.Resolve<IService>();
-            service1.GetUsers();
+            //para  probar
+            //IService service1 = DependencyContainer.Container.Resolve<IService>();
+            //service1.GetUsers();
         }
 
     }

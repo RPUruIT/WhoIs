@@ -9,10 +9,10 @@ namespace WhoIs.Models
 {
     public class User
     {
-        private int _name;
+        private string _name;
 
         [JsonProperty("name")]
-        public int Name
+        public string Name
         {
             get { return _name; }
             set { _name = value; }
