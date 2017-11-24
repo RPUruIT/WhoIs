@@ -6,6 +6,8 @@
 
 	<Label Text="Welcome to Xamarin Forms!" 
            VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+           HorizontalOptions="Center" 
+           />
+    <Button x:Name="btnOpenCamera" Clicked="btnOpenCamera_Clicked"></Button>
 
 </ContentPage>

@@ -13,5 +13,12 @@ namespace PocCamera
         {
             InitializeComponent();
         }
+
+        private void btnOpenCamera_Clicked(object sender, EventArgs e)
+        {
+            IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
+
+            pictureTake.SnapPic();
+        }
     }
 }
