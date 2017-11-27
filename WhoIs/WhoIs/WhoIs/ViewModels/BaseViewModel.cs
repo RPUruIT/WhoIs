@@ -34,9 +34,9 @@ namespace WhoIs.ViewModels
             await Task.Run(null);
         }
 
-        public bool isUserLogged()
+        public async Task<bool> isUserLogged()
         {
-            return _appUserManager.GetLoggedUser() != null;
+            return await _appUserManager.GetLoggedUser() != null;
         }
     }
 }

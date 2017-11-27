@@ -57,10 +57,11 @@ namespace WhoIs.Services
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
             Page page = CreatePage(viewModelType, parameter);
-            
+            page.BindingContext = DependencyContainer.Container.Resolve(viewModelType, null);
+
             if (viewModelType.Equals(typeof(LoginViewModel)))
             {
-                bool isUserLogged = (page.BindingContext as BaseViewModel).isUserLogged();
+                bool isUserLogged = await (page.BindingContext as BaseViewModel).isUserLogged();
                 if (isUserLogged)
                 {
                     viewModelType = typeof(HomeViewModel);
@@ -83,9 +84,7 @@ namespace WhoIs.Services
                     Application.Current.MainPage = new CustomNavigationView(page);
                 }
             }
-
-            page.BindingContext = DependencyContainer.Container.Resolve(viewModelType, null);
-
+           
             await (page.BindingContext as BaseViewModel).InitializeAsync(parameter);
         }
 

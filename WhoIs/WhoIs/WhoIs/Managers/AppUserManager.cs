@@ -8,6 +8,7 @@ using WhoIs.Models;
 using WhoIs.Services.Interface;
 using Unity;
 using Newtonsoft.Json;
+using WhoIs.Repositories.Interface;
 
 namespace WhoIs.Managers
 {
@@ -15,12 +16,12 @@ namespace WhoIs.Managers
     {
 
         IService _service;
-        IAppUserManager _appUserManager;
+        IAppUserRepository _appUserRepository;
 
-        public AppUserManager(IService service, IAppUserManager appUserManager)
+        public AppUserManager(IService service, IAppUserRepository appUserRepository)
         {
             _service = service;
-            _appUserManager = appUserManager;
+            _appUserRepository = appUserRepository;
         }
 
         public async Task<List<AppUser>> GetUsersFromService()
@@ -34,7 +35,7 @@ namespace WhoIs.Managers
 
         public async Task<AppUser> GetLoggedUser()
         {
-            AppUser appUser = await _appUserManager.GetLoggedUser();
+            AppUser appUser = await _appUserRepository.GetLoggedUser();
 
             return appUser;
         }
