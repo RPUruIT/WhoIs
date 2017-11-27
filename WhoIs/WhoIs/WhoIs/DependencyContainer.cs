@@ -20,6 +20,7 @@ namespace WhoIs
         {
             DependencyContainer.Initialize();
             Services.ServiceContainer.InitializeServices(DependencyContainer.Container);
+            Managers.ManagerContainer.InitializeServices(DependencyContainer.Container);
             ViewModels.ViewModelContainer.InitializeViewModels(DependencyContainer.Container);
         }
     }

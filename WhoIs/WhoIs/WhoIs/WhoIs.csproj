@@ -40,6 +40,10 @@
     </Compile>
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Managers\Interface\IUserManager.cs" />
+    <Compile Include="Managers\ManagerContainer.cs" />
+    <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interface\INavigationService.cs" />
@@ -47,6 +51,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\ServiceContainer.cs" />
+    <Compile Include="Services\ServiceMOC.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -98,11 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Services\OfflineResponses\users.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
-    <Folder Include="Manager\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
