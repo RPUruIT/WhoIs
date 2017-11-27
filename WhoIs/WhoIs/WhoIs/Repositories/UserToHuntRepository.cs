@@ -15,7 +15,7 @@ namespace WhoIs.Repositories
 
         public UserToHuntRepository(IDatabase<UserToHunt> database)
         {
-            database = _database;
+            _database = database;
         }
 
     }

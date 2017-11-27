@@ -7,7 +7,7 @@ using WhoIs.Models;
 
 namespace WhoIs.Managers.Interface
 {
-    public interface IUserHuntedManager
+    public interface IUserToHuntManager
     {
         Task<List<UserToHunt>> GetUsersFromService();
 

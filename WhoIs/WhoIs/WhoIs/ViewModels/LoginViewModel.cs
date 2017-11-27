@@ -18,11 +18,7 @@ namespace WhoIs.ViewModels
         public string TextFooterLeft { get; } = "http://uruit.com";
         public string TextFooterRigth { get; } = "@People Care";
 
-
-        public LoginViewModel(INavigationService navigationService) : base(navigationService)
-        {
-            
-        }
+        
 
     }
 }

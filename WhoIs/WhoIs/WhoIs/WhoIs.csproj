@@ -42,9 +42,9 @@
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Managers\AppUserManager.cs" />
     <Compile Include="Managers\Interface\IAppUserManager.cs" />
-    <Compile Include="Managers\Interface\IUserHuntedManager.cs" />
+    <Compile Include="Managers\Interface\IUserToHuntManager.cs" />
     <Compile Include="Managers\ManagerContainer.cs" />
-    <Compile Include="Managers\UserHuntedManager.cs" />
+    <Compile Include="Managers\UserToHuntManager.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\UserToHunt.cs" />

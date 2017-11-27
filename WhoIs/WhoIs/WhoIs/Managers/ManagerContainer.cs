@@ -13,7 +13,7 @@ namespace WhoIs.Managers
     {
         public static void InitializeServices(IUnityContainer container)
         {
-            container.RegisterType<IUserHuntedManager, UserHuntedManager>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IUserToHuntManager, UserToHuntManager>(new ContainerControlledLifetimeManager());
         }
     }
 }

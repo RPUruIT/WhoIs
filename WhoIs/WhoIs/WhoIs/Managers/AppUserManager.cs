@@ -13,19 +13,30 @@ namespace WhoIs.Managers
 {
     public class AppUserManager : IAppUserManager
     {
+
+        IService _service;
+        IAppUserManager _appUserManager;
+
+        public AppUserManager(IService service, IAppUserManager appUserManager)
+        {
+            _service = service;
+            _appUserManager = appUserManager;
+        }
+
         public async Task<List<AppUser>> GetUsersFromService()
         {
-            IService service = DependencyContainer.Container.Resolve<IService>();
-            string allUsers = await service.GetUsers();
+            string allUsers = await _service.GetUsers();
             List<AppUser> userForApplication = JsonConvert.DeserializeObject<List<AppUser>>(allUsers)
                                                 .Where(u => !u.Deleted).ToList();
 
             return userForApplication;
         }
 
-        public Task<AppUser> GetLoggedUser()
+        public async Task<AppUser> GetLoggedUser()
         {
-            throw new NotImplementedException();
+            AppUser appUser = await _appUserManager.GetLoggedUser();
+
+            return appUser;
         }
     }
 }

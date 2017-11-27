@@ -5,7 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WhoIs.Managers.Interface;
 using WhoIs.Services.Interface;
+using Unity;
 
 namespace WhoIs.ViewModels
 {
@@ -13,9 +15,12 @@ namespace WhoIs.ViewModels
     {
         protected INavigationService _navigationService;
 
-        public BaseViewModel(INavigationService navigationService)
+        protected IAppUserManager _appUserManager;
+
+        public BaseViewModel()
         {
-            _navigationService = navigationService;
+            _navigationService = DependencyContainer.Container.Resolve<INavigationService>();
+            _appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,6 +32,11 @@ namespace WhoIs.ViewModels
         public virtual async Task InitializeAsync(object navigationData)
         {
             await Task.Run(null);
+        }
+
+        public bool isUserLogged()
+        {
+            return _appUserManager.GetLoggedUser() != null;
         }
     }
 }
