@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace WhoIs.Models
 {
-    public class EntityModel
+    public class EntityBase
     {
-        private string _id;
+        private int _id;
 
-        [JsonProperty("_id")]
-        protected string Id
+        [JsonIgnore]
+        public int Id
         {
             get { return _id; }
             set { _id = value; }

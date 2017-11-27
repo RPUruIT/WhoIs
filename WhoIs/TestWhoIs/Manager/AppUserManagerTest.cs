@@ -11,9 +11,9 @@ using WhoIs.Models;
 namespace TestWhoIs.Manager
 {
     [TestClass]
-    public class UserManagerTest
+    public class AppUserManagerTest
     {
-        public UserManagerTest()
+        public AppUserManagerTest()
         {
             DependencyContainer.InitializeCore();
         }
@@ -22,8 +22,8 @@ namespace TestWhoIs.Manager
         public async Task GetUsers_NotDeleted()
         {
             
-            IUserManager userManager = DependencyContainer.Container.Resolve<IUserManager>();
-            List<User> users = await userManager.GetUsers();
+            IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
+            List<AppUser> users = await appUserManager.GetUsersFromService();
 
             Assert.IsTrue(users.Count.Equals(3));
         }

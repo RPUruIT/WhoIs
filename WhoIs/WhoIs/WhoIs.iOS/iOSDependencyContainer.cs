@@ -6,6 +6,8 @@ using System.Text;
 using Foundation;
 using UIKit;
 using Unity;
+using Unity.Lifetime;
+using WhoIs.Repositories.Interface;
 
 namespace WhoIs.iOS
 {
@@ -14,7 +16,7 @@ namespace WhoIs.iOS
 
         public static void Initialize(IUnityContainer container)
         {
-
+            container.RegisterType<IConnectionHelper, ConnectionHelper>(new ContainerControlledLifetimeManager());
         }
     }
 }

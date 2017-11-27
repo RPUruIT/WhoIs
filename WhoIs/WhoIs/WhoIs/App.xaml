@@ -35,7 +35,7 @@
                 <Setter Property="TextColor">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="x:String"
-                                        iOS="LightGray"
+                                        iOS="Gray"
                                         Android="#FFFFFF"></OnPlatform>
                     </Setter.Value>
                 </Setter>

@@ -10,11 +10,10 @@ namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        IUserManager _userManager;
 
-        public HomeViewModel(INavigationService navigationService, IUserManager userManager) : base(navigationService)
+        public HomeViewModel(INavigationService navigationService) : base(navigationService)
         {
-            _userManager = userManager;
+            
         }
     }
 }

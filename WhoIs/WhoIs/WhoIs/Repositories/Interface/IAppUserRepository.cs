@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhoIs.Models;
 
-namespace WhoIs.Managers.Interface
+namespace WhoIs.Repositories.Interface
 {
-    public interface IUserManager
+    public interface IAppUserRepository
     {
-        Task<List<User>> GetUsers();
     }
 }

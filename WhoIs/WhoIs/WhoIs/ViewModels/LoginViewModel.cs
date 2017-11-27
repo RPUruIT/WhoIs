@@ -11,8 +11,6 @@ namespace WhoIs.ViewModels
 {
     public class LoginViewModel:BaseViewModel
     {
-        IUserManager _userManager;
-
         public string IconSource { get; } = "ic_uruit.png";
         public string AppName { get; } = "Who Is?";
         public string UsersPlaceholder { get; } = "Usuario";
@@ -21,9 +19,9 @@ namespace WhoIs.ViewModels
         public string TextFooterRigth { get; } = "@People Care";
 
 
-        public LoginViewModel(INavigationService navigationService,IUserManager userManager) : base(navigationService)
+        public LoginViewModel(INavigationService navigationService) : base(navigationService)
         {
-            _userManager = userManager;
+            
         }
 
     }

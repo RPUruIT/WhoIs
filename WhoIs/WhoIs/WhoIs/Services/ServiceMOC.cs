@@ -11,11 +11,12 @@ namespace WhoIs.Services
 {
     public class ServiceMOC : IService
     {
-        public async Task<List<User>> GetUsers()
+        public async Task<string> GetUsers()
         {
             await Task.Run(null);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(@"/OfflineResponses/users.json");        
-            return users;    
+            string users = JsonConvert.SerializeObject(@"/OfflineResponses/users.json");
+
+            return users;
         }
     }
 }

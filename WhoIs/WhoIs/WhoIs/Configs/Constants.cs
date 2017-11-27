@@ -10,6 +10,10 @@ namespace WhoIs.Configs
     {
         public const string URL_SERVICE_GET_USER = "http://kiosco-stage/users";
 
+        public const string DB_NAME = "WhoIs.db3";
+
         public const bool IS_TEST = false;
+
+        
     }
 }

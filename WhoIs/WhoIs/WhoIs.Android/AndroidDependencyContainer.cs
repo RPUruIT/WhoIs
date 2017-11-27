@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Unity;
+using WhoIs.Repositories.Interface;
+using Unity.Lifetime;
 
 namespace WhoIs.Droid
 {
@@ -17,7 +19,7 @@ namespace WhoIs.Droid
     {
         public static void Initialize(IUnityContainer container)
         {
-
+            container.RegisterType<IConnectionHelper, ConnectionHelper>(new ContainerControlledLifetimeManager());
         }
     }
 }
