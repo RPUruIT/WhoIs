@@ -19,15 +19,10 @@
                 <Image Source="{Binding IconSource}" Style="{StaticResource LoginIcon}" ></Image>
             </StackLayout>
             <Entry Grid.Row="1" Placeholder="{Binding UsersPlaceholder}" TextColor="{StaticResource WhiteColor}}" PlaceholderColor="{StaticResource LigthGrayColor}" VerticalOptions="End"></Entry>
-            <Button Grid.Row="3" Text="{Binding BtnEnter}"  Style="{StaticResource LoginBtns}"></Button>
+            <Button Grid.Row="3" Text="{Binding BtnEnter}"></Button>
             <Label Grid.Row="4" Text="{Binding TextFooterLeft}"  TextColor="{StaticResource WhiteColor}}" VerticalOptions="End"></Label>
             <Label Grid.Row="4" Text="{Binding TextFooterRigth}" TextColor="{StaticResource WhiteColor}}" VerticalOptions="End" HorizontalOptions="End"></Label>
-            <!--<Image Style="{StaticResource LoginIcon}" Source="https://www.smarttalent.uy/innovaportal/file/8932/1/logotipo.png"></Image>
-            <Label Text="Who Is?" VerticalOptions="End" FontSize="40" FontFamily="{StaticResource Pacifico-Regular}"></Label>
-            <Entry Grid.Row="1" Placeholder="Usuario" TextColor="{Binding WhiteColor}}" PlaceholderColor="{StaticResource LigthGrayColor}" VerticalOptions="End"></Entry>
-            <Button Grid.Row="3" Text="Ingresar"  Style="{StaticResource LoginBtns}"></Button>
-            <Label Grid.Row="4" Text="http://uruit.com" TextColor="{StaticResource WhiteColor}}" VerticalOptions="End"></Label>
-            <Label Grid.Row="4" Text="@People Care" TextColor="{StaticResource WhiteColor}}" VerticalOptions="End" HorizontalOptions="End"></Label>-->
+          
         </Grid>
     </ContentPage.Content>
 </ContentPage>
