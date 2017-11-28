@@ -76,6 +76,11 @@ namespace WhoIs.Services
             {
                 var navigationPage = Application.Current.MainPage as CustomNavigationView;
 
+                if (viewModelType.Equals(typeof(HomeViewModel))){
+
+                    await RemoveBackStackAsync();
+                }
+
                 if (navigationPage != null)
                 {
                     await navigationPage.PushAsync(page);

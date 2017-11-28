@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WhoIs.Managers.Interface;
 using WhoIs.Services.Interface;
 using Unity;
+using System.Linq.Expressions;
 
 namespace WhoIs.ViewModels
 {
@@ -24,9 +25,48 @@ namespace WhoIs.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected bool SetPropertyValue<T>(ref T storageField, T newValue, Expression<Func<T>> propExpr)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (Equals(storageField, newValue))
+            {
+                return false;
+            }
+
+            storageField = newValue;
+            var prop = (System.Reflection.PropertyInfo)((MemberExpression)propExpr.Body).Member;
+            this.RaisePropertyChanged(prop.Name);
+
+            return true;
+        }
+
+        protected bool SetPropertyValue<T>(ref T storageField, T newValue, [CallerMemberName] string propertyName = "")
+        {
+            if (Equals(storageField, newValue))
+            {
+                return false;
+            }
+
+            storageField = newValue;
+            this.RaisePropertyChanged(propertyName);
+
+            return true;
+        }
+
+        protected void RaiseAllPropertiesChanged()
+        {
+            // By convention, an empty string indicates all properties are invalid.
+            this.PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
+        }
+
+        protected void RaisePropertyChanged<T>(Expression<Func<T>> propExpr)
+        {
+            var prop = (System.Reflection.PropertyInfo)((MemberExpression)propExpr.Body).Member;
+            this.RaisePropertyChanged(prop.Name);
+        }
+
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public virtual async Task InitializeAsync(object navigationData)

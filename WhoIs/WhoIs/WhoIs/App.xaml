@@ -47,6 +47,10 @@
                     <Setter Property="BackgroundColor" Value="{StaticResource SecondaryColor}"></Setter>
                     <Setter Property="FontSize" Value="15"></Setter>
                 </Style>
+                <Style TargetType="Picker">
+                    <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+                    
+                </Style>
 
             <!--Generic Views FIN-->
 

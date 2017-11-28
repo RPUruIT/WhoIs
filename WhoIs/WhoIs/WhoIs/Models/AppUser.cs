@@ -39,5 +39,10 @@ namespace WhoIs.Models
             set { _deleted = value; }
         }
 
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
     }
 }
