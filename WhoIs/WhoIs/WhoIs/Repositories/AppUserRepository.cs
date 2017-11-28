@@ -23,5 +23,10 @@ namespace WhoIs.Repositories
 
             return appUser;
         }
+
+        public async Task SaveAppUser(AppUser appUser)
+        {
+            await _database.Insert(appUser);
+        }
     }
 }

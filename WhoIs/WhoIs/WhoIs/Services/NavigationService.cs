@@ -67,7 +67,6 @@ namespace WhoIs.Services
                     viewModelType = typeof(HomeViewModel);
                     page = CreatePage(viewModelType, parameter);
                     viewModel = DependencyContainer.Container.Resolve(viewModelType, null);
-                    Application.Current.MainPage = new CustomNavigationView(page);
                 }
 
                 Application.Current.MainPage = new CustomNavigationView(page);
@@ -76,10 +75,10 @@ namespace WhoIs.Services
             {
                 var navigationPage = Application.Current.MainPage as CustomNavigationView;
 
-                if (viewModelType.Equals(typeof(HomeViewModel))){
+                //if (viewModelType.Equals(typeof(HomeViewModel))){
 
-                    await RemoveBackStackAsync();
-                }
+                //    await RemoveBackStackAsync();
+                //}
 
                 if (navigationPage != null)
                 {

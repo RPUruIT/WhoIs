@@ -69,9 +69,9 @@ namespace WhoIs.ViewModels
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual async Task InitializeAsync(object navigationData)
+        public virtual Task InitializeAsync(object navigationData)
         {
-            await Task.Run(null);
+            return null;
         }
 
         public async Task<bool> isUserLogged()

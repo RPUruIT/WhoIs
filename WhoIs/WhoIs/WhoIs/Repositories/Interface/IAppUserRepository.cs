@@ -10,5 +10,7 @@ namespace WhoIs.Repositories.Interface
     public interface IAppUserRepository
     {
         Task<AppUser> GetLoggedUser();
+
+        Task SaveAppUser(AppUser appUser);
     }
 }

@@ -39,5 +39,10 @@ namespace WhoIs.Managers
 
             return appUser;
         }
+
+        public async Task EnterToApplication(AppUser appUser)
+        {
+            await _appUserRepository.SaveAppUser(appUser);
+        }
     }
 }

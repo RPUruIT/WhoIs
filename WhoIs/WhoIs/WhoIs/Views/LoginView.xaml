@@ -18,11 +18,12 @@
                 <Label Text="{Binding AppName}" HorizontalOptions="Center" FontSize="40" TextColor="{StaticResource WhiteColor}}" FontFamily="{StaticResource Pacifico-Regular}"></Label>
                 <Image Source="{Binding IconSource}" Style="{StaticResource LoginIcon}" ></Image>
             </StackLayout>
-            <Picker Grid.Row="1" ItemsSource="{Binding AppUsers}"  ItemDisplayBinding="{Binding Name}" VerticalOptions="End">
+            <Picker Grid.Row="1" ItemsSource="{Binding AppUsers}"  ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding AppUserSelectedIndex, Mode=TwoWay}" VerticalOptions="End">
 
             </Picker>
+
             <!--<Entry  Placeholder="{Binding UsersPlaceholder}" TextColor="{StaticResource WhiteColor}}" PlaceholderColor="{StaticResource LigthGrayColor}" VerticalOptions="End"></Entry>-->
-            <Button Grid.Row="3" Text="{Binding BtnEnter}"></Button>
+            <Button Grid.Row="3" Text="{Binding BtnEnter}" Command="{Binding CmdEnterToApplication}"></Button>
             <Label Grid.Row="4" Text="{Binding TextFooterLeft}"  TextColor="{StaticResource WhiteColor}}" VerticalOptions="End"></Label>
             <Label Grid.Row="4" Text="{Binding TextFooterRigth}" TextColor="{StaticResource WhiteColor}}" VerticalOptions="End" HorizontalOptions="End"></Label>
 

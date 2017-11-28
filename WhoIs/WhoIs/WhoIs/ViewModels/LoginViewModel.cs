@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Unity;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using WhoIs.Services.Interface;
+using Xamarin.Forms;
 
 namespace WhoIs.ViewModels
 {
@@ -27,12 +29,37 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _appUsers, value); }
         }
 
+        private int _appUserSelectedIndex;
+        public int AppUserSelectedIndex
+        {
+            get { return _appUserSelectedIndex; }
+            set { SetPropertyValue(ref _appUserSelectedIndex, value); }
+        }
 
+        public ICommand CmdEnterToApplication { get; set; }
+
+
+        public LoginViewModel()
+        {
+            CmdEnterToApplication = new Command(async () => await EnterToApplication());
+        }
 
         public override async Task InitializeAsync(object navigationData)
         {
             IList<AppUser> appUsers = await _appUserManager.GetUsersFromService();
             AppUsers = appUsers.OrderBy(u => u.Name).ToList();
+        }
+
+        public async Task EnterToApplication()
+        {
+            if (AppUserSelectedIndex >= 0)
+            {
+                AppUser appUser = AppUsers[AppUserSelectedIndex];
+                await _appUserManager.EnterToApplication(appUser);
+
+                await _navigationService.NavigateToAsync<HomeViewModel>();
+
+            }
         }
 
     }

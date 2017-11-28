@@ -12,5 +12,7 @@ namespace WhoIs.Managers.Interface
         Task<List<AppUser>> GetUsersFromService();
 
         Task<AppUser> GetLoggedUser();
+
+        Task EnterToApplication(AppUser appUser);
     }
 }
