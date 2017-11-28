@@ -75,10 +75,10 @@ namespace WhoIs.Services
             {
                 var navigationPage = Application.Current.MainPage as CustomNavigationView;
 
-                //if (viewModelType.Equals(typeof(HomeViewModel))){
+                if (viewModelType.Equals(typeof(HomeViewModel))){
 
-                //    await RemoveBackStackAsync();
-                //}
+                    await RemoveBackStackAsync();
+                }
 
                 if (navigationPage != null)
                 {

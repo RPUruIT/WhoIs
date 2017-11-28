@@ -50,9 +50,10 @@ namespace WhoIs.ViewModels
         {
             Object[] usersFromService = await _appUserManager.GetUsersFromService();
             IList<AppUser> appUsers = usersFromService[0] as IList<AppUser>;
-            
+            string jsonUsers = usersFromService[1] as string;
+
             AppUsers = appUsers.OrderBy(u => u.Name).ToList();
-            _jsonUsers = usersFromService[0] as string;
+            _jsonUsers = jsonUsers;
         }
 
         public async Task EnterToApplication()
@@ -62,7 +63,7 @@ namespace WhoIs.ViewModels
                 AppUser appUser = AppUsers[AppUserSelectedIndex];
                 await _appUserManager.EnterToApplication(appUser);
 
-                await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
+                //await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
 
             }
         }
