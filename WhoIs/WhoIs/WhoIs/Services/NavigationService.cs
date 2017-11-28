@@ -16,9 +16,15 @@ namespace WhoIs.Services
     {
         public BaseViewModel PreviousPageViewModel { get; set; }
 
-        public Task InitializeAsync()
+        public async Task InitializeAsync()
         {
-            return NavigateToAsync<LoginViewModel>();
+            object viewModel = DependencyContainer.Container.Resolve(typeof(LoginViewModel), null);
+            bool isUserLogged = await (viewModel as BaseViewModel).isUserLogged();
+            if (isUserLogged)
+                await NavigateToAsync<HomeViewModel>();
+            else
+                await NavigateToAsync<LoginViewModel>();
+             
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
@@ -40,7 +46,7 @@ namespace WhoIs.Services
                 return navigationPage.PopToRootAsync();
             }
 
-            return null;
+            return Task.Run(null);
         }
 
         public Task RemoveLastFromBackStackAsync()
@@ -51,7 +57,8 @@ namespace WhoIs.Services
                 return navigationPage.PopAsync();
             }
 
-            return null;
+            return Task.Run(null);
+
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
@@ -59,26 +66,13 @@ namespace WhoIs.Services
             Page page = CreatePage(viewModelType, parameter);
             object viewModel = DependencyContainer.Container.Resolve(viewModelType, null);
 
-            if (viewModelType.Equals(typeof(LoginViewModel)))
+            if (viewModelType.Equals(typeof(LoginViewModel)) || viewModelType.Equals(typeof(HomeViewModel)))
             {
-                bool isUserLogged = await (viewModel as BaseViewModel).isUserLogged();
-                if (isUserLogged)
-                {
-                    viewModelType = typeof(HomeViewModel);
-                    page = CreatePage(viewModelType, parameter);
-                    viewModel = DependencyContainer.Container.Resolve(viewModelType, null);
-                }
-
                 Application.Current.MainPage = new CustomNavigationView(page);
             }
             else
             {
                 var navigationPage = Application.Current.MainPage as CustomNavigationView;
-
-                if (viewModelType.Equals(typeof(HomeViewModel))){
-
-                    await RemoveBackStackAsync();
-                }
 
                 if (navigationPage != null)
                 {
@@ -89,6 +83,7 @@ namespace WhoIs.Services
                     Application.Current.MainPage = new CustomNavigationView(page);
                 }
             }
+
             page.BindingContext = viewModel;
             await (page.BindingContext as BaseViewModel).InitializeAsync(parameter);
         }

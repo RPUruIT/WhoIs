@@ -24,7 +24,7 @@ namespace WhoIs.Managers
             _appUserRepository = appUserRepository;
         }
 
-        public async Task<Object[]> GetUsersFromService()
+        public async Task<Object[]> GetAppUsersFromService()
         {
             string allUsers = await _service.GetUsers();
             List<AppUser> userForApplication = JsonConvert.DeserializeObject<List<AppUser>>(allUsers)
@@ -33,7 +33,7 @@ namespace WhoIs.Managers
             return new Object[2] { userForApplication, allUsers };
         }
 
-        public async Task<AppUser> GetLoggedUser()
+        public async Task<AppUser> GetLoggedAppUser()
         {
             AppUser appUser = await _appUserRepository.GetLoggedUser();
 

@@ -48,7 +48,7 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-            Object[] usersFromService = await _appUserManager.GetUsersFromService();
+            Object[] usersFromService = await _appUserManager.GetAppUsersFromService();
             IList<AppUser> appUsers = usersFromService[0] as IList<AppUser>;
             string jsonUsers = usersFromService[1] as string;
 
@@ -61,7 +61,7 @@ namespace WhoIs.ViewModels
             if (AppUserSelectedIndex >= 0)
             {
                 AppUser appUser = AppUsers[AppUserSelectedIndex];
-                //await _appUserManager.EnterToApplication(appUser);
+                await _appUserManager.EnterToApplication(appUser);
 
                 await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
 

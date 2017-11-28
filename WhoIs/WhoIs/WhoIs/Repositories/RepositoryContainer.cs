@@ -18,9 +18,9 @@ namespace WhoIs.Repositories
         public static void InitializeServices(IUnityContainer container)
         {
             container.RegisterType<IDatabase<UserToHunt>, Database<UserToHunt>>(new ContainerControlledLifetimeManager(), new InjectionConstructor(Constants.DB_NAME));
-            container.RegisterType<IUserToHuntRepository, UserToHuntRepository>(new ContainerControlledLifetimeManager());
-
             container.RegisterType<IDatabase<AppUser>, Database<AppUser>>(new ContainerControlledLifetimeManager(), new InjectionConstructor(Constants.DB_NAME));
+
+            container.RegisterType<IUserToHuntRepository, UserToHuntRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IAppUserRepository, AppUserRepository>(new ContainerControlledLifetimeManager());
         }
 

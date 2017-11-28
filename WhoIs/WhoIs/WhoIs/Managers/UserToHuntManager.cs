@@ -7,6 +7,7 @@ using Unity;
 using WhoIs.Models;
 using Newtonsoft.Json;
 using WhoIs.Repositories.Interface;
+using System;
 
 namespace WhoIs.Managers
 {
@@ -21,20 +22,27 @@ namespace WhoIs.Managers
             _userHuntedRepository = userHuntedRepository;
         }
 
-        public async Task<List<UserToHunt>> GetUsersFromService()
+        public async Task<List<UserToHunt>> GetUsersToHuntFromService()
         {
             string allUsers = await _service.GetUsers();
 
-            return this.GetUsersFromJson(allUsers);
+            return await this.GetUsersToHuntFromJson(allUsers);
         }
 
-        public List<UserToHunt> GetUsersFromJson(string jsonUsers)
+        public async Task<List<UserToHunt>> GetUsersToHuntFromJson(string jsonUsers)
         {
+            List<UserToHunt> userToHunt = null;
+            try {
+                userToHunt = await Task.Run(() => {
+                    return JsonConvert.DeserializeObject<List<UserToHunt>>(jsonUsers)
+                                               .Where(u => !u.Deleted).ToList();
+                }); 
+            }
+            catch(Exception ex)
+            {
 
-            List<UserToHunt> userForApplication = JsonConvert.DeserializeObject<List<UserToHunt>>(jsonUsers)
-                                                .Where(u => !u.Deleted).ToList();
-
-            return userForApplication;
+            }
+            return userToHunt;
         }
 
     }

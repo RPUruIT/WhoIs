@@ -23,7 +23,7 @@ namespace TestWhoIs.Manager
         {
             
             IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
-            List<AppUser> users = await appUserManager.GetUsersFromService();
+            List<AppUser> users = await appUserManager.GetAppUsersFromService();
 
             Assert.IsTrue(users.Count.Equals(3));
         }

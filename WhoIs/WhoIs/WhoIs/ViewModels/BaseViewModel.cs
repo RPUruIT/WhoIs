@@ -69,14 +69,15 @@ namespace WhoIs.ViewModels
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual Task InitializeAsync(object navigationData)
+        public virtual async Task InitializeAsync(object navigationData)
         {
-            return null;
+            // await Task.Run(null);
+            
         }
 
         public async Task<bool> isUserLogged()
         {
-            return await _appUserManager.GetLoggedUser() != null;
+            return await _appUserManager.GetLoggedAppUser() != null;
         }
     }
 }

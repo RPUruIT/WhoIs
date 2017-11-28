@@ -9,9 +9,9 @@ namespace WhoIs.Managers.Interface
 {
     public interface IAppUserManager
     {
-        Task<Object[]> GetUsersFromService();
+        Task<Object[]> GetAppUsersFromService();
 
-        Task<AppUser> GetLoggedUser();
+        Task<AppUser> GetLoggedAppUser();
 
         Task EnterToApplication(AppUser appUser);
     }

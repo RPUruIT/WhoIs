@@ -9,8 +9,8 @@ namespace WhoIs.Managers.Interface
 {
     public interface IUserToHuntManager
     {
-        Task<List<UserToHunt>> GetUsersFromService();
+        Task<List<UserToHunt>> GetUsersToHuntFromService();
 
-        List<UserToHunt> GetUsersFromJson(string jsonUsers);
+        Task<List<UserToHunt>> GetUsersToHuntFromJson(string jsonUsers);
     }
 }
