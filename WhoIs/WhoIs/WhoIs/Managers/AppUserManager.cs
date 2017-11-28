@@ -24,13 +24,13 @@ namespace WhoIs.Managers
             _appUserRepository = appUserRepository;
         }
 
-        public async Task<List<AppUser>> GetUsersFromService()
+        public async Task<Object[]> GetUsersFromService()
         {
             string allUsers = await _service.GetUsers();
             List<AppUser> userForApplication = JsonConvert.DeserializeObject<List<AppUser>>(allUsers)
                                                 .Where(u => !u.Deleted).ToList();
-
-            return userForApplication;
+       
+            return new Object[2] { userForApplication, allUsers };
         }
 
         public async Task<AppUser> GetLoggedUser()

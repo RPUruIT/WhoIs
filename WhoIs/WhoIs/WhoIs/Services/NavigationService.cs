@@ -14,7 +14,7 @@ namespace WhoIs.Services
 {
     public class NavigationService : INavigationService
     {
-        public BaseViewModel PreviousPageViewModel => throw new NotImplementedException();
+        public BaseViewModel PreviousPageViewModel { get; set; }
 
         public Task InitializeAsync()
         {

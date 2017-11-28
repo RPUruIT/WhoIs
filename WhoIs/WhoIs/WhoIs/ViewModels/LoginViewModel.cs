@@ -22,12 +22,14 @@ namespace WhoIs.ViewModels
         public string TextFooterLeft { get; } = "http://uruit.com";
         public string TextFooterRigth { get; } = "@People Care";
 
+        private string _jsonUsers;
         private IList<AppUser> _appUsers;
         public IList<AppUser> AppUsers
         {
             get { return _appUsers; }
             set { SetPropertyValue(ref _appUsers, value); }
         }
+
 
         private int _appUserSelectedIndex;
         public int AppUserSelectedIndex
@@ -46,8 +48,11 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-            IList<AppUser> appUsers = await _appUserManager.GetUsersFromService();
+            Object[] usersFromService = await _appUserManager.GetUsersFromService();
+            IList<AppUser> appUsers = usersFromService[0] as IList<AppUser>;
+            
             AppUsers = appUsers.OrderBy(u => u.Name).ToList();
+            _jsonUsers = usersFromService[0] as string;
         }
 
         public async Task EnterToApplication()
@@ -57,7 +62,7 @@ namespace WhoIs.ViewModels
                 AppUser appUser = AppUsers[AppUserSelectedIndex];
                 await _appUserManager.EnterToApplication(appUser);
 
-                await _navigationService.NavigateToAsync<HomeViewModel>();
+                await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
 
             }
         }
