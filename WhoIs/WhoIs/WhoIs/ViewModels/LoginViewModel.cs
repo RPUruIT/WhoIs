@@ -61,9 +61,9 @@ namespace WhoIs.ViewModels
             if (AppUserSelectedIndex >= 0)
             {
                 AppUser appUser = AppUsers[AppUserSelectedIndex];
-                await _appUserManager.EnterToApplication(appUser);
+                //await _appUserManager.EnterToApplication(appUser);
 
-                //await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
+                await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
 
             }
         }
