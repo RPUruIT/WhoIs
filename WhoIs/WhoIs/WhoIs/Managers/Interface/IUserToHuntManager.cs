@@ -7,8 +7,9 @@ using WhoIs.Models;
 
 namespace WhoIs.Managers.Interface
 {
-    public interface IUserToHuntManager : IUserManager<UserToHunt>
+    public interface IUserToHuntManager
     {
-        //TODO
+        Task<IList<UserToHunt>> GetSpecificUsersFromService();
+        Task<IList<UserToHunt>> GetSpecificUsersFromUsers(IList<User> users);
     }
 }

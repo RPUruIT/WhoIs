@@ -12,22 +12,35 @@ using WhoIs.Repositories.Interface;
 
 namespace WhoIs.Managers
 {
-    public class AppUserManager:UserManager<AppUser>,IAppUserManager
+    public class AppUserManager:IAppUserManager
     {
         IAppUserRepository _appUserRepository;
+        IUserManager _userManager;
 
-        public AppUserManager(IService service, IAppUserRepository appUserRepository):base(service)
+        public AppUserManager(IAppUserRepository appUserRepository,IUserManager userManager)   
         {
             _appUserRepository = appUserRepository;
+            _userManager = userManager;
         }
 
-        public async override Task<IList<AppUser>> GetSpecificUsersFromUsers(IList<User> users)
+        public async Task<IList<AppUser>> GetSpecificUsersFromService()
+        {
+            IList<User> users = await _userManager.GetUsersFromService();
+
+            return await GetSpecificUsersFromUsers(users);
+        }
+
+        public async Task<IList<AppUser>> GetSpecificUsersFromUsers(IList<User> users)
         {
             await Task.Delay(1);
 
             List<AppUser> appUsers = users.Where(u => !u.Deleted)
                                                      .Select(u =>
-                                                             new AppUser(u)).ToList();
+                                                             new AppUser()
+                                                             {
+                                                                 ExternalId =u.ExternalId,
+                                                                 Name=u.Name
+                                                             }).ToList();
             return appUsers;
         }
 
@@ -49,5 +62,7 @@ namespace WhoIs.Managers
             await Task.Delay(1);
             App.AppUser = user;
         }
+
+        
     }
 }

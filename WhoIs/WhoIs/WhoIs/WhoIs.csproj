@@ -49,7 +49,6 @@
     <Compile Include="Managers\UserToHuntManager.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\EntityBase.cs" />
-    <Compile Include="Models\Interface\IUserConvertertible.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserToHunt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

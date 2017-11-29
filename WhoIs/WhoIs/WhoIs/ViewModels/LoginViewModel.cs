@@ -14,7 +14,8 @@ namespace WhoIs.ViewModels
 {
     public class LoginViewModel:BaseViewModel
     {
-        protected IAppUserManager _appUserManager;
+        private IUserManager _userManager;
+        private IAppUserManager _appUserManager;
 
         public string IconSource { get; } = "ic_uruit.png";
         public string AppName { get;} = "Who Is?";
@@ -41,15 +42,16 @@ namespace WhoIs.ViewModels
 
         public ICommand CmdEnterToApplication { get; set; }
 
-        public LoginViewModel(IAppUserManager appUserManager)
+        public LoginViewModel(IUserManager userManager,IAppUserManager appUserManager)
         {
+            _userManager = userManager;
             _appUserManager = appUserManager;
             CmdEnterToApplication = new Command(async () => await EnterToApplication());
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
-            IList<User> users = await _appUserManager.GetUsersFromService();
+            IList<User> users = await _userManager.GetUsersFromService();
             IList<AppUser> appUsers = await _appUserManager.GetSpecificUsersFromUsers(users);
 
             appUsers = appUsers.OrderBy(u => u.Name).ToList();
@@ -66,7 +68,7 @@ namespace WhoIs.ViewModels
                 AppUser appUser = AppUsers[AppUserSelectedIndex];
                 await _appUserManager.EnterToApplication(appUser);
 
-                await _navigationService.NavigateToAsync<HomeViewModel>();//_jsonUsers
+                await _navigationService.NavigateToAsync<HomeViewModel>(_users);
 
             }
             //TODO implement  a message if no user selected

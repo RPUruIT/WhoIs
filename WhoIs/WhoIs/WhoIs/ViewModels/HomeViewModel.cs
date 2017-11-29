@@ -11,7 +11,8 @@ namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        IUserToHuntManager _userToHuntManager;
+        private IUserToHuntManager _userToHuntManager;
+        
 
         public string Title { get; } = "Who is?";
 
@@ -44,7 +45,7 @@ namespace WhoIs.ViewModels
                     
                 }
 
-                //UsersToHunt = usersToHunt;
+                UsersToHunt = usersToHunt;
             }
             catch(Exception ex)
             {

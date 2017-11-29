@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
-using WhoIs.Models.Interface;
 using WhoIs.Services.Interface;
 
 namespace WhoIs.Managers
 {
-    public abstract class UserManager<T> : IUserManager<T> where T :IUserConvertible 
+    public class UserManager:IUserManager
     {
         IService _service;
 
@@ -26,14 +25,5 @@ namespace WhoIs.Managers
             return users;
         }
 
-        public async Task<IList<T>> GetSpecificUsersFromService()
-        {
-            IList<User> allUsers = await GetUsersFromService();
-
-
-            return await GetSpecificUsersFromUsers(allUsers);
-        }
-
-        public abstract Task<IList<T>> GetSpecificUsersFromUsers(IList<User> users);
     }
 }

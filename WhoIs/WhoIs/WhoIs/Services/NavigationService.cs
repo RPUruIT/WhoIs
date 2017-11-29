@@ -26,7 +26,6 @@ namespace WhoIs.Services
             AppUser appUser = await appUserManager.GetLoggedAppUser();
             if (appUser != null)
             {
-                await appUserManager.SetLoggedUser(appUser);
                 await NavigateToAsync<HomeViewModel>();
                 
             }

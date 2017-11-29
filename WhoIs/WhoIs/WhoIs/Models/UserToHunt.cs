@@ -5,27 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhoIs.Models.Interface;
 
 namespace WhoIs.Models
 {
-    public class UserToHunt : EntityBase, IUserConvertible
+    public class UserToHunt : EntityBase
     {
-        public UserToHunt()
-        {
-
-        }
-
-        public UserToHunt(User user)
-        {
-            fromUser(user);
-        }
-        public void fromUser(User user)
-        {
-            this.ExternalId = user.ExternalId;
-            this.Name = user.Name;
-            this.Email = user.Email;
-        }
 
         private string _externaId;
         [JsonProperty("_id")]

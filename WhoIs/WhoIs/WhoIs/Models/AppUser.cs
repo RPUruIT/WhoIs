@@ -5,26 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhoIs.Models.Interface;
 
 namespace WhoIs.Models
 {
-    public class AppUser : EntityBase,IUserConvertible
+    public class AppUser : EntityBase
     {
-        public AppUser()
-        {
-
-        }
-
-        public AppUser(User user)
-        {
-            fromUser(user);
-        }
-        public void fromUser(User user)
-        {
-            this.ExternalId = user.ExternalId;
-            this.Name = user.Name;
-        }
 
         private string _externaId;
 
