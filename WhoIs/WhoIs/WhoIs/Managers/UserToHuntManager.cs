@@ -11,39 +11,24 @@ using System;
 
 namespace WhoIs.Managers
 {
-    public class UserToHuntManager:IUserToHuntManager
+    public class UserToHuntManager:UserManager<UserToHunt>,IUserToHuntManager
     {
-        IService _service;
         IUserToHuntRepository _userHuntedRepository;
 
-        public UserToHuntManager(IService service,IUserToHuntRepository userHuntedRepository)
+        public UserToHuntManager(IService service,IUserToHuntRepository userHuntedRepository):base(service)
         {
-            _service = service;
             _userHuntedRepository = userHuntedRepository;
         }
 
-        public async Task<List<UserToHunt>> GetUsersToHuntFromService()
+        public async override Task<IList<UserToHunt>> GetSpecificUsersFromUsers(IList<User> users)
         {
-            string allUsers = await _service.GetUsers();
+            await Task.Delay(1);
 
-            return await this.GetUsersToHuntFromJson(allUsers);
+            List<UserToHunt> appUsers = users.Where(u => !u.Deleted)
+                                                     .Select(u =>
+                                                             new UserToHunt(u)).ToList();
+            return appUsers;
         }
-
-        public async Task<List<UserToHunt>> GetUsersToHuntFromJson(string jsonUsers)
-        {
-            List<UserToHunt> userToHunt = null;
-            try {
-                userToHunt = await Task.Run(() => {
-                    return JsonConvert.DeserializeObject<List<UserToHunt>>(jsonUsers)
-                                               .Where(u => !u.Deleted).ToList();
-                }); 
-            }
-            catch(Exception ex)
-            {
-
-            }
-            return userToHunt;
-        }
-
+    
     }
 }

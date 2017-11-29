@@ -18,13 +18,13 @@ namespace WhoIs.Droid
 {
     public class ConnectionHelper : IConnectionHelper
     {
-        public SQLiteConnection GetConnection(string path)
+        public SQLiteAsyncConnection GetConnection(string path)
         {
             string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             Directory.CreateDirectory(folder);
             string fileFolder = Path.Combine(folder, path);
 
-            return new SQLiteConnection(fileFolder);
+            return new SQLiteAsyncConnection(fileFolder);
         }
     }
 }

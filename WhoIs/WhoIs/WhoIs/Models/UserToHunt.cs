@@ -5,22 +5,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhoIs.Models.Interface;
 
 namespace WhoIs.Models
 {
-    public class UserToHunt : EntityBase
+    public class UserToHunt : EntityBase, IUserConvertible
     {
-        private string _externaId;
+        public UserToHunt()
+        {
 
+        }
+
+        public UserToHunt(User user)
+        {
+            fromUser(user);
+        }
+        public void fromUser(User user)
+        {
+            this.ExternalId = user.ExternalId;
+            this.Name = user.Name;
+            this.Email = user.Email;
+        }
+
+        private string _externaId;
         [JsonProperty("_id")]
-        protected string ExternalId
+        public string ExternalId
         {
             get { return _externaId; }
             set { _externaId = value; }
         }
 
         private string _name;
-
         [JsonProperty("name")]
         public string Name
         {
@@ -28,9 +43,7 @@ namespace WhoIs.Models
             set { _name = value; }
         }
 
-
         private string _email;
-
         [JsonProperty("mail")]
         public string Email
         {
@@ -38,18 +51,7 @@ namespace WhoIs.Models
             set { _email = value; }
         }
 
-        private bool _deleted;
-
-        [Ignore]
-        [JsonProperty("deleted")]
-        public bool Deleted
-        {
-            get { return _deleted; }
-            set { _deleted = value; }
-        }
-
         private string _imgPath;
-
         public string ImgPath
         {
             get { return _imgPath; }
@@ -57,11 +59,23 @@ namespace WhoIs.Models
         }
 
         private string _comments;
-
         public string Comments
         {
             get { return _comments; }
             set { _comments = value; }
+        }
+
+        private string _hunterId;
+
+        public string HunterId
+        {
+            get { return _hunterId; }
+            set { _hunterId = value; }
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
 
     }

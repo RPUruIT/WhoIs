@@ -16,12 +16,10 @@ namespace WhoIs.ViewModels
     {
         protected INavigationService _navigationService;
 
-        protected IAppUserManager _appUserManager;
-
         public BaseViewModel()
         {
             _navigationService = DependencyContainer.Container.Resolve<INavigationService>();
-            _appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,13 +69,8 @@ namespace WhoIs.ViewModels
 
         public virtual async Task InitializeAsync(object navigationData)
         {
-            // await Task.Run(null);
             
         }
 
-        public async Task<bool> isUserLogged()
-        {
-            return await _appUserManager.GetLoggedAppUser() != null;
-        }
     }
 }

@@ -22,14 +22,15 @@ namespace WhoIs.Services
             client.MaxResponseContentBufferSize = 256000;
         }
 
-        public async Task<string> GetUsers()
+        public async Task<IList<User>> GetUsers()
         {
-            string users;
+            List<User> users;
 
             try
             {
                 var uri = new Uri(Constants.URL_SERVICE_GET_USER);
-                users = await client.GetStringAsync(uri);
+                var jsonUsers = await client.GetStringAsync(uri);
+                users = JsonConvert.DeserializeObject<List<User>>(jsonUsers);
             }
             catch(Exception ex)
             {

@@ -7,12 +7,12 @@ using WhoIs.Models;
 
 namespace WhoIs.Managers.Interface
 {
-    public interface IAppUserManager
+    public interface IAppUserManager:IUserManager<AppUser>
     {
-        Task<Object[]> GetAppUsersFromService();
-
         Task<AppUser> GetLoggedAppUser();
-
         Task EnterToApplication(AppUser appUser);
+        Task SetLoggedUser(AppUser user);
+
+
     }
 }

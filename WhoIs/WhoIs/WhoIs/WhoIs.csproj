@@ -41,12 +41,16 @@
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Managers\AppUserManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Managers\Interface\IAppUserManager.cs" />
+    <Compile Include="Managers\Interface\IUserManager.cs" />
     <Compile Include="Managers\Interface\IUserToHuntManager.cs" />
     <Compile Include="Managers\ManagerContainer.cs" />
     <Compile Include="Managers\UserToHuntManager.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Models\Interface\IUserConvertertible.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserToHunt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AppUserRepository.cs" />

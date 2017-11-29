@@ -12,25 +12,23 @@ using WhoIs.Repositories.Interface;
 
 namespace WhoIs.Managers
 {
-    public class AppUserManager : IAppUserManager
+    public class AppUserManager:UserManager<AppUser>,IAppUserManager
     {
-
-        IService _service;
         IAppUserRepository _appUserRepository;
 
-        public AppUserManager(IService service, IAppUserRepository appUserRepository)
+        public AppUserManager(IService service, IAppUserRepository appUserRepository):base(service)
         {
-            _service = service;
             _appUserRepository = appUserRepository;
         }
 
-        public async Task<Object[]> GetAppUsersFromService()
+        public async override Task<IList<AppUser>> GetSpecificUsersFromUsers(IList<User> users)
         {
-            string allUsers = await _service.GetUsers();
-            List<AppUser> userForApplication = JsonConvert.DeserializeObject<List<AppUser>>(allUsers)
-                                                .Where(u => !u.Deleted).ToList();
-       
-            return new Object[2] { userForApplication, allUsers };
+            await Task.Delay(1);
+
+            List<AppUser> appUsers = users.Where(u => !u.Deleted)
+                                                     .Select(u =>
+                                                             new AppUser(u)).ToList();
+            return appUsers;
         }
 
         public async Task<AppUser> GetLoggedAppUser()
@@ -43,6 +41,13 @@ namespace WhoIs.Managers
         public async Task EnterToApplication(AppUser appUser)
         {
             await _appUserRepository.SaveAppUser(appUser);
+            await SetLoggedUser(appUser);
+        }
+
+        public async Task SetLoggedUser(AppUser user)
+        {
+            await Task.Delay(1);
+            App.AppUser = user;
         }
     }
 }

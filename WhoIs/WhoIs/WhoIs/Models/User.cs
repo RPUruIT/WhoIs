@@ -1,30 +1,14 @@
 ﻿using Newtonsoft.Json;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhoIs.Models.Interface;
 
 namespace WhoIs.Models
 {
-    public class AppUser : EntityBase,IUserConvertible
+    public class User
     {
-        public AppUser()
-        {
-
-        }
-
-        public AppUser(User user)
-        {
-            fromUser(user);
-        }
-        public void fromUser(User user)
-        {
-            this.ExternalId = user.ExternalId;
-            this.Name = user.Name;
-        }
 
         private string _externaId;
 
@@ -44,11 +28,24 @@ namespace WhoIs.Models
             set { _name = value; }
         }
 
-        public override string ToString()
+
+        private string _email;
+
+        [JsonProperty("mail")]
+        public string Email
         {
-            return this.Name;
+            get { return _email; }
+            set { _email = value; }
         }
 
-        
+        private bool _deleted;
+
+        [JsonProperty("deleted")]
+        public bool Deleted
+        {
+            get { return _deleted; }
+            set { _deleted = value; }
+        }
+
     }
 }

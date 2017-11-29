@@ -13,7 +13,7 @@ namespace WhoIs.iOS
 {
     public class ConnectionHelper : IConnectionHelper
     {
-        public SQLiteConnection GetConnection(string path)
+        public SQLiteAsyncConnection GetConnection(string path)
         {
             string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             string libFolder = Path.Combine(docFolder, "..", "Library", "Databases");
@@ -25,7 +25,7 @@ namespace WhoIs.iOS
 
             string fileFolder = Path.Combine(libFolder, path);
 
-            return new SQLiteConnection(fileFolder);
+            return new SQLiteAsyncConnection(fileFolder);
         }
     }
 }

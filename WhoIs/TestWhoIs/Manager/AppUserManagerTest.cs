@@ -18,15 +18,7 @@ namespace TestWhoIs.Manager
             DependencyContainer.InitializeCore();
         }
 
-        [TestMethod]
-        public async Task GetUsers_NotDeleted()
-        {
-            
-            IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
-            List<AppUser> users = await appUserManager.GetAppUsersFromService();
-
-            Assert.IsTrue(users.Count.Equals(3));
-        }
+        
 
     }
 }

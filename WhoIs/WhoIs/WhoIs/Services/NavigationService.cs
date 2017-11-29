@@ -5,10 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using WhoIs.Managers.Interface;
+using WhoIs.Models;
 using WhoIs.Services.Interface;
 using WhoIs.ViewModels;
 using WhoIs.Views;
 using Xamarin.Forms;
+using Unity;
 
 namespace WhoIs.Services
 {
@@ -18,10 +21,15 @@ namespace WhoIs.Services
 
         public async Task InitializeAsync()
         {
-            object viewModel = DependencyContainer.Container.Resolve(typeof(LoginViewModel), null);
-            bool isUserLogged = await (viewModel as BaseViewModel).isUserLogged();
-            if (isUserLogged)
+            IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
+
+            AppUser appUser = await appUserManager.GetLoggedAppUser();
+            if (appUser != null)
+            {
+                await appUserManager.SetLoggedUser(appUser);
                 await NavigateToAsync<HomeViewModel>();
+                
+            }
             else
                 await NavigateToAsync<LoginViewModel>();
              
@@ -37,28 +45,24 @@ namespace WhoIs.Services
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
-        public Task RemoveBackStackAsync()
+        public async Task RemoveBackStackAsync()
         {
 
             var navigationPage = Application.Current.MainPage as CustomNavigationView;
             if (navigationPage != null)
             {
-                return navigationPage.PopToRootAsync();
-            }
-
-            return Task.Run(null);
+                await navigationPage.PopToRootAsync();
+            }   
         }
 
-        public Task RemoveLastFromBackStackAsync()
+        public async Task RemoveLastFromBackStackAsync()
         {
             var navigationPage = Application.Current.MainPage as CustomNavigationView;
             if (navigationPage != null)
             {
-                return navigationPage.PopAsync();
+                await navigationPage.PopAsync();
             }
-
-            return Task.Run(null);
-
+          
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)

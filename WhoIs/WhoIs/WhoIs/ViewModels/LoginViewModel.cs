@@ -14,6 +14,7 @@ namespace WhoIs.ViewModels
 {
     public class LoginViewModel:BaseViewModel
     {
+        protected IAppUserManager _appUserManager;
 
         public string IconSource { get; } = "ic_uruit.png";
         public string AppName { get;} = "Who Is?";
@@ -22,14 +23,14 @@ namespace WhoIs.ViewModels
         public string TextFooterLeft { get; } = "http://uruit.com";
         public string TextFooterRigth { get; } = "@People Care";
 
-        private string _jsonUsers;
+        private IList<User> _users;
+
         private IList<AppUser> _appUsers;
         public IList<AppUser> AppUsers
         {
             get { return _appUsers; }
             set { SetPropertyValue(ref _appUsers, value); }
         }
-
 
         private int _appUserSelectedIndex;
         public int AppUserSelectedIndex
@@ -40,20 +41,22 @@ namespace WhoIs.ViewModels
 
         public ICommand CmdEnterToApplication { get; set; }
 
-
-        public LoginViewModel()
+        public LoginViewModel(IAppUserManager appUserManager)
         {
+            _appUserManager = appUserManager;
             CmdEnterToApplication = new Command(async () => await EnterToApplication());
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
-            Object[] usersFromService = await _appUserManager.GetAppUsersFromService();
-            IList<AppUser> appUsers = usersFromService[0] as IList<AppUser>;
-            string jsonUsers = usersFromService[1] as string;
+            IList<User> users = await _appUserManager.GetUsersFromService();
+            IList<AppUser> appUsers = await _appUserManager.GetSpecificUsersFromUsers(users);
 
-            AppUsers = appUsers.OrderBy(u => u.Name).ToList();
-            _jsonUsers = jsonUsers;
+            appUsers = appUsers.OrderBy(u => u.Name).ToList();
+
+            AppUsers = appUsers;
+            _users = users;
+
         }
 
         public async Task EnterToApplication()
@@ -63,10 +66,15 @@ namespace WhoIs.ViewModels
                 AppUser appUser = AppUsers[AppUserSelectedIndex];
                 await _appUserManager.EnterToApplication(appUser);
 
-                await _navigationService.NavigateToAsync<HomeViewModel>(_jsonUsers);
+                await _navigationService.NavigateToAsync<HomeViewModel>();//_jsonUsers
 
             }
+            //TODO implement  a message if no user selected
         }
 
+        public async Task<bool> IsUserLogged()
+        {
+            return await _appUserManager.GetLoggedAppUser() != null;
+        }
     }
 }

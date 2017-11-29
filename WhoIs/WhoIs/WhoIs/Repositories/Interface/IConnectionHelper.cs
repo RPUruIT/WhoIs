@@ -9,6 +9,6 @@ namespace WhoIs.Repositories.Interface
 {
     public interface IConnectionHelper
     {
-        SQLiteConnection GetConnection(string path);
+        SQLiteAsyncConnection GetConnection(string path);
     }
 }

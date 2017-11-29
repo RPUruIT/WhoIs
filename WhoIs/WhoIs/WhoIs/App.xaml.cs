@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using WhoIs.Services.Interface;
 using Xamarin.Forms;
 using Unity;
+using WhoIs.Models;
 
 namespace WhoIs
 {
     public partial class App : Application
     {
+        public static AppUser AppUser;
+
         public App()
         {
             InitializeComponent();

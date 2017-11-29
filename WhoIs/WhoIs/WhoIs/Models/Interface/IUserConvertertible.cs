@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WhoIs.Models;
 
-namespace WhoIs.Services.Interface
+namespace WhoIs.Models.Interface
 {
-    public interface IService
+    public interface IUserConvertible
     {
-        Task<IList<User>> GetUsers();
+        void fromUser(User user);
     }
 }

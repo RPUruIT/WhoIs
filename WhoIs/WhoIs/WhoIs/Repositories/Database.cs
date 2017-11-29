@@ -12,23 +12,23 @@ namespace WhoIs.Repositories
 {
     public class Database<T> : IDatabase<T> where T : EntityBase, new()
     {
-        private SQLiteConnection _database;
+        private SQLiteAsyncConnection _database;
 
         public Database(string path)
         {
             var helper = DependencyContainer.Container.Resolve<IConnectionHelper>();
             _database = helper.GetConnection(path);
-            _database.CreateTable<T>();
+            _database.CreateTableAsync<T>();
         }
 
         public async Task<int> Insert(T entity)
         {
-            return await Task.Run(() => _database.Insert(entity));
+            return await _database.InsertAsync(entity);
         }
 
         public async Task<int> Delete(T entity)
         {
-            return await Task.Run(() => _database.Delete(entity));
+            return await _database.DeleteAsync(entity);
         }
 
         public async Task<T> Update(T item)
@@ -37,25 +37,23 @@ namespace WhoIs.Repositories
             var id = old.Id;
             old = item;
             old.Id = id;
-            await Task.Run(() => _database.Update(old));
+            await _database.UpdateAsync(old);
             return old;
         }
 
         public async Task<List<T>> GetAll()
         {
-            return await Task.Run(() => _database.Table<T>().ToList());
+            return await _database.Table<T>().ToListAsync();
         }
 
         public async Task<T> GetFirst()
         {
-            var exec = _database.Table<T>().FirstOrDefault();
-            return await Task.Run(() => exec);
+            return await _database.Table<T>().FirstOrDefaultAsync();
         }
 
         public async Task<T> GetById(Guid id)
         {
-            var exec = _database.Get<T>(id);
-            return await Task.Run(() => exec);
+            return await _database.GetAsync<T>(id);
         }
     }
 }

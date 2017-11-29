@@ -35,14 +35,15 @@ namespace WhoIs.ViewModels
                 IList<UserToHunt> usersToHunt = null;
                 if (navigationData != null)
                 {
-                    string jsonUsers = navigationData as string;
-                    usersToHunt = await _userToHuntManager.GetUsersToHuntFromJson(jsonUsers);
+                    IList<User> users = navigationData as IList<User>;
+                    usersToHunt = await _userToHuntManager.GetSpecificUsersFromUsers(users);
                 }
                 else
                 {
-                    usersToHunt = await _userToHuntManager.GetUsersToHuntFromService();
+                    usersToHunt = await _userToHuntManager.GetSpecificUsersFromService();
                     
                 }
+
                 UsersToHunt = usersToHunt;
             }
             catch(Exception ex)
