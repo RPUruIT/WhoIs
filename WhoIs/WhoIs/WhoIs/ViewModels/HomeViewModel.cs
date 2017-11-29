@@ -44,7 +44,7 @@ namespace WhoIs.ViewModels
                     
                 }
 
-                UsersToHunt = usersToHunt;
+                //UsersToHunt = usersToHunt;
             }
             catch(Exception ex)
             {
