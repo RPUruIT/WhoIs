@@ -72,9 +72,6 @@ namespace WhoIs.ViewModels
             //TODO implement  a message if no user selected
         }
 
-        public async Task<bool> IsUserLogged()
-        {
-            return await _appUserManager.GetLoggedAppUser() != null;
-        }
+        
     }
 }
