@@ -1,10 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WhoIs.Views.HomeView">
+             x:Class="WhoIs.Views.HomeView"
+             xmlns:behaviors="clr-namespace:WhoIs.Behaviors"
+             xmlns:converters="clr-namespace:WhoIs.Converters">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="ImageCell">
+                <Setter Property="TextColor" Value="{StaticResource LigthGrayColor}"></Setter>
+            </Style>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding UsersToHunt}">
-           
+        <!--<Button Command="{Binding UserToHuntSelectedCommand}"></Button>-->
+        <ListView 
+            ItemsSource="{Binding UsersToHunt}"
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="True"
+            CachingStrategy="RecycleElement"
+            IsPullToRefreshEnabled="true"
+            >
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior
+                    EventName="ItemSelected"
+                    Command="{Binding UserToHuntSelectedCommand}"
+                    Converter="{StaticResource SelectedItemConverter}"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!--<ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}"></Label>
+                            <Image Grid.Column="1"  Source="{Binding ImgPath}"></Image>
+                        </Grid>
+                    </ViewCell>-->
+                    <ImageCell  Text="{Binding Name}"
+                                TextColor="{StaticResource PrimaryColor}"
+                                Detail="{Binding Name}"
+                                DetailColor="{StaticResource SecondaryColor}"
+                                ImageSource="{Binding ImgPath}"
+                                >
+
+                    </ImageCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
+
     </ContentPage.Content>
 </ContentPage>
