@@ -8,15 +8,35 @@ using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using WhoIs.Services.Interface;
 using Xamarin.Forms;
+using Unity;
 
 namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
         public string HomeTitle { get; } = "UruITers";
-        public string HuntIndicator { get { return CountUsersHunted + "/" + TotalUsersToHunt; }}
-        public int TotalUsersToHunt { get; set; } = 0;
-        public int CountUsersHunted { get; set; } = 0;
+
+        private string _huntIndicator;
+        public string HuntIndicator
+        {
+            get { return CountUsersHunted + "/" + TotalUsersToHunt; }
+            set { SetPropertyValue(ref _huntIndicator, value); }
+        }
+
+
+        private int _totalUsersToHunt;
+        public int TotalUsersToHunt
+        {
+            get { return _totalUsersToHunt; }
+            set {_totalUsersToHunt = value; HuntIndicator = "";}
+        }
+        private int _countUsersHunted;
+        public int CountUsersHunted
+        {
+            get { return _countUsersHunted; }
+            set { _countUsersHunted = value; HuntIndicator = ""; }
+        }
+
 
         private IUserToHuntManager _userToHuntManager;
 
@@ -40,8 +60,8 @@ namespace WhoIs.ViewModels
             try
             {
                 UsersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
-                TotalUsersToHunt = UsersToHunt.Count;
-                CountUsersHunted = 1;//await _userToHuntManager.GetCountUsersHunted();
+                TotalUsersToHunt = await _userToHuntManager.GetCountUsersToHunt();
+                CountUsersHunted = await _userToHuntManager.GetCountUsersHunted();
             }
             catch(Exception ex)
             {
@@ -54,5 +74,6 @@ namespace WhoIs.ViewModels
         { 
             //await Task.Delay(1);
         }
-    }
+    
+}
 }

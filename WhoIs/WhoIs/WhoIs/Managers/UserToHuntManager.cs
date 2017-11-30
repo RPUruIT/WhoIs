@@ -13,28 +13,64 @@ namespace WhoIs.Managers
 {
     public class UserToHuntManager:IUserToHuntManager
     {
-        IUserToHuntRepository _userHuntedRepository;
-        IUserManager _userManager;
 
-        public UserToHuntManager(IUserToHuntRepository userHuntedRepository, IUserManager userManager)
+        private IUserToHuntRepository _userHuntedRepository;
+        private IUserManager _userManager;
+
+        private int _usersToHunt;
+        private int _usersHunted;
+
+        public UserToHuntManager(IUserToHuntRepository userToHuntRepository, IUserManager userManager)
         {
-            _userHuntedRepository = userHuntedRepository;
+            _userHuntedRepository = userToHuntRepository;
             _userManager = userManager;
         }
 
-        public async Task<List<UserToHunt>> GetHuntedUsers()
+        /// <summary>
+        ///  This method set UsersToHunt and UsersHunted and return the list of users to hunt
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
+        public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users)
         {
-            return await _userHuntedRepository.GetHuntedUsers();
+            List<UserToHunt> usersToHunt = null;
+
+            if (users != null)
+                usersToHunt = await this.GetSpecificUsersFromUsers(users);
+            else
+                usersToHunt = await this.GetSpecificUsersFromService();
+
+            List<UserToHunt> usersHunted = await this.GetHuntedUsers();
+
+            usersToHunt = MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
+
+            _usersToHunt = usersToHunt.Count;
+            _usersHunted = usersHunted.Count;
+
+            return usersToHunt;
         }
 
-        public async Task<List<UserToHunt>> GetSpecificUsersFromService()
+        public async Task<int> GetCountUsersToHunt()
+        {
+            await Task.Delay(1);
+            return _usersToHunt;
+        }
+
+        public async Task<int> GetCountUsersHunted()
+        {
+            await Task.Delay(1);
+            return _usersHunted;
+        }
+
+
+        private async Task<List<UserToHunt>> GetSpecificUsersFromService()
         {
             List<User> users = await _userManager.GetUsersFromService();
 
             return await GetSpecificUsersFromUsers(users);
         }
 
-        public async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
+        private async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
         {
             await Task.Delay(1);
 
@@ -48,23 +84,9 @@ namespace WhoIs.Managers
             return appUsers;
         }
 
-        public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users)
+        private async Task<List<UserToHunt>> GetHuntedUsers()
         {
-            List<UserToHunt> usersToHunt = null;
-
-            if (users != null)
-                usersToHunt= await this.GetSpecificUsersFromUsers(users);
-            else
-                usersToHunt = await this.GetSpecificUsersFromService();
-
-            List<UserToHunt> usersHunted = await this.GetHuntedUsers();
-
-            return MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
-        }
-
-        public async Task<int> GetCountUsersHunted()
-        {
-            return await _userHuntedRepository.GetCountUsersHunted();
+            return await _userHuntedRepository.GetHuntedUsers();
         }
 
         private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
@@ -74,5 +96,7 @@ namespace WhoIs.Managers
 
             return usersToHunt;
         }
+
+
     }
 }
