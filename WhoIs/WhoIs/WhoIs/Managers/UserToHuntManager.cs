@@ -38,14 +38,13 @@ namespace WhoIs.Managers
         {
             await Task.Delay(1);
 
-            List<UserToHunt> appUsers = users.Where(u => !u.Deleted)
-                                                     .Select(u =>
-                                                             new UserToHunt() {
-                                                                 ExternalId = u.ExternalId,
-                                                                 Name = u.Name,
-                                                                 Email = u.Email,
+            List<UserToHunt> appUsers = users.Select(u =>
+                                                        new UserToHunt() {
+                                                            ExternalId = u.ExternalId,
+                                                            Name = u.Name,
+                                                            Email = u.Email,
                                                                  
-                                                             }).ToList();
+                                                        }).ToList();
             return appUsers;
         }
 

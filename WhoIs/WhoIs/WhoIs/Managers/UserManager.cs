@@ -21,7 +21,7 @@ namespace WhoIs.Managers
         public async Task<List<User>> GetUsersFromService()
         {
             List<User> users = await _service.GetUsers();
-
+            users.RemoveAll(u => u.Deleted);
             return users;
         }
 
