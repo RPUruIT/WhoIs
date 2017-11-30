@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
+using WhoIs.Services.Interface;
 using Xamarin.Forms;
+using Unity;
+using WhoIs.Models;
 
 namespace WhoIs
 {
     public partial class App : Application
     {
+        public static AppUser AppUser;
+
         public App()
         {
             InitializeComponent();
+            InitNavigation();
+            
+        }
 
-            MainPage = new WhoIs.MainPage();
+        private Task InitNavigation()
+        {
+            var navigationService = DependencyContainer.Container.Resolve<INavigationService>();
+            return navigationService.InitializeAsync();
         }
 
         protected override void OnStart()

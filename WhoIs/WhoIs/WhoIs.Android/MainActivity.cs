@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace WhoIs.Droid
 {
-    [Activity(Label = "WhoIs", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "WhoIs", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -20,7 +20,16 @@ namespace WhoIs.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            ResolveDependencies();
+
             LoadApplication(new App());
+        }
+
+        private void ResolveDependencies()
+        {
+            DependencyContainer.InitializeCore();
+            AndroidDependencyContainer.Initialize(DependencyContainer.Container);
         }
     }
 }

@@ -4,7 +4,69 @@
              x:Class="WhoIs.App">
 	<Application.Resources>
 
-		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <!--Fonts Family INI-->
 
-	</Application.Resources>
+            <OnPlatform x:Key="SemiBold" x:TypeArguments="x:String" iOS="OpenSans-Semibold" Android="fonts/OpenSans-SemiBold.ttf#OpenSans-SemiBold" />
+            <OnPlatform x:Key="Regular" x:TypeArguments="x:String" iOS="OpenSans-Regular" Android="fonts/OpenSans-Regular.ttf#OpenSans-Regular" />
+            <OnPlatform x:Key="Pacifico-Regular" x:TypeArguments="x:String" iOS="Pacifico-Regular" Android="fonts/Pacifico-Regular.ttf#Pacifico-Regular" />
+
+            <!--Fonts Family FIN-->
+
+            <!--Colors INI-->
+
+                <Color x:Key="PrimaryColor">#21282F</Color>
+                <Color x:Key="SecondaryColor">#1ED760</Color>
+
+                <Color x:Key="WhiteColor">#FFFFFF</Color>
+                <Color x:Key="LigthGrayColor">LightGray</Color>
+
+            <!--Colors FIN-->
+
+            <!--Generic Views INI-->
+
+            <!--<OnPlatform x:Key="EntryTextColor" x:TypeArguments="x:String" iOS="{StaticResource LigthGrayColor}" Android="{StaticResource WhiteColor}" />-->
+
+                <Style TargetType="Label">
+                    <Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>
+                </Style>
+                <Style TargetType="Entry">
+                    <Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>
+                <Setter Property="TextColor">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                        iOS="Gray"
+                                        Android="#FFFFFF"></OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="PlaceholderColor" Value="{StaticResource LigthGrayColor}"></Setter>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>
+                    <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+                    <Setter Property="BackgroundColor" Value="{StaticResource SecondaryColor}"></Setter>
+                    <Setter Property="FontSize" Value="15"></Setter>
+                </Style>
+                <Style TargetType="Picker">
+                    <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+                    
+                </Style>
+
+            <!--Generic Views FIN-->
+
+            <!--Generic Styles INI-->
+
+            
+            <!--Generic Styles FIN-->
+
+            <!--LoginView INI-->
+                <Style x:Key="LoginIcon" TargetType="Image">
+                    <Setter Property="WidthRequest" Value="100"></Setter>
+                </Style>
+            <!--LoginView FIN-->
+
+
+        </ResourceDictionary>
+
+    </Application.Resources>
 </Application>
