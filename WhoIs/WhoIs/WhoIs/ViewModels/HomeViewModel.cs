@@ -61,6 +61,7 @@ namespace WhoIs.ViewModels
         {
             try
             {
+                await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
                 UsersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
                 TotalUsersToHunt = await _userToHuntManager.GetCountUsersToHunt();
                 CountUsersHunted = await _userToHuntManager.GetCountUsersHunted();

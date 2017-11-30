@@ -26,7 +26,7 @@ namespace WhoIs.Services
             bool isUserLoged = await appUserManager.IsUserLogged();
             if (isUserLoged)
             {
-                await appUserManager.GetAndSetLoggedAppUser();
+                
                 await NavigateToAsync<HomeViewModel>();
                 
             }
