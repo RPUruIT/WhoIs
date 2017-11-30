@@ -57,6 +57,11 @@ namespace WhoIs.Models
             set { _hunterId = value; }
         }
 
+        public bool HasImage()
+        {
+            return !String.IsNullOrEmpty(this.ImgPath);
+        }
+
         public override string ToString()
         {
             return this.Name;

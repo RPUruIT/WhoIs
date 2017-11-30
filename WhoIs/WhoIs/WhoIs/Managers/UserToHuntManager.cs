@@ -90,6 +90,7 @@ namespace WhoIs.Managers
         private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
             usersToHunt.RemoveAll(u => usersHunted.Contains(u));
+            usersToHunt.OrderBy(u => u.Name);
             usersHunted.AddRange(usersToHunt);
 
             return usersToHunt;

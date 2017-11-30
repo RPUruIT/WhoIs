@@ -74,8 +74,8 @@ namespace WhoIs.ViewModels
         }
 
         public void UserToHuntSelected(UserToHunt userToHunt)
-        { 
-            //await Task.Delay(1);
+        {
+           //TODO implement this
         }
     
 }
