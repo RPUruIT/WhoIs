@@ -22,5 +22,10 @@ namespace WhoIs.Repositories
         {
             return await _database.GetAll();
         }
+
+        public async Task<int> GetCountUsersHunted()
+        {
+            return await _database.GetCount();
+        }
     }
 }

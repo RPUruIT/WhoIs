@@ -55,6 +55,11 @@ namespace WhoIs.Repositories
         {
             return await _database.GetAsync<T>(id);
         }
+
+        public async Task<int> GetCount()
+        {
+            return await _database.Table<T>().CountAsync();
+        }
     }
 }
 

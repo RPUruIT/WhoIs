@@ -14,7 +14,9 @@ namespace WhoIs.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         public string HomeTitle { get; } = "UruITers";
-        public string HuntIndicator { get; set; } = "0/0";
+        public string HuntIndicator { get { return CountUsersHunted + "/" + TotalUsersToHunt; }}
+        public int TotalUsersToHunt { get; set; } = 0;
+        public int CountUsersHunted { get; set; } = 0;
 
         private IUserToHuntManager _userToHuntManager;
 
@@ -38,6 +40,8 @@ namespace WhoIs.ViewModels
             try
             {
                 UsersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+                TotalUsersToHunt = UsersToHunt.Count;
+                CountUsersHunted = 1;//await _userToHuntManager.GetCountUsersHunted();
             }
             catch(Exception ex)
             {

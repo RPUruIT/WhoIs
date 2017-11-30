@@ -62,6 +62,11 @@ namespace WhoIs.Managers
             return MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
         }
 
+        public async Task<int> GetCountUsersHunted()
+        {
+            return await _userHuntedRepository.GetCountUsersHunted();
+        }
+
         private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
             usersToHunt.RemoveAll(u => usersHunted.Contains(u));

@@ -10,5 +10,6 @@ namespace WhoIs.Repositories.Interface
     public interface IUserToHuntRepository
     {
         Task<List<UserToHunt>> GetHuntedUsers();
+        Task<int> GetCountUsersHunted();
     }
 }
