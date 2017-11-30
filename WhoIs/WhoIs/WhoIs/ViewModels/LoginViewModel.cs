@@ -24,10 +24,10 @@ namespace WhoIs.ViewModels
         public string TextFooterLeft { get; } = "http://uruit.com";
         public string TextFooterRigth { get; } = "@People Care";
 
-        private IList<User> _users;
+        private List<User> _users;
 
-        private IList<AppUser> _appUsers;
-        public IList<AppUser> AppUsers
+        private List<AppUser> _appUsers;
+        public List<AppUser> AppUsers
         {
             get { return _appUsers; }
             set { SetPropertyValue(ref _appUsers, value); }
@@ -51,8 +51,8 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-            IList<User> users = await _userManager.GetUsersFromService();
-            IList<AppUser> appUsers = await _appUserManager.GetSpecificUsersFromUsers(users);
+            List<User> users = await _userManager.GetUsersFromService();
+            List<AppUser> appUsers = await _appUserManager.GetSpecificUsersFromUsers(users);
 
             appUsers = appUsers.OrderBy(u => u.Name).ToList();
 

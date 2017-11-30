@@ -11,7 +11,7 @@ namespace WhoIs.Services
 {
     public class ServiceMOC : IService
     {
-        public async Task<IList<User>> GetUsers()
+        public async Task<List<User>> GetUsers()
         {
             await Task.Delay(1);
             List<User> users = JsonConvert.DeserializeObject<List<User>>(@"/OfflineResponses/users.json");

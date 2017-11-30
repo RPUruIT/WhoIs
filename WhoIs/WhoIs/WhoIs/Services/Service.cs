@@ -22,7 +22,7 @@ namespace WhoIs.Services
             client.MaxResponseContentBufferSize = 256000;
         }
 
-        public async Task<IList<User>> GetUsers()
+        public async Task<List<User>> GetUsers()
         {
             List<User> users;
 

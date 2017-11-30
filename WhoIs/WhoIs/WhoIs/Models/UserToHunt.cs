@@ -62,5 +62,17 @@ namespace WhoIs.Models
             return this.Name;
         }
 
+        public override bool Equals(object obj)
+        {
+            UserToHunt userToCompare = obj as UserToHunt;
+            if (userToCompare==null)
+                return false;
+
+            return ExternalId.Equals(userToCompare.ExternalId);
+        }
+        public override int GetHashCode()
+        {
+            return this.ExternalId.GetHashCode();
+        }
     }
 }

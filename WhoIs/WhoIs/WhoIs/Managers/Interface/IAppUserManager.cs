@@ -9,8 +9,8 @@ namespace WhoIs.Managers.Interface
 {
     public interface IAppUserManager
     {
-        Task<IList<AppUser>> GetSpecificUsersFromService();
-        Task<IList<AppUser>> GetSpecificUsersFromUsers(IList<User> users);
+        Task<List<AppUser>> GetSpecificUsersFromService();
+        Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users);
 
         Task<AppUser> GetLoggedAppUser();
         Task EnterToApplication(AppUser appUser);

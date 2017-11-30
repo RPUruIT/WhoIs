@@ -11,16 +11,36 @@
             <Style TargetType="ImageCell">
                 <Setter Property="TextColor" Value="{StaticResource LigthGrayColor}"></Setter>
             </Style>
+            <Style TargetType="ListView">
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="IsPullToRefreshEnabled" Value="true"></Setter>
+            </Style>
+            <Style x:Key="ListTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="25"></Setter>
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                <Setter Property="FontFamily" Value="{StaticResource Pacifico-Regular}"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
+            </Style>
+            <Style x:Key="ListTitleIndicator" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
             <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter"/>
+            <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
+            <Grid BackgroundColor="{StaticResource PrimaryColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
+                <Label Grid.Column="1" Text="{Binding HuntIndicator}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
+            </Grid>
             <customcomponents:CustomListView 
-                ItemsSource="{Binding UsersToHunt}"
-                VerticalOptions="FillAndExpand"
-                IsPullToRefreshEnabled="true"
-                >
+                ItemsSource="{Binding UsersToHunt}">
                 <customcomponents:CustomListView.Behaviors>
                     <behaviors:EventToCommandBehavior
                         EventName="ItemSelected"
@@ -30,11 +50,11 @@
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell  Text="{Binding Name}"
-                                        TextColor="{StaticResource PrimaryColor}"
-                                        Detail="{Binding Name}"
-                                        DetailColor="{StaticResource SecondaryColor}"
-                                        ImageSource="{Binding ImgPath}"
-                                        >
+                                    TextColor="{StaticResource PrimaryColor}"
+                                    Detail="{Binding Name}"
+                                    DetailColor="{StaticResource SecondaryColor}"
+                                    ImageSource="{Binding ImgPath}"
+                                    >
                         </ImageCell>
 
                     </DataTemplate>

@@ -18,5 +18,9 @@ namespace WhoIs.Repositories
             _database = database;
         }
 
+        public async Task<List<UserToHunt>> GetHuntedUsers()
+        {
+            return await _database.GetAll();
+        }
     }
 }

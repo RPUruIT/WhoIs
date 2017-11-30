@@ -9,6 +9,6 @@ namespace WhoIs.Services.Interface
 {
     public interface IService
     {
-        Task<IList<User>> GetUsers();
+        Task<List<User>> GetUsers();
     }
 }

@@ -13,10 +13,13 @@ namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        public string HomeTitle { get; } = "UruITers";
+        public string HuntIndicator { get; set; } = "0/0";
+
         private IUserToHuntManager _userToHuntManager;
 
-        private IList<UserToHunt> _usersToHunt;
-        public IList<UserToHunt> UsersToHunt
+        private List<UserToHunt> _usersToHunt;
+        public List<UserToHunt> UsersToHunt
         {
             get { return _usersToHunt; }
             set { SetPropertyValue(ref _usersToHunt, value); }
@@ -34,19 +37,7 @@ namespace WhoIs.ViewModels
         {
             try
             {
-                IList<UserToHunt> usersToHunt = null;
-                if (navigationData != null)
-                {
-                    IList<User> users = navigationData as IList<User>;
-                    usersToHunt = await _userToHuntManager.GetSpecificUsersFromUsers(users);
-                }
-                else
-                {
-                    usersToHunt = await _userToHuntManager.GetSpecificUsersFromService();
-                    
-                }
-
-                UsersToHunt = usersToHunt;
+                UsersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
             }
             catch(Exception ex)
             {
@@ -56,8 +47,7 @@ namespace WhoIs.ViewModels
         }
 
         public void UserToHuntSelected(UserToHunt userToHunt)
-        {
-            //TODO https://blog.wislon.io/posts/2017/04/11/xamforms-listview-selected-colour
+        { 
             //await Task.Delay(1);
         }
     }

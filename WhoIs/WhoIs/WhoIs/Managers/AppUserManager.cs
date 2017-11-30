@@ -23,14 +23,14 @@ namespace WhoIs.Managers
             _userManager = userManager;
         }
 
-        public async Task<IList<AppUser>> GetSpecificUsersFromService()
+        public async Task<List<AppUser>> GetSpecificUsersFromService()
         {
-            IList<User> users = await _userManager.GetUsersFromService();
+            List<User> users = await _userManager.GetUsersFromService();
 
             return await GetSpecificUsersFromUsers(users);
         }
 
-        public async Task<IList<AppUser>> GetSpecificUsersFromUsers(IList<User> users)
+        public async Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users)
         {
             await Task.Delay(1);
 
