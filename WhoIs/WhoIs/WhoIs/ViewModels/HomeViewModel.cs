@@ -75,7 +75,14 @@ namespace WhoIs.ViewModels
 
         public void UserToHuntSelected(UserToHunt userToHunt)
         {
-           //TODO implement this
+            if (userToHunt.HasImage())
+            {
+
+            }
+            else
+            {
+
+            }
         }
     
 }
