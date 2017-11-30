@@ -19,7 +19,7 @@ namespace WhoIs.CustomComponents
 
         private void CustomListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            this.SelectedItem = null;
+            //this.SelectedItem = null;
         }
     }
 }

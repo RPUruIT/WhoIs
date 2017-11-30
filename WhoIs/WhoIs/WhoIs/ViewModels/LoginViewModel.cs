@@ -54,8 +54,6 @@ namespace WhoIs.ViewModels
             List<User> users = await _userManager.GetUsersFromService();
             List<AppUser> appUsers = await _appUserManager.GetSpecificUsersFromUsers(users);
 
-            appUsers = appUsers.OrderBy(u => u.Name).ToList();
-
             AppUsers = appUsers;
             _users = users;
 

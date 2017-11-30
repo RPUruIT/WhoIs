@@ -67,7 +67,11 @@ namespace WhoIs.Managers
             return _appUser;
         }
 
-
+        public async Task<string> GetLoggedAppUserExternalId()
+        {
+            await Task.Delay(1);
+            return _appUser.ExternalId;
+        }
 
     }
 }

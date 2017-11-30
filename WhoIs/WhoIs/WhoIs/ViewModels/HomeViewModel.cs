@@ -9,6 +9,7 @@ using WhoIs.Models;
 using WhoIs.Services.Interface;
 using Xamarin.Forms;
 using Unity;
+using System.Collections.ObjectModel;
 
 namespace WhoIs.ViewModels
 {
@@ -41,8 +42,8 @@ namespace WhoIs.ViewModels
         private IUserToHuntManager _userToHuntManager;
         private IAppUserManager _appUserManager;
 
-        private List<UserToHunt> _usersToHunt;
-        public List<UserToHunt> UsersToHunt
+        private ObservableCollection<UserToHunt> _usersToHunt;
+        public ObservableCollection<UserToHunt> UsersToHunt
         {
             get { return _usersToHunt; }
             set { SetPropertyValue(ref _usersToHunt, value); }
@@ -62,7 +63,12 @@ namespace WhoIs.ViewModels
             try
             {
                 await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
-                UsersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+                List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+
+                UsersToHunt = new ObservableCollection<UserToHunt>();
+                foreach(UserToHunt user in usersToHunt)
+                    UsersToHunt.Add(user);
+
                 TotalUsersToHunt = await _userToHuntManager.GetCountUsersToHunt();
                 CountUsersHunted = await _userToHuntManager.GetCountUsersHunted();
             }
@@ -75,9 +81,18 @@ namespace WhoIs.ViewModels
 
         public void UserToHuntSelected(UserToHunt userToHunt)
         {
-            if (userToHunt.HasImage())
+            if (!userToHunt.HasImage())
             {
+                IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
+                string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId().GetAwaiter().GetResult();
+                pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
 
+                MessagingCenter.Subscribe<IPictureTaker, string>(this, "pictureTaken",
+                                                                (s, arg) =>
+                                                                {
+                                                                    
+                                                                    //userToHunt.ImgPath = arg;
+                                                                });
             }
             else
             {

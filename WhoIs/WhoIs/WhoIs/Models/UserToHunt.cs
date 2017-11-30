@@ -38,7 +38,7 @@ namespace WhoIs.Models
         private string _imgPath;
         public string ImgPath
         {
-            get { return "ic_default_image.png"; }
+            get { return _imgPath; }
             set { _imgPath = value; }
         }
 
