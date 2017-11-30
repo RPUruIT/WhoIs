@@ -27,10 +27,8 @@ namespace WhoIs.Managers
         }
 
         /// <summary>
-        ///  This method set UsersToHunt and UsersHunted and return the list of users to hunt
+        ///  This method set _usersToHunt and _usersHunted and return the list of users to hunt
         /// </summary>
-        /// <param name="users"></param>
-        /// <returns></returns>
         public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users)
         {
             List<UserToHunt> usersToHunt = null;

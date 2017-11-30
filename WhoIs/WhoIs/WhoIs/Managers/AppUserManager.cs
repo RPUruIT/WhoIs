@@ -17,6 +17,8 @@ namespace WhoIs.Managers
         IAppUserRepository _appUserRepository;
         IUserManager _userManager;
 
+        private AppUser _appUser;
+
         public AppUserManager(IAppUserRepository appUserRepository,IUserManager userManager)   
         {
             _appUserRepository = appUserRepository;
@@ -43,25 +45,29 @@ namespace WhoIs.Managers
             return appUsers;
         }
 
-        public async Task<AppUser> GetLoggedAppUser()
-        {
-            AppUser appUser = await _appUserRepository.GetLoggedUser();
-
-            return appUser;
-        }
-
         public async Task EnterToApplication(AppUser appUser)
         {
             await _appUserRepository.SaveAppUser(appUser);
-            await SetLoggedUser(appUser);
+            _appUser = appUser;
         }
 
-        public async Task SetLoggedUser(AppUser user)
+        public async Task<bool> IsUserLogged()
         {
-            await Task.Delay(1);
-            App.AppUser = user;
+            return _appUser != null || await _appUserRepository.IsUserLogged();
         }
 
-        
+        public async Task<AppUser> GetAndSetLoggedAppUser()
+        {
+            if (_appUser == null)
+            {
+                AppUser appUser = await _appUserRepository.GetLoggedUser();
+                _appUser = appUser;
+            }
+
+            return _appUser;
+        }
+
+
+
     }
 }

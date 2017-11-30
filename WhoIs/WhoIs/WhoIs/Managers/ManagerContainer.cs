@@ -17,7 +17,8 @@ namespace WhoIs.Managers
             container.RegisterType<IUserManager, UserManager>(new ContainerControlledLifetimeManager());
 
             container.RegisterSingleton<IUserToHuntManager, UserToHuntManager>();
-            container.RegisterType<IAppUserManager, AppUserManager>(new ContainerControlledLifetimeManager());
+            container.RegisterSingleton<IAppUserManager, AppUserManager>();
+            
         }
     }
 }

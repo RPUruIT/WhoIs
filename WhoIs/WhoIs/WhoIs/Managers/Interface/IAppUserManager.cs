@@ -12,9 +12,9 @@ namespace WhoIs.Managers.Interface
         Task<List<AppUser>> GetSpecificUsersFromService();
         Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users);
 
-        Task<AppUser> GetLoggedAppUser();
+        Task<AppUser> GetAndSetLoggedAppUser();
         Task EnterToApplication(AppUser appUser);
-        Task SetLoggedUser(AppUser user);
+        Task<bool> IsUserLogged();
 
     }
 }

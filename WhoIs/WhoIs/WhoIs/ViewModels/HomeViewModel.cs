@@ -39,6 +39,7 @@ namespace WhoIs.ViewModels
 
 
         private IUserToHuntManager _userToHuntManager;
+        private IAppUserManager _appUserManager;
 
         private List<UserToHunt> _usersToHunt;
         public List<UserToHunt> UsersToHunt
@@ -49,9 +50,10 @@ namespace WhoIs.ViewModels
 
         public ICommand UserToHuntSelectedCommand { get; set; }
 
-        public HomeViewModel(IUserToHuntManager userToHuntManager)
+        public HomeViewModel(IUserToHuntManager userToHuntManager, IAppUserManager appUserManager)
         {
             _userToHuntManager = userToHuntManager;
+            _appUserManager = appUserManager;
             UserToHuntSelectedCommand = new Command<UserToHunt>(UserToHuntSelected);
         }
 

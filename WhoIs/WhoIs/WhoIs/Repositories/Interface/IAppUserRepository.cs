@@ -9,8 +9,11 @@ namespace WhoIs.Repositories.Interface
 {
     public interface IAppUserRepository
     {
+       
+        Task SaveAppUser(AppUser appUser);
+
         Task<AppUser> GetLoggedUser();
 
-        Task SaveAppUser(AppUser appUser);
+        Task<bool> IsUserLogged();
     }
 }

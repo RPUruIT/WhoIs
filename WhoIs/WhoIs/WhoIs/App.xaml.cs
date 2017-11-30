@@ -12,8 +12,6 @@ namespace WhoIs
 {
     public partial class App : Application
     {
-        public static AppUser AppUser;
-
         public App()
         {
             InitializeComponent();

@@ -31,6 +31,11 @@ namespace WhoIs.Repositories
             return appUser;
         }
 
+        public async Task<bool> IsUserLogged()
+        {
+            return await _database.GetCount() > 0;
+        }
+
         public async Task SaveAppUser(AppUser appUser)
         {
             await _database.Insert(appUser);
