@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.HomeView"
-             xmlns:behaviors="clr-namespace:WhoIs.Behaviors"
              xmlns:converters="clr-namespace:WhoIs.Converters"
              xmlns:customcomponents="clr-namespace:WhoIs.CustomComponents">
 
@@ -25,7 +24,6 @@
                 <Setter Property="HorizontalOptions" Value="Center"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
-            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter"/>
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -48,7 +46,7 @@
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
-                                    ImageSource="{Binding ImgPath}"
+                                    ImageSource="{Binding ImgThumbnailPath}"
                                     >
                         </ImageCell>
 

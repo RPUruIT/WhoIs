@@ -10,7 +10,8 @@ using Xamarin.Media;
 using Xamarin.Forms;
 using Android.Media;
 using Android.Graphics;
-using System.IO;
+using Java.IO;
+using System.Threading.Tasks;
 
 [assembly: Dependency(typeof(WhoIs.Droid.MainActivity))]
 namespace WhoIs.Droid
@@ -58,20 +59,43 @@ namespace WhoIs.Droid
                 return;
 
             var mediaFile = await data.GetMediaFileExtraAsync(Forms.Context);
-            //try
-            //{
-            //    Bitmap bitmap = Bitmap.CreateBitmap(64, 64, Bitmap.Config.Argb8888);
 
-            //    await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 1, mediaFile.GetStream());
+            string imageFile = mediaFile.Path;
 
-            //    await ThumbnailUtils.ExtractThumbnailAsync(bitmap, 64, 64);
-            //}
-            //catch (Exception ex)
-            //{
+            string thumbnailImageFile = await resizeImage(imageFile);
 
-            //}
-            MessagingCenter.Send<IPictureTaker, string>(this, "pictureTaken", mediaFile.Path);
+            string[] imgFiles = { imageFile, thumbnailImageFile };
+
+            MessagingCenter.Send<IPictureTaker, string[]>(this, "pictureTaken", imgFiles);
+
         }
+
+        private async Task<string> resizeImage(string filePath) {
+
+            int width = 64;
+            int height = 64;
+
+            int lastIndex = filePath.LastIndexOf('.');
+            string name = filePath.Substring(0, lastIndex);
+            string extension = filePath.Substring(lastIndex + 1);
+
+            string thumbnailImageFile = name + width+"x"+ height+"."+ extension;
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.InPreferredConfig = Bitmap.Config.Argb8888;
+            Bitmap bitmap = await BitmapFactory.DecodeFileAsync(filePath, options);
+            bitmap = await ThumbnailUtils.ExtractThumbnailAsync(bitmap, width, height);
+
+            using (var os = new System.IO.FileStream(thumbnailImageFile, System.IO.FileMode.Create))
+            {
+                await bitmap.CompressAsync(Bitmap.CompressFormat.Png, 100, os);
+            }
+            
+
+            return thumbnailImageFile;
+        }
+
+
     }
 }
 

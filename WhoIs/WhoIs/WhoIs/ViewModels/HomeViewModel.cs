@@ -94,11 +94,15 @@ namespace WhoIs.ViewModels
                 string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
                 pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
 
-                MessagingCenter.Subscribe<IPictureTaker, string>(this, "pictureTaken",
-                                                                (s, arg) =>
+                MessagingCenter.Subscribe<IPictureTaker, string[]>(this, "pictureTaken",
+                                                                (s, imageFiles) =>
                                                                 {
-                                                                    //userToHunt.ImgPath = arg;
+                                                                    userToHunt.ImgPath = imageFiles[0];
+                                                                    userToHunt.ImgThumbnailPath = imageFiles[1];
+                                                                    userToHunt.HunterId = appUserExternalId;
+                                                                    _userToHuntManager.HuntUser(userToHunt);
                                                                 });
+                
             }
             else
             {

@@ -16,14 +16,16 @@ namespace WhoIs.Managers
 
         private IUserToHuntRepository _userHuntedRepository;
         private IUserManager _userManager;
+        private IAppUserManager _appUserManager;
 
         private int _usersToHunt;
         private int _usersHunted;
 
-        public UserToHuntManager(IUserToHuntRepository userToHuntRepository, IUserManager userManager)
+        public UserToHuntManager(IUserToHuntRepository userToHuntRepository, IUserManager userManager, IAppUserManager appUserManager)
         {
             _userHuntedRepository = userToHuntRepository;
             _userManager = userManager;
+            _appUserManager = appUserManager;
         }
 
         /// <summary>
@@ -60,6 +62,10 @@ namespace WhoIs.Managers
             return _usersHunted;
         }
 
+        public async Task HuntUser(UserToHunt userToHunt)
+        {
+            await _userHuntedRepository.HuntUser(userToHunt);
+        }
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromService()
         {
@@ -84,17 +90,20 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetHuntedUsers()
         {
-            return await _userHuntedRepository.GetHuntedUsers();
+            string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
+            return await _userHuntedRepository.GetHuntedUsers(appUserExternalId);
         }
 
         private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
-            usersToHunt.RemoveAll(u => usersHunted.Contains(u));
-            usersHunted.AddRange(usersToHunt);
+            List<UserToHunt> allUsersToHunt = usersHunted;
 
-            return usersToHunt;
+            usersToHunt.RemoveAll(u => allUsersToHunt.Contains(u));
+            allUsersToHunt.AddRange(usersToHunt);
+
+            return allUsersToHunt;
         }
 
-
+       
     }
 }

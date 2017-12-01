@@ -38,11 +38,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Behaviors\BehaviorBase.cs" />
-    <Compile Include="Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Configs\Constants.cs" />
     <Compile Include="Converters\HuntIndicatorColorConverter.cs" />
-    <Compile Include="Converters\SelectedItemEventArgsToSelectedItemConverter.cs" />
     <Compile Include="CustomComponents\CustomListView.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Helper\PhotoResizer.cs" />

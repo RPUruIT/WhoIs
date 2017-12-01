@@ -18,8 +18,12 @@ namespace WhoIs.iOS
             var picker = new MediaPicker();
             
             var mediaFile = await picker.PickPhotoAsync();
+            string imageFile = mediaFile.Path;
 
-            MessagingCenter.Send<IPictureTaker, string>(this, "pictureTaken", mediaFile.Path);
+            string thumbnailImageFile = "";//TODO implement resize for iOS
+
+            string[] imgFiles = { imageFile, thumbnailImageFile };
+            MessagingCenter.Send<IPictureTaker, string[]>(this, "pictureTaken", imgFiles);
         }
     }
 }

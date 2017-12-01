@@ -18,14 +18,22 @@ namespace WhoIs.Repositories
             _database = database;
         }
 
-        public async Task<List<UserToHunt>> GetHuntedUsers()
+        public async Task<List<UserToHunt>> GetHuntedUsers(string appUserExternalId)
         {
-            return await _database.GetAll();
+            List<UserToHunt> usersToHunt = await _database.GetAll();
+            List<UserToHunt> usersToHuntFilterd = usersToHunt.
+                                                Where(u => u.HunterId.Equals(appUserExternalId)).ToList();
+            return usersToHuntFilterd;
         }
 
         public async Task<int> GetCountUsersHunted()
         {
             return await _database.GetCount();
+        }
+
+        public async Task<int> HuntUser(UserToHunt userToHunt)
+        {
+            return await _database.InsertOrReplace(userToHunt);
         }
     }
 }

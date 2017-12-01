@@ -13,5 +13,6 @@ namespace WhoIs.Managers.Interface
         Task<List<UserToHunt>> GetUsersToHunt(List<User> users);
         Task<int> GetCountUsersToHunt();
         Task<int> GetCountUsersHunted();
+        Task HuntUser(UserToHunt userToHunt);
     }
 }

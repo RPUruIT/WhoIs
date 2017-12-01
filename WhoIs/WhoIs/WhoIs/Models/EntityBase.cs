@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace WhoIs.Models
     {
         private int _id;
 
+        [AutoIncrement]
+        [PrimaryKey]
         [JsonIgnore]
         public int Id
         {

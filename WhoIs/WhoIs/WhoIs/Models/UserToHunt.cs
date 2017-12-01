@@ -42,6 +42,15 @@ namespace WhoIs.Models
             set { _imgPath = value; }
         }
 
+        private string _imgThumbnailPath;
+
+        public string ImgThumbnailPath
+        {
+            get { return _imgThumbnailPath; }
+            set { _imgThumbnailPath = value; }
+        }
+
+
         private string _comments;
         public string Comments
         {
