@@ -10,6 +10,7 @@ using Xamarin.Media;
 using Xamarin.Forms;
 using Android.Media;
 using Android.Graphics;
+using System.IO;
 
 [assembly: Dependency(typeof(WhoIs.Droid.MainActivity))]
 namespace WhoIs.Droid
@@ -57,14 +58,15 @@ namespace WhoIs.Droid
                 return;
 
             var mediaFile = await data.GetMediaFileExtraAsync(Forms.Context);
-            //try { 
-            //Bitmap bitmap = Bitmap.CreateBitmap(64, 64, Bitmap.Config.Argb8888);
+            //try
+            //{
+            //    Bitmap bitmap = Bitmap.CreateBitmap(64, 64, Bitmap.Config.Argb8888);
 
-            //await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 1, mediaFile.GetStream());
+            //    await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 1, mediaFile.GetStream());
 
-            //await ThumbnailUtils.ExtractThumbnailAsync(bitmap,64,64);
+            //    await ThumbnailUtils.ExtractThumbnailAsync(bitmap, 64, 64);
             //}
-            //catch(Exception ex)
+            //catch (Exception ex)
             //{
 
             //}

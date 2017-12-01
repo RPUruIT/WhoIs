@@ -10,6 +10,8 @@ using WhoIs.Services.Interface;
 using Xamarin.Forms;
 using Unity;
 using System.Collections.ObjectModel;
+using System.IO;
+using WhoIs.Helper;
 
 namespace WhoIs.ViewModels
 {
@@ -38,7 +40,6 @@ namespace WhoIs.ViewModels
             set { _countUsersHunted = value; HuntIndicator = ""; }
         }
 
-
         private IUserToHuntManager _userToHuntManager;
         private IAppUserManager _appUserManager;
 
@@ -49,13 +50,19 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _usersToHunt, value); }
         }
 
-        public ICommand UserToHuntSelectedCommand { get; set; }
+
+        private UserToHunt _listSelectedItem;
+        public UserToHunt ListSelectedItem
+        {
+            get { return _listSelectedItem; }
+            set {if (value != null)
+                    UserToHuntSelected(value);}
+        }
 
         public HomeViewModel(IUserToHuntManager userToHuntManager, IAppUserManager appUserManager)
         {
             _userToHuntManager = userToHuntManager;
             _appUserManager = appUserManager;
-            UserToHuntSelectedCommand = new Command<UserToHunt>(UserToHuntSelected);
         }
 
         public override async Task InitializeAsync(object navigationData)
@@ -79,18 +86,17 @@ namespace WhoIs.ViewModels
 
         }
 
-        public void UserToHuntSelected(UserToHunt userToHunt)
+        public async void UserToHuntSelected(UserToHunt userToHunt)
         {
             if (!userToHunt.HasImage())
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
-                string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId().GetAwaiter().GetResult();
+                string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
                 pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
 
                 MessagingCenter.Subscribe<IPictureTaker, string>(this, "pictureTaken",
                                                                 (s, arg) =>
                                                                 {
-                                                                    
                                                                     //userToHunt.ImgPath = arg;
                                                                 });
             }
@@ -99,6 +105,7 @@ namespace WhoIs.ViewModels
 
             }
         }
+
     
-}
+    }
 }

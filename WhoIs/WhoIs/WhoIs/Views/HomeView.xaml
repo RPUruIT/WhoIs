@@ -40,13 +40,8 @@
                 <Label Grid.Column="1" Text="{Binding HuntIndicator}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
             </Grid>
             <customcomponents:CustomListView 
-                ItemsSource="{Binding UsersToHunt}">
-                <customcomponents:CustomListView.Behaviors>
-                    <behaviors:EventToCommandBehavior
-                        EventName="ItemSelected"
-                        Command="{Binding UserToHuntSelectedCommand}"
-                        Converter="{StaticResource SelectedItemConverter}"/>
-                </customcomponents:CustomListView.Behaviors>
+                ItemsSource="{Binding UsersToHunt}"
+                SelectedItem="{Binding ListSelectedItem}">
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell  Text="{Binding Name}"
