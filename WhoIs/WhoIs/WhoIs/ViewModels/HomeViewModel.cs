@@ -102,7 +102,7 @@ namespace WhoIs.ViewModels
                     userToHunt.ImgPath = imageFiles[0];
                     userToHunt.ImgThumbnailPath = imageFiles[1];
                     userToHunt.HunterId = appUserExternalId;
-                    _userToHuntManager.HuntUser(_listSelectedItem);
+                    _userToHuntManager.HuntUser(userToHunt);
                     
                 });
 
