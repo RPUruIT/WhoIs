@@ -9,7 +9,7 @@ namespace WhoIs.Managers.Interface
 {
     public interface IUserManager
     { 
-        Task<IList<User>> GetUsersFromService();
+        Task<List<User>> GetUsersFromService();
 
     }
 }

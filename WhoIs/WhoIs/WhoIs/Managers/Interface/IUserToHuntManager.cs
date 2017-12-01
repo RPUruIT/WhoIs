@@ -9,7 +9,9 @@ namespace WhoIs.Managers.Interface
 {
     public interface IUserToHuntManager
     {
-        Task<IList<UserToHunt>> GetSpecificUsersFromService();
-        Task<IList<UserToHunt>> GetSpecificUsersFromUsers(IList<User> users);
+
+        Task<List<UserToHunt>> GetUsersToHunt(List<User> users);
+        Task<int> GetCountUsersToHunt();
+        Task<int> GetCountUsersHunted();
     }
 }

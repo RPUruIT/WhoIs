@@ -3,49 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using WhoIs.Services.Interface;
+using Xamarin.Forms;
+using Unity;
 
 namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        public string HomeTitle { get; } = "UruITers";
+
+        private string _huntIndicator;
+        public string HuntIndicator
+        {
+            get { return CountUsersHunted + "/" + TotalUsersToHunt; }
+            set { SetPropertyValue(ref _huntIndicator, value); }
+        }
+
+
+        private int _totalUsersToHunt;
+        public int TotalUsersToHunt
+        {
+            get { return _totalUsersToHunt; }
+            set {_totalUsersToHunt = value; HuntIndicator = "";}
+        }
+        private int _countUsersHunted;
+        public int CountUsersHunted
+        {
+            get { return _countUsersHunted; }
+            set { _countUsersHunted = value; HuntIndicator = ""; }
+        }
+
+
         private IUserToHuntManager _userToHuntManager;
-        
+        private IAppUserManager _appUserManager;
 
-        public string Title { get; } = "Who is?";
-
-        private IList<UserToHunt> _usersToHunt;
-        public IList<UserToHunt> UsersToHunt
+        private List<UserToHunt> _usersToHunt;
+        public List<UserToHunt> UsersToHunt
         {
             get { return _usersToHunt; }
             set { SetPropertyValue(ref _usersToHunt, value); }
         }
-        
 
-        public HomeViewModel(IUserToHuntManager userToHuntManager)
+        public ICommand UserToHuntSelectedCommand { get; set; }
+
+        public HomeViewModel(IUserToHuntManager userToHuntManager, IAppUserManager appUserManager)
         {
             _userToHuntManager = userToHuntManager;
+            _appUserManager = appUserManager;
+            UserToHuntSelectedCommand = new Command<UserToHunt>(UserToHuntSelected);
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
             try
             {
-                IList<UserToHunt> usersToHunt = null;
-                if (navigationData != null)
-                {
-                    IList<User> users = navigationData as IList<User>;
-                    usersToHunt = await _userToHuntManager.GetSpecificUsersFromUsers(users);
-                }
-                else
-                {
-                    usersToHunt = await _userToHuntManager.GetSpecificUsersFromService();
-                    
-                }
-
-                //UsersToHunt = usersToHunt;
+                await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
+                UsersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+                TotalUsersToHunt = await _userToHuntManager.GetCountUsersToHunt();
+                CountUsersHunted = await _userToHuntManager.GetCountUsersHunted();
             }
             catch(Exception ex)
             {
@@ -53,5 +72,11 @@ namespace WhoIs.ViewModels
             }
 
         }
-    }
+
+        public void UserToHuntSelected(UserToHunt userToHunt)
+        {
+           //TODO implement this
+        }
+    
+}
 }

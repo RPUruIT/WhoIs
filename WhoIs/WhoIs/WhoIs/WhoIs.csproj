@@ -38,7 +38,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Behaviors\BehaviorBase.cs" />
+    <Compile Include="Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Configs\Constants.cs" />
+    <Compile Include="Converters\HuntIndicatorColorConverter.cs" />
+    <Compile Include="Converters\SelectedItemEventArgsToSelectedItemConverter.cs" />
+    <Compile Include="CustomComponents\CustomListView.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Managers\AppUserManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
@@ -131,10 +136,7 @@
     <None Include="packages.config" />
     <None Include="Services\OfflineResponses\users.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Behaviors\" />
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Views\CustomNavigationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

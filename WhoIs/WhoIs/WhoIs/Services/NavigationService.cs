@@ -23,9 +23,10 @@ namespace WhoIs.Services
         {
             IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
 
-            AppUser appUser = await appUserManager.GetLoggedAppUser();
-            if (appUser != null)
+            bool isUserLoged = await appUserManager.IsUserLogged();
+            if (isUserLoged)
             {
+                
                 await NavigateToAsync<HomeViewModel>();
                 
             }

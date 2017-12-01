@@ -17,52 +17,57 @@ namespace WhoIs.Managers
         IAppUserRepository _appUserRepository;
         IUserManager _userManager;
 
+        private AppUser _appUser;
+
         public AppUserManager(IAppUserRepository appUserRepository,IUserManager userManager)   
         {
             _appUserRepository = appUserRepository;
             _userManager = userManager;
         }
 
-        public async Task<IList<AppUser>> GetSpecificUsersFromService()
+        public async Task<List<AppUser>> GetSpecificUsersFromService()
         {
-            IList<User> users = await _userManager.GetUsersFromService();
+            List<User> users = await _userManager.GetUsersFromService();
 
             return await GetSpecificUsersFromUsers(users);
         }
 
-        public async Task<IList<AppUser>> GetSpecificUsersFromUsers(IList<User> users)
+        public async Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users)
         {
             await Task.Delay(1);
 
-            List<AppUser> appUsers = users.Where(u => !u.Deleted)
-                                                     .Select(u =>
-                                                             new AppUser()
-                                                             {
-                                                                 ExternalId =u.ExternalId,
-                                                                 Name=u.Name
-                                                             }).ToList();
+            List<AppUser> appUsers = users.Select(u =>
+                                                    new AppUser()
+                                                    {
+                                                        ExternalId =u.ExternalId,
+                                                        Name=u.Name
+                                                    }).ToList();
             return appUsers;
-        }
-
-        public async Task<AppUser> GetLoggedAppUser()
-        {
-            AppUser appUser = await _appUserRepository.GetLoggedUser();
-
-            return appUser;
         }
 
         public async Task EnterToApplication(AppUser appUser)
         {
             await _appUserRepository.SaveAppUser(appUser);
-            await SetLoggedUser(appUser);
+            _appUser = appUser;
         }
 
-        public async Task SetLoggedUser(AppUser user)
+        public async Task<bool> IsUserLogged()
         {
-            await Task.Delay(1);
-            App.AppUser = user;
+            return _appUser != null || await _appUserRepository.IsUserLogged();
         }
 
-        
+        public async Task<AppUser> GetAndSetLoggedAppUser()
+        {
+            if (_appUser == null)
+            {
+                AppUser appUser = await _appUserRepository.GetLoggedUser();
+                _appUser = appUser;
+            }
+
+            return _appUser;
+        }
+
+
+
     }
 }

@@ -18,10 +18,10 @@ namespace WhoIs.Managers
             _service = service;
         }
 
-        public async Task<IList<User>> GetUsersFromService()
+        public async Task<List<User>> GetUsersFromService()
         {
-            IList<User> users = await _service.GetUsers();
-
+            List<User> users = await _service.GetUsers();
+            users.RemoveAll(u => u.Deleted);
             return users;
         }
 

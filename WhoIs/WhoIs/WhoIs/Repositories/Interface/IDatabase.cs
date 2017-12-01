@@ -20,5 +20,7 @@ namespace WhoIs.Repositories.Interface
         Task<T> GetFirst();
 
         Task<T> GetById(Guid id);
+
+        Task<int> GetCount();
     }
 }

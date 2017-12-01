@@ -13,35 +13,87 @@ namespace WhoIs.Managers
 {
     public class UserToHuntManager:IUserToHuntManager
     {
-        IUserToHuntRepository _userHuntedRepository;
-        IUserManager _userManager;
 
-        public UserToHuntManager(IUserToHuntRepository userHuntedRepository, IUserManager userManager)
+        private IUserToHuntRepository _userHuntedRepository;
+        private IUserManager _userManager;
+
+        private int _usersToHunt;
+        private int _usersHunted;
+
+        public UserToHuntManager(IUserToHuntRepository userToHuntRepository, IUserManager userManager)
         {
-            _userHuntedRepository = userHuntedRepository;
+            _userHuntedRepository = userToHuntRepository;
             _userManager = userManager;
         }
 
-        public async Task<IList<UserToHunt>> GetSpecificUsersFromService()
+        /// <summary>
+        ///  This method set _usersToHunt and _usersHunted and return the list of users to hunt
+        /// </summary>
+        public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users)
         {
-            IList<User> users = await _userManager.GetUsersFromService();
+            List<UserToHunt> usersToHunt = null;
+
+            if (users != null)
+                usersToHunt = await this.GetSpecificUsersFromUsers(users);
+            else
+                usersToHunt = await this.GetSpecificUsersFromService();
+
+            List<UserToHunt> usersHunted = await this.GetHuntedUsers();
+
+            usersToHunt = MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
+
+            _usersToHunt = usersToHunt.Count;
+            _usersHunted = usersHunted.Count;
+
+            return usersToHunt;
+        }
+
+        public async Task<int> GetCountUsersToHunt()
+        {
+            await Task.Delay(1);
+            return _usersToHunt;
+        }
+
+        public async Task<int> GetCountUsersHunted()
+        {
+            await Task.Delay(1);
+            return _usersHunted;
+        }
+
+
+        private async Task<List<UserToHunt>> GetSpecificUsersFromService()
+        {
+            List<User> users = await _userManager.GetUsersFromService();
 
             return await GetSpecificUsersFromUsers(users);
         }
 
-        public async Task<IList<UserToHunt>> GetSpecificUsersFromUsers(IList<User> users)
+        private async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
         {
             await Task.Delay(1);
 
-            List<UserToHunt> appUsers = users.Where(u => !u.Deleted)
-                                                     .Select(u =>
-                                                             new UserToHunt() {
-                                                                 ExternalId = u.ExternalId,
-                                                                 Name = u.Name,
-                                                                 Email = u.Email,
+            List<UserToHunt> appUsers = users.Select(u =>
+                                                        new UserToHunt() {
+                                                            ExternalId = u.ExternalId,
+                                                            Name = u.Name,
+                                                            Email = u.Email,
                                                                  
-                                                             }).ToList();
+                                                        }).ToList();
             return appUsers;
+        }
+
+        private async Task<List<UserToHunt>> GetHuntedUsers()
+        {
+            return await _userHuntedRepository.GetHuntedUsers();
+        }
+
+        private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
+        {
+            usersToHunt.RemoveAll(u => usersHunted.Contains(u));
+            usersToHunt.OrderBy(u => u.Name);
+            usersHunted.AddRange(usersToHunt);
+
+            return usersToHunt;
         }
 
 

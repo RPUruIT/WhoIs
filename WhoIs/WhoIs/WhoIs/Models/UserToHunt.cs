@@ -38,7 +38,7 @@ namespace WhoIs.Models
         private string _imgPath;
         public string ImgPath
         {
-            get { return _imgPath; }
+            get { return "ic_default_image.png"; }
             set { _imgPath = value; }
         }
 
@@ -57,10 +57,27 @@ namespace WhoIs.Models
             set { _hunterId = value; }
         }
 
+        public bool HasImage()
+        {
+            return !String.IsNullOrEmpty(this.ImgPath);
+        }
+
         public override string ToString()
         {
             return this.Name;
         }
 
+        public override bool Equals(object obj)
+        {
+            UserToHunt userToCompare = obj as UserToHunt;
+            if (userToCompare==null)
+                return false;
+
+            return ExternalId.Equals(userToCompare.ExternalId);
+        }
+        public override int GetHashCode()
+        {
+            return this.ExternalId.GetHashCode();
+        }
     }
 }
