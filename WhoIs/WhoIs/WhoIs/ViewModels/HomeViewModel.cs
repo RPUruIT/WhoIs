@@ -31,7 +31,7 @@ namespace WhoIs.ViewModels
         public int TotalUsersToHunt
         {
             get { return _totalUsersToHunt; }
-            set {_totalUsersToHunt = value; HuntIndicator = "";}
+            set { _totalUsersToHunt = value; HuntIndicator = ""; }
         }
         private int _countUsersHunted;
         public int CountUsersHunted
@@ -55,15 +55,18 @@ namespace WhoIs.ViewModels
         public UserToHunt ListSelectedItem
         {
             get { return _listSelectedItem; }
-            set {if (value != null)
-                    UserToHuntSelected(value);}
+            set
+            {
+                if (value != null)
+                    UserToHuntSelected(value);
+            }
         }
 
         public HomeViewModel(IUserToHuntManager userToHuntManager, IAppUserManager appUserManager)
         {
             _userToHuntManager = userToHuntManager;
             _appUserManager = appUserManager;
-        }
+         }
 
         public override async Task InitializeAsync(object navigationData)
         {
@@ -73,13 +76,13 @@ namespace WhoIs.ViewModels
                 List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
 
                 UsersToHunt = new ObservableCollection<UserToHunt>();
-                foreach(UserToHunt user in usersToHunt)
+                foreach (UserToHunt user in usersToHunt)
                     UsersToHunt.Add(user);
 
                 TotalUsersToHunt = await _userToHuntManager.GetCountUsersToHunt();
                 CountUsersHunted = await _userToHuntManager.GetCountUsersHunted();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -92,17 +95,19 @@ namespace WhoIs.ViewModels
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
                 string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
+                
+                MessagingCenter.Subscribe<IPictureTaker, string[]>(this, "pictureTaken", (s, imageFiles) =>
+                {
+                    MessagingCenter.Unsubscribe<IPictureTaker, string[]>(this, "pictureTaken");
+                    userToHunt.ImgPath = imageFiles[0];
+                    userToHunt.ImgThumbnailPath = imageFiles[1];
+                    userToHunt.HunterId = appUserExternalId;
+                    _userToHuntManager.HuntUser(_listSelectedItem);
+                    
+                });
+
                 pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
 
-                MessagingCenter.Subscribe<IPictureTaker, string[]>(this, "pictureTaken",
-                                                                (s, imageFiles) =>
-                                                                {
-                                                                    userToHunt.ImgPath = imageFiles[0];
-                                                                    userToHunt.ImgThumbnailPath = imageFiles[1];
-                                                                    userToHunt.HunterId = appUserExternalId;
-                                                                    _userToHuntManager.HuntUser(userToHunt);
-                                                                });
-                
             }
             else
             {
@@ -110,6 +115,6 @@ namespace WhoIs.ViewModels
             }
         }
 
-    
+
     }
 }

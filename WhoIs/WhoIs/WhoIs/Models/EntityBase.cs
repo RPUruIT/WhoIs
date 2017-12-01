@@ -12,8 +12,7 @@ namespace WhoIs.Models
     {
         private int _id;
 
-        [AutoIncrement]
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         [JsonIgnore]
         public int Id
         {

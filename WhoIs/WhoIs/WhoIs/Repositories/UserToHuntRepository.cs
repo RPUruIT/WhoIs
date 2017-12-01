@@ -33,7 +33,7 @@ namespace WhoIs.Repositories
 
         public async Task<int> HuntUser(UserToHunt userToHunt)
         {
-            return await _database.InsertOrReplace(userToHunt);
+            return await _database.Insert(userToHunt);
         }
     }
 }
