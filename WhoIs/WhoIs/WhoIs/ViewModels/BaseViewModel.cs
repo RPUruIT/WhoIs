@@ -69,7 +69,7 @@ namespace WhoIs.ViewModels
 
         public virtual async Task InitializeAsync(object navigationData)
         {
-            
+            await Task.Delay(1);
         }
 
     }

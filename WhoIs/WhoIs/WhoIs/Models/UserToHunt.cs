@@ -10,6 +10,22 @@ namespace WhoIs.Models
 {
     public class UserToHunt : EntityBase
     {
+        public UserToHunt()
+        {
+
+        }
+
+        public UserToHunt(UserToHunt userToHunt)
+        {
+            this.Id = userToHunt.Id;
+            this.ExternalId = userToHunt.ExternalId;
+            this.Name = userToHunt.Name;
+            this.Email = userToHunt.Email;
+            this.ImgPath = userToHunt.ImgPath;
+            this.ImgThumbnailPath = userToHunt.ImgThumbnailPath;
+            this.Comments = userToHunt.Comments;
+            this.HunterId = userToHunt.HunterId;
+        }
 
         private string _externaId;
         [JsonProperty("_id")]
@@ -70,6 +86,7 @@ namespace WhoIs.Models
         {
             return !String.IsNullOrEmpty(this.ImgPath);
         }
+
 
         public override string ToString()
         {

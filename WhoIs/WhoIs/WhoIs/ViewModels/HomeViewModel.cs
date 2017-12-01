@@ -11,11 +11,19 @@ using Xamarin.Forms;
 using Unity;
 using System.Collections.ObjectModel;
 using System.IO;
+using WhoIs.ViewModels.Helper;
 
 namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        private string _appUserLogged;
+        public string AppUserLogged
+        {
+            get { return _appUserLogged; }
+            set { SetPropertyValue(ref _appUserLogged, value); }
+        }
+
         public string HomeTitle { get; } = "UruITers";
 
         private string _huntIndicator;
@@ -57,7 +65,9 @@ namespace WhoIs.ViewModels
         {
             try
             {
-                await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
+                AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
+                AppUserLogged = appUser.Name;
+
                 List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
 
                 UsersToHunt = new ObservableCollection<UserToHunt>();
@@ -90,11 +100,20 @@ namespace WhoIs.ViewModels
                 MessagingCenter.Subscribe<IPictureTaker, string[]>(this, "pictureTaken", async (s, imageFiles) =>
                 {
                     MessagingCenter.Unsubscribe<IPictureTaker, string[]>(this, "pictureTaken");
-                    userToHunt.ImgPath = imageFiles[0];
-                    userToHunt.ImgThumbnailPath = imageFiles[1];
-                    userToHunt.HunterId = appUserExternalId;
-                    await _userToHuntManager.HuntUser(userToHunt);
-                    await UpdateHuntIndicator();
+
+                    UserToHunt userToHuntToConfirm = new UserToHunt(userToHunt);
+                    userToHuntToConfirm.ImgPath = imageFiles[0];
+                    userToHuntToConfirm.ImgThumbnailPath = imageFiles[1];
+                    userToHuntToConfirm.HunterId = appUserExternalId;
+
+                    UserHuntedDetailsViewParameter param =
+                    new UserHuntedDetailsViewParameter() { UserToHunt = userToHuntToConfirm, SeeDetails = false };
+
+                    await _navigationService.NavigateToAsync<UserHuntedDetailsViewModel>(param);
+                    
+                    //TODO, JUST FOR TEST
+                    //await _userToHuntManager.HuntUser(userToHunt);
+                    //await UpdateHuntIndicator();
                 });
 
                 pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
