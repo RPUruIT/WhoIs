@@ -84,7 +84,7 @@ namespace WhoIs.Droid
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.InPreferredConfig = Bitmap.Config.Argb8888;
             Bitmap bitmap = await BitmapFactory.DecodeFileAsync(filePath, options);
-            bitmap = await ThumbnailUtils.ExtractThumbnailAsync(bitmap, width, height);
+            bitmap = await ThumbnailUtils.ExtractThumbnailAsync(bitmap, size, size);
 
             using (var os = new System.IO.FileStream(thumbnailImageFile, System.IO.FileMode.Create))
             {

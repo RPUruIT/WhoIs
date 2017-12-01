@@ -11,7 +11,6 @@ using Xamarin.Forms;
 using Unity;
 using System.Collections.ObjectModel;
 using System.IO;
-using WhoIs.Helper;
 
 namespace WhoIs.ViewModels
 {

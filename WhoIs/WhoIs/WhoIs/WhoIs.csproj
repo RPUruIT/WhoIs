@@ -42,7 +42,6 @@
     <Compile Include="Converters\HuntIndicatorColorConverter.cs" />
     <Compile Include="CustomComponents\CustomListView.cs" />
     <Compile Include="DependencyContainer.cs" />
-    <Compile Include="Helper\PhotoResizer.cs" />
     <Compile Include="IPictureTaker.cs" />
     <Compile Include="Managers\AppUserManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
