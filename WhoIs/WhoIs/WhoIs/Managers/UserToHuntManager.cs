@@ -42,10 +42,11 @@ namespace WhoIs.Managers
 
             List<UserToHunt> usersHunted = await this.GetHuntedUsers();
 
-            usersToHunt = MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
-
             _usersToHunt = usersToHunt.Count;
             _usersHunted = usersHunted.Count;
+
+            usersToHunt = MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
+       
 
             return usersToHunt;
         }
@@ -65,6 +66,7 @@ namespace WhoIs.Managers
         public async Task HuntUser(UserToHunt userToHunt)
         {
             await _userHuntedRepository.HuntUser(userToHunt);
+            _usersHunted++;
         }
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromService()
