@@ -12,6 +12,7 @@ using Android.Media;
 using Android.Graphics;
 using Java.IO;
 using System.Threading.Tasks;
+using WhoIs.Configs;
 
 [assembly: Dependency(typeof(WhoIs.Droid.MainActivity))]
 namespace WhoIs.Droid
@@ -72,14 +73,13 @@ namespace WhoIs.Droid
 
         private async Task<string> resizeImage(string filePath) {
 
-            int width = 64;
-            int height = 64;
+            int size = Constants.THUMBNAIL_SIZE;
 
             int lastIndex = filePath.LastIndexOf('.');
             string name = filePath.Substring(0, lastIndex);
             string extension = filePath.Substring(lastIndex + 1);
 
-            string thumbnailImageFile = name + width+"x"+ height+"."+ extension;
+            string thumbnailImageFile = name + size + "x"+ size + "."+ extension;
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.InPreferredConfig = Bitmap.Config.Argb8888;
