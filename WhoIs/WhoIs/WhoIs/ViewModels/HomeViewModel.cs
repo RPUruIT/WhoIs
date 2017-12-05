@@ -92,6 +92,7 @@ namespace WhoIs.ViewModels
 
         public async void UserToHuntSelected(UserToHunt userToHunt)
         {
+
             if (!userToHunt.HasImage())
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
@@ -110,10 +111,7 @@ namespace WhoIs.ViewModels
                     new UserHuntedDetailsViewParameter() { UserToHunt = userToHuntToConfirm, SeeDetails = false };
 
                     await _navigationService.NavigateToAsync<UserHuntedDetailsViewModel>(param);
-                    
-                    //TODO, JUST FOR TEST
-                    //await _userToHuntManager.HuntUser(userToHunt);
-                    //await UpdateHuntIndicator();
+                   
                 });
 
                 pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
@@ -121,7 +119,10 @@ namespace WhoIs.ViewModels
             }
             else
             {
+                UserHuntedDetailsViewParameter param =
+                   new UserHuntedDetailsViewParameter() { UserToHunt = userToHunt, SeeDetails = true };
 
+                await _navigationService.NavigateToAsync<UserHuntedDetailsViewModel>(param);
             }
         }
 

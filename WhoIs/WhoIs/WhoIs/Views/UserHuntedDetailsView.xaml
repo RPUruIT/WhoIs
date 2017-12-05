@@ -2,26 +2,56 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.UserHuntedDetailsView">
-    <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-                <Grid BackgroundColor="{StaticResource PrimaryColor}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Uruiter"></Label>
-                    <Label Grid.Column="1" Text="Pepito"></Label>
-                </Grid>
-                <Image Grid.Row="1" Source="{Binding UserHuntedImage}"></Image>
-                <Label Grid.Row="2" Text="Comentario" ></Label>
-                <Editor Grid.Row="2"></Editor>
-                <Button Grid.Row="3" Text="Confirmar"></Button>
-        </Grid>
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <Style x:Key="MainGrid" TargetType="Grid">
+                    <Setter Property="Padding" Value="10,0,10,10"></Setter>
+                </Style>
+                <Style x:Key="TitleWrapper"  TargetType="Label">
+                    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"></Setter>
+                    <Setter Property="Margin" Value="-10,0"></Setter>
+                </Style>
+                <Style x:Key="ViewTitle"  TargetType="Label">
+                    <Setter Property="FontSize" Value="25"></Setter>
+                    <Setter Property="FontFamily" Value="{StaticResource Pacifico-Regular}"></Setter>
+                    <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
+                    <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                </Style>
+                <Style x:Key="CommentsWrapper"  TargetType="StackLayout">
+                    <Setter Property="VerticalOptions" Value="Fill"></Setter>
+                </Style>
+                <Style x:Key="CommentsLbl"  TargetType="Label">
+                    <Setter Property="FontSize" Value="20"></Setter>
+                    <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
+                </Style>
+                <Style x:Key="CommentsEditor"  TargetType="Editor">
+                    <Setter Property="FontSize" Value="20"></Setter>
+                    <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"></Setter>
+                    <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                    <Setter Property="IsEnabled" Value="{Binding EnableComments}"></Setter>
+                </Style>
+        </ResourceDictionary>
+        </ContentPage.Resources>
+    
+        <ContentPage.Content>
+            <Grid Style="{StaticResource MainGrid}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Style="{StaticResource TitleWrapper}">
+                <Label Style="{StaticResource ViewTitle}" Text="{Binding UserHunted.Name}"></Label>
+                </StackLayout>
+                <ScrollView Grid.Row="1">
+                <Image Source="{Binding UserHunted.ImgPath}"></Image>
+                </ScrollView>
+                <StackLayout Grid.Row="2" Style="{StaticResource CommentsWrapper}">
+                    <Label  Style="{StaticResource CommentsLbl}" Text="{Binding Comments}"></Label>
+                    <Editor Text="{Binding UserHunted.Comments, Mode=TwoWay}" Style="{StaticResource CommentsEditor}"></Editor>
+                </StackLayout>
+                <Button Grid.Row="3" Text="{Binding Confirm}" IsVisible="{Binding ShowConfirmButton}" Command="{Binding CmdConfirm}"></Button>
+            </Grid>
     </ContentPage.Content>
 </ContentPage>
