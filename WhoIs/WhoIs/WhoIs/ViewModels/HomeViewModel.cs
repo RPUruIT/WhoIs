@@ -12,6 +12,7 @@ using Unity;
 using System.Collections.ObjectModel;
 using System.IO;
 using WhoIs.ViewModels.Helper;
+using WhoIs.Configs;
 
 namespace WhoIs.ViewModels
 {
@@ -103,20 +104,10 @@ namespace WhoIs.ViewModels
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
                 string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
                 
-                MessagingCenter.Subscribe<IPictureTaker, string[]>(this, "pictureTaken", async (s, imageFiles) =>
+                MessagingCenter.Subscribe<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, async (s, imageFiles) =>
                 {
-                    MessagingCenter.Unsubscribe<IPictureTaker, string[]>(this, "pictureTaken");
+                    await PictureTakenCompleted(appUserExternalId,userToHunt,imageFiles);
 
-                    UserToHunt userToHuntToConfirm = new UserToHunt(userToHunt);
-                    userToHuntToConfirm.ImgPath = imageFiles[0];
-                    userToHuntToConfirm.ImgThumbnailPath = imageFiles[1];
-                    userToHuntToConfirm.HunterId = appUserExternalId;
-
-                    UserHuntedDetailsViewParameter param =
-                    new UserHuntedDetailsViewParameter() { UserToHunt = userToHuntToConfirm, SeeDetails = false };
-
-                    await _navigationService.NavigateToAsync<UserHuntedDetailsViewModel>(param);
-                   
                 });
 
                 pictureTake.SnapPic(appUserExternalId, userToHunt.Name);
@@ -124,11 +115,27 @@ namespace WhoIs.ViewModels
             }
             else
             {
-                UserHuntedDetailsViewParameter param =
-                   new UserHuntedDetailsViewParameter() { UserToHunt = userToHunt, SeeDetails = true };
-
-                await _navigationService.NavigateToAsync<UserHuntedDetailsViewModel>(param);
+                await NavigateToDetails(userToHunt, true);
             }
+        }
+
+        private async Task PictureTakenCompleted(string appUserExternalId,UserToHunt userToHunt, string[] imageFiles)
+        {
+            MessagingCenter.Unsubscribe<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME);
+
+            UserToHunt userToHuntToConfirm = new UserToHunt(userToHunt);
+            userToHuntToConfirm.ImgPath = imageFiles[0];
+            userToHuntToConfirm.ImgThumbnailPath = imageFiles[1];
+            userToHuntToConfirm.HunterId = appUserExternalId;
+
+            await NavigateToDetails(userToHuntToConfirm, false);
+        }
+
+        private async Task NavigateToDetails(UserToHunt userToHunt, bool seeDetails)
+        {
+            UserHuntedDetailsViewParameter param =
+                  new UserHuntedDetailsViewParameter() { UserToHunt = userToHunt, SeeDetails = seeDetails };
+            await _navigationService.NavigateToAsync<UserHuntedDetailsViewModel>(param);
         }
 
 

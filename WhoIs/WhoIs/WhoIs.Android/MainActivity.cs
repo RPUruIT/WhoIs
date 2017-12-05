@@ -67,7 +67,7 @@ namespace WhoIs.Droid
 
             string[] imgFiles = { imageFile, thumbnailImageFile };
 
-            MessagingCenter.Send<IPictureTaker, string[]>(this, "pictureTaken", imgFiles);
+            MessagingCenter.Send<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, imgFiles);
 
         }
 

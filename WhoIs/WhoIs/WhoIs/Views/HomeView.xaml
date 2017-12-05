@@ -26,6 +26,7 @@
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
+            <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -47,7 +48,7 @@
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
-                                    ImageSource="{Binding ImgThumbnailPath}"
+                                    ImageSource="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"
                                     >
                         </ImageCell>
 
