@@ -18,6 +18,10 @@ namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+
+        private IUserToHuntManager _userToHuntManager;
+        private IAppUserManager _appUserManager;
+
         private string _appUserLogged;
         public string AppUserLogged
         {
@@ -25,6 +29,7 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _appUserLogged, value); }
         }
 
+        public string LogoutIcon { get; } = ResourcesName.IMG_LOGOUT;
         public string HomeTitle { get; } = "UruITers";
 
         private string _huntIndicator;
@@ -34,8 +39,12 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _huntIndicator, value); }
         }
 
-        private IUserToHuntManager _userToHuntManager;
-        private IAppUserManager _appUserManager;
+        private ICommand _cmdLogout;
+        public ICommand CmdLogout
+        {
+            get { return _cmdLogout; }
+            set { SetPropertyValue(ref _cmdLogout, value); }
+        }
 
         private ObservableCollection<UserToHunt> _usersToHunt;
         public ObservableCollection<UserToHunt> UsersToHunt
@@ -43,7 +52,6 @@ namespace WhoIs.ViewModels
             get { return _usersToHunt; }
             set { SetPropertyValue(ref _usersToHunt, value); }
         }
-
 
         private UserToHunt _listSelectedItem;
         public UserToHunt ListSelectedItem
@@ -66,6 +74,8 @@ namespace WhoIs.ViewModels
         {
             try
             {
+                CmdLogout = new Command(async () => await Logout());
+
                 AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
                 AppUserLogged = appUser.Name;
 
@@ -75,6 +85,12 @@ namespace WhoIs.ViewModels
             {
 
             }
+
+        }
+        
+        public async Task Logout()
+        {
+            await Task.Delay(1);
 
         }
 

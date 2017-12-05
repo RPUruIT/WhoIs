@@ -15,6 +15,8 @@ namespace WhoIs.Repositories.Interface
 
         Task<int> Delete(T entity);
 
+        Task<int> DeleteAll();
+
         Task<T> Update(T item);
 
         Task<List<T>> GetAll();

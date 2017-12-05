@@ -33,6 +33,9 @@
             <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="{Binding LogoutIcon}" Command="{Binding CmdLogout}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Grid BackgroundColor="{StaticResource PrimaryColor}">

@@ -51,6 +51,11 @@ namespace WhoIs.Managers
             _appUser = appUser;
         }
 
+        public async Task LogoutFromApplication()
+        {
+            await _appUserRepository.DeleteAppUser();
+        }
+
         public async Task<bool> IsUserLogged()
         {
             return _appUser != null || await _appUserRepository.IsUserLogged();
