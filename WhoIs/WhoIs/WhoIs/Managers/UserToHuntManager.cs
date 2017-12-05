@@ -31,7 +31,7 @@ namespace WhoIs.Managers
         /// <summary>
         ///  This method set _usersToHunt and _usersHunted and return the list of users to hunt
         /// </summary>
-        public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users)
+        public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users=null)
         {
             List<UserToHunt> usersToHunt = null;
 
@@ -98,7 +98,7 @@ namespace WhoIs.Managers
 
         private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
-            List<UserToHunt> allUsersToHunt = usersHunted;
+            List<UserToHunt> allUsersToHunt = usersHunted.OrderBy(u=>u.Name).ToList();
 
             usersToHunt.RemoveAll(u => allUsersToHunt.Contains(u));
             allUsersToHunt.AddRange(usersToHunt);

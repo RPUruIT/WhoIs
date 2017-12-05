@@ -68,19 +68,24 @@ namespace WhoIs.ViewModels
                 AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
                 AppUserLogged = appUser.Name;
 
-                List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
-
-                UsersToHunt = new ObservableCollection<UserToHunt>();
-                foreach (UserToHunt user in usersToHunt)
-                    UsersToHunt.Add(user);
-
-                await UpdateHuntIndicator();
+                await Refresh();
             }
             catch (Exception ex)
             {
 
             }
 
+        }
+
+        public override async Task Refresh()
+        {
+            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt();
+
+            UsersToHunt = new ObservableCollection<UserToHunt>();
+            foreach (UserToHunt user in usersToHunt)
+                UsersToHunt.Add(user);
+
+            await UpdateHuntIndicator();
         }
 
         private async Task UpdateHuntIndicator()

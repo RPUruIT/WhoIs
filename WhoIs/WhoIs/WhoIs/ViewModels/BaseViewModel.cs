@@ -72,5 +72,9 @@ namespace WhoIs.ViewModels
             await Task.Delay(1);
         }
 
+        public virtual async Task Refresh()
+        {
+            await Task.Delay(1);
+        }
     }
 }

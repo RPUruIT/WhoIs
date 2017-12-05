@@ -72,7 +72,7 @@ namespace WhoIs.ViewModels
         public async Task ConfirmUserHunted()
         {
             await _userToHuntManager.HuntUser(_userHunted);
-            await _navigationService.RemoveBackStackAsync();
+            await _navigationService.PopAsync();
         }
     }
 }
