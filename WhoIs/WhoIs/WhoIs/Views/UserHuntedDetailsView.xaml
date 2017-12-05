@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:WhoIs.Converters"
              x:Class="WhoIs.Views.UserHuntedDetailsView">
         <ContentPage.Resources>
             <ResourceDictionary>
@@ -24,17 +25,17 @@
                     <Setter Property="FontSize" Value="20"></Setter>
                     <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
                 </Style>
-                <Style x:Key="CommentsEditor"  TargetType="Editor">
-                    <Setter Property="FontSize" Value="20"></Setter>
-                    <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"></Setter>
-                    <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
-                    <Setter Property="IsEnabled" Value="{Binding EnableComments}"></Setter>
-                </Style>
+            <Style x:Key="CommentsEditor"  TargetType="Editor">
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"></Setter>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="IsEnabled" Value="{Binding EnableComments}"></Setter>
+            </Style>
         </ResourceDictionary>
         </ContentPage.Resources>
     
         <ContentPage.Content>
-            <Grid Style="{StaticResource MainGrid}">
+        <Grid Style="{StaticResource MainGrid}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
@@ -53,5 +54,5 @@
                 </StackLayout>
                 <Button Grid.Row="3" Text="{Binding Confirm}" IsVisible="{Binding ShowConfirmButton}" Command="{Binding CmdConfirm}"></Button>
             </Grid>
-    </ContentPage.Content>
+        </ContentPage.Content>
 </ContentPage>

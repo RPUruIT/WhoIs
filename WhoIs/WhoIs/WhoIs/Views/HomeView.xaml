@@ -25,6 +25,10 @@
                 <Setter Property="HorizontalOptions" Value="Center"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
+            <Style  TargetType="ActivityIndicator">
+                <Setter Property="WidthRequest" Value="30"></Setter>
+                <Setter Property="HeightRequest" Value="30"></Setter>
+            </Style>
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
             <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
         </ResourceDictionary>
@@ -37,6 +41,8 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
+
+                <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
                 <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
             </Grid>
             <customcomponents:CustomListView 

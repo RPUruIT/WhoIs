@@ -60,7 +60,7 @@ namespace WhoIs.ViewModels
         {
             _userToHuntManager = userToHuntManager;
             _appUserManager = appUserManager;
-         }
+        }
 
         public override async Task InitializeAsync(object navigationData)
         {
@@ -80,6 +80,8 @@ namespace WhoIs.ViewModels
 
         public override async Task Refresh()
         {
+            IsLoading = true;
+
             List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt();
 
             UsersToHunt = new ObservableCollection<UserToHunt>();
@@ -87,6 +89,8 @@ namespace WhoIs.ViewModels
                 UsersToHunt.Add(user);
 
             await UpdateHuntIndicator();
+
+            IsLoading = false;
         }
 
         private async Task UpdateHuntIndicator()

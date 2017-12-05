@@ -61,7 +61,13 @@
                     <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
                     
                 </Style>
-
+                <Style TargetType="ActivityIndicator">
+                    <Setter Property="Color" Value="{StaticResource SecondaryColor}"></Setter>
+                    <Setter Property="VerticalOptions" Value="Center"></Setter>
+                    <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                    <Setter Property="WidthRequest" Value="50"></Setter>
+                    <Setter Property="HeightRequest" Value="50"></Setter>
+            </Style>
             <!--Generic Views FIN-->
 
             <!--Generic Styles INI-->

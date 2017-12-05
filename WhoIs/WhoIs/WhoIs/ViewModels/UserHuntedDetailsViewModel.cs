@@ -59,7 +59,6 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-            await Task.Delay(1);
             UserHuntedDetailsViewParameter param = navigationData as UserHuntedDetailsViewParameter;
             UserHunted = param.UserToHunt;
             SeeDetails = param.SeeDetails;
