@@ -2,18 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using Unity;
 using WhoIs;
 using WhoIs.Managers.Interface;
-using WhoIs.Models;
 
 namespace TestWhoIs.Manager
 {
     [TestClass]
-    public class AppUserManagerTest
+    public class UserManagerTest
     {
-        public AppUserManagerTest()
+        public UserManagerTest()
         {
             DependencyContainer.InitializeCore();
         }
@@ -27,6 +25,5 @@ namespace TestWhoIs.Manager
             Assert.IsTrue(usersCount.Equals(3));
 
         }
-
     }
 }

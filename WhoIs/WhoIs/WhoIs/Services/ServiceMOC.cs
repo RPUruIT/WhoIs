@@ -14,8 +14,14 @@ namespace WhoIs.Services
         public async Task<List<User>> GetUsers()
         {
             await Task.Delay(1);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(@"/OfflineResponses/users.json");
+            List<User> users = null;
+            try { 
+                users = JsonConvert.DeserializeObject<List<User>>("/OfflineResponses/users.json");
+            }
+            catch(Exception ex)
+            {
 
+            }
             return users;
         }
     }

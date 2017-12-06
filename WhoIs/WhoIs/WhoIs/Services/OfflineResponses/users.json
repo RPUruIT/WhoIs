@@ -14,21 +14,5 @@
     "mail": "iang.yim@uruit.com",
     "notifyPurchasesToAdmin": false,
     "deleted": false
-  },
-  {
-    "_id": "551952b252a9d05f87e79b28",
-    "name": "Matias Delgado",
-    "username": "matiasd@carrasco.uruit.com",
-    "mail": "matias.delgado@uruit.com",
-    "notifyPurchasesToAdmin": false,
-    "deleted": false
-  },
-  {
-    "_id": "551952b252a9d05f87e79b29",
-    "name": "Marcelo Martinez",
-    "username": "mmartinez@carrasco.uruit.com",
-    "mail": "marcelo.martinez@uruit.com",
-    "notifyPurchasesToAdmin": false,
-    "deleted": true
   }
 ]
