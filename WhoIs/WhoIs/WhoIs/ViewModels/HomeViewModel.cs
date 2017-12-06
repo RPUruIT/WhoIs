@@ -87,10 +87,20 @@ namespace WhoIs.ViewModels
             }
 
         }
-        
+
         public async Task Logout()
         {
             await Task.Delay(1);
+            bool accepted = await DisplayAlert(Constants.APP_NAME,
+                                "Está seguro que desea salir?",
+                                "Aceptar", "Cancelar");
+
+            if (accepted)
+            {
+                await _appUserManager.LogoutFromApplication();
+                await _navigationService.NavigateToAsync<LoginViewModel>();
+
+            }
 
         }
 

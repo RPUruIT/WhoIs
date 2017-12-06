@@ -28,6 +28,14 @@ namespace WhoIs.ViewModels
         protected bool _isEnabled;
         public bool IsEnabled { get { return _isEnabled; } set { SetPropertyValue(ref _isEnabled, value); } }
 
+        public delegate Task<bool> AlertDelegate(string title, string message, string accept, string cancel);
+        public AlertDelegate Alert { get; set; }
+        public async Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
+        {
+            return await Alert(title, message, accept, cancel);
+
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetPropertyValue<T>(ref T storageField, T newValue, Expression<Func<T>> propExpr)
         {

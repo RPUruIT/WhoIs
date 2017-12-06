@@ -36,11 +36,6 @@ namespace WhoIs.Repositories
             return await _database.DeleteAsync(entity);
         }
 
-        public async Task<int> DeleteAll()
-        {
-            
-        }
-
         public async Task<T> Update(T item)
         {
             var old = await GetFirst();

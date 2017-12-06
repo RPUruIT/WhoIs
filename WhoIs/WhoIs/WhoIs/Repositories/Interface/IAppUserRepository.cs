@@ -9,7 +9,7 @@ namespace WhoIs.Repositories.Interface
 {
     public interface IAppUserRepository
     {
-        Task DeleteAppUser();
+        Task DeleteAppUser(AppUser appUser);
 
         Task SaveAppUser(AppUser appUser);
 
