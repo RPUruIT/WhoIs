@@ -19,16 +19,7 @@ namespace WhoIs.Repositories
 
         public async Task<AppUser> GetLoggedUser()
         {
-            AppUser appUser = null;
-            try
-            {
-                appUser = await _database.GetFirst();
-
-            }
-            catch (Exception ex) {
-
-            }
-            return appUser;
+            return await _database.GetFirst();
         }
 
         public async Task<bool> IsUserLogged()

@@ -64,17 +64,11 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-            try
-            {
-                AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
-                AppUserLogged = appUser.Name;
 
-                await Refresh();
-            }
-            catch (Exception ex)
-            {
+            AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
+            AppUserLogged = appUser.Name;
 
-            }
+            await Refresh();
 
         }
 

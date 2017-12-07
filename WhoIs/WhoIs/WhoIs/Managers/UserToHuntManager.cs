@@ -63,7 +63,7 @@ namespace WhoIs.Managers
 
         public async Task HuntUser(UserToHunt userToHunt)
         {
-            await _userHuntedRepository.HuntUser(userToHunt);
+            await _userHuntedRepository.InsertHuntedUser(userToHunt);
             _usersHunted++;
         }
 
