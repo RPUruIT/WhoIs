@@ -34,7 +34,7 @@ namespace WhoIs.Droid
 
             ResolveDependencies();
 
-            FileHelper.CreatePicturesDirectory();
+            FileHelper.CreateFolderAtExternalStorage(Constants.APP_NAME);
 
             LoadApplication(new App());
         }
@@ -50,7 +50,7 @@ namespace WhoIs.Droid
             var activity = Forms.Context as Activity;
             name +=".jpg";
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            PicturesFiles._file = new File(FileHelper.GetFolderInsidePictureDirectory(folder), name);
+            PicturesFiles._file = new File(FileHelper.GetFolderInsideFolder(PicturesFiles._picturesDir,folder), name);
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(PicturesFiles._file));
             activity.StartActivityForResult(intent, 1);
 
@@ -63,7 +63,7 @@ namespace WhoIs.Droid
 
             string imageFile = PicturesFiles._file.Path;
 
-            string thumbnailImageFile = await ImageHelper.ResizeImage(imageFile);
+            string thumbnailImageFile = await ImageHelper.ResizeImage(imageFile, Constants.THUMBNAIL_SIZE);
 
             string[] imgFiles = { imageFile, thumbnailImageFile };
 

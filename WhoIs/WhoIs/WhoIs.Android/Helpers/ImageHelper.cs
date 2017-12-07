@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Threading.Tasks;
-using WhoIs.Configs;
 using Android.Graphics;
 using Android.Media;
 
@@ -18,11 +17,8 @@ namespace WhoIs.Droid.Helpers
 {
     public static class ImageHelper
     {
-        public static async Task<string> ResizeImage(string filePath)
+        public static async Task<string> ResizeImage(string filePath,int size)
         {
-
-            int size = Constants.THUMBNAIL_SIZE;
-
             int lastIndex = filePath.LastIndexOf('.');
             string name = filePath.Substring(0, lastIndex);
             string extension = filePath.Substring(lastIndex + 1);

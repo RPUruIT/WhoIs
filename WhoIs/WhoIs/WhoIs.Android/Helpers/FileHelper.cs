@@ -16,16 +16,16 @@ namespace WhoIs.Droid.Helpers
 {
     public static class FileHelper
     {
-        public static void CreatePicturesDirectory()
+        public static void CreateFolderAtExternalStorage(string folder)
         {
             PicturesFiles._picturesDir = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(
-                   Android.OS.Environment.DirectoryPictures), "WhoIS");
+                   Android.OS.Environment.DirectoryPictures), folder);
             CreateIfNotExist(PicturesFiles._picturesDir);
         }
 
-        public static File GetFolderInsidePictureDirectory(string folder)
+        public static File GetFolderInsideFolder(File parentFolder,string childFolder)
         {
-            File dir = new File(PicturesFiles._picturesDir, folder);
+            File dir = new File(parentFolder, childFolder);
             CreateIfNotExist(dir);
             return dir;
         }
