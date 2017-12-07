@@ -80,7 +80,6 @@ namespace WhoIs.ViewModels
 
         public async Task Logout()
         {
-            await Task.Delay(1);
             bool accepted = await DisplayAlert(Constants.APP_NAME,
                                 "Está seguro que desea salir?",
                                 "Aceptar", "Cancelar");
@@ -99,7 +98,6 @@ namespace WhoIs.ViewModels
             IsLoading = true;
 
             List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt();
-
             UsersToHunt = new ObservableCollection<UserToHunt>();
             foreach (UserToHunt user in usersToHunt)
                 UsersToHunt.Add(user);
