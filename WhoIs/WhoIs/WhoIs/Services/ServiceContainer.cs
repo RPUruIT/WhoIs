@@ -14,11 +14,11 @@ namespace WhoIs.Services
     {
         public static void InitializeServices(IUnityContainer container)
         {
-            container.RegisterType<INavigationService, NavigationService>(new ContainerControlledLifetimeManager());
+            container.RegisterSingleton<INavigationService, NavigationService>();
             if (Constants.IS_TEST)
-                container.RegisterType<IService, ServiceMOC>(new ContainerControlledLifetimeManager());
+                container.RegisterSingleton<IService, ServiceMOC>();
             else
-                container.RegisterType<IService, Service>(new ContainerControlledLifetimeManager());
+                container.RegisterSingleton<IService, Service>();
         }
     }
 }
