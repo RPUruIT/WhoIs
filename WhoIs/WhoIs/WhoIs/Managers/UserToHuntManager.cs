@@ -51,15 +51,13 @@ namespace WhoIs.Managers
             return usersToHunt;
         }
 
-        public async Task<int> GetCountUsersToHunt()
+        public int GetCountUsersToHunt()
         {
-            await Task.Delay(1);
             return _usersToHunt;
         }
 
-        public async Task<int> GetCountUsersHunted()
+        public int GetCountUsersHunted()
         {
-            await Task.Delay(1);
             return _usersHunted;
         }
 
@@ -78,21 +76,19 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
         {
-            await Task.Delay(1);
-
-            List<UserToHunt> appUsers = users.Select(u =>
+            List<UserToHunt> appUsers = await Task.Run(()=> users.Select(u =>
                                                         new UserToHunt() {
                                                             ExternalId = u.ExternalId,
                                                             Name = u.Name,
                                                             Email = u.Email,
                                                                  
-                                                        }).ToList();
+                                                        }).ToList());
             return appUsers;
         }
 
         private async Task<List<UserToHunt>> GetHuntedUsers()
         {
-            string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
+            string appUserExternalId =  _appUserManager.GetLoggedAppUserExternalId();
             return await _userHuntedRepository.GetHuntedUsers(appUserExternalId);
         }
 

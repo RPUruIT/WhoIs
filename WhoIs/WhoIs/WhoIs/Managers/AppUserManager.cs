@@ -34,14 +34,12 @@ namespace WhoIs.Managers
 
         public async Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users)
         {
-            await Task.Delay(1);
-
-            List<AppUser> appUsers = users.Select(u =>
-                                                    new AppUser()
-                                                    {
-                                                        ExternalId =u.ExternalId,
-                                                        Name=u.Name
-                                                    }).ToList();
+            List<AppUser> appUsers = await Task.Run(() => users.Select(u =>
+                                                   new AppUser()
+                                                   {
+                                                       ExternalId = u.ExternalId,
+                                                       Name = u.Name
+                                                   }).ToList());
             return appUsers;
         }
 
@@ -67,11 +65,9 @@ namespace WhoIs.Managers
             return _appUser;
         }
 
-        public async Task<string> GetLoggedAppUserExternalId()
+        public string GetLoggedAppUserExternalId()
         {
-            await Task.Delay(1);
             return _appUser.ExternalId;
         }
-
     }
 }
