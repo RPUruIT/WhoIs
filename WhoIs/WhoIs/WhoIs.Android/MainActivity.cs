@@ -15,6 +15,7 @@ using WhoIs.Configs;
 using Android.Content;
 using Android.Provider;
 using System.Collections.Generic;
+using WhoIs.Droid.Helpers;
 
 [assembly: Dependency(typeof(WhoIs.Droid.MainActivity))]
 namespace WhoIs.Droid
@@ -33,7 +34,7 @@ namespace WhoIs.Droid
 
             ResolveDependencies();
 
-            CreatePicturesDirectory();
+            FileHelper.CreatePicturesDirectory();
 
             LoadApplication(new App());
         }
@@ -44,33 +45,12 @@ namespace WhoIs.Droid
             AndroidDependencyContainer.Initialize(DependencyContainer.Container);
         }
 
-        private void CreatePicturesDirectory()
-        {
-            PicturesFiles._picturesDir = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(
-                   Android.OS.Environment.DirectoryPictures), "WhoIS");
-            CreateIfNotExist(PicturesFiles._picturesDir);
-        }
-
-        private File GetFolderInsidePictureDirectory(string folder)
-        {
-            File dir = new File(PicturesFiles._picturesDir, folder);
-            CreateIfNotExist(dir);
-            return dir;
-        }
-
-        private void CreateIfNotExist(File dir) {
-            if (!dir.Exists())
-            {
-                dir.Mkdirs();
-            }
-        }
-
         public void SnapPic(string folder,string name)
         {
             var activity = Forms.Context as Activity;
             name +=".jpg";
             Intent intent = new Intent(MediaStore.ActionImageCapture);
-            PicturesFiles._file = new File(GetFolderInsidePictureDirectory(folder), name);
+            PicturesFiles._file = new File(FileHelper.GetFolderInsidePictureDirectory(folder), name);
             intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(PicturesFiles._file));
             activity.StartActivityForResult(intent, 1);
 
@@ -83,36 +63,12 @@ namespace WhoIs.Droid
 
             string imageFile = PicturesFiles._file.Path;
 
-            string thumbnailImageFile = await resizeImage(imageFile);
+            string thumbnailImageFile = await ImageHelper.ResizeImage(imageFile);
 
             string[] imgFiles = { imageFile, thumbnailImageFile };
 
             MessagingCenter.Send<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, imgFiles);
 
-        }
-
-        private async Task<string> resizeImage(string filePath) {
-
-            int size = Constants.THUMBNAIL_SIZE;
-
-            int lastIndex = filePath.LastIndexOf('.');
-            string name = filePath.Substring(0, lastIndex);
-            string extension = filePath.Substring(lastIndex + 1);
-
-            string thumbnailImageFile = name + size + "x"+ size + "."+ extension;
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.InPreferredConfig = Bitmap.Config.Argb8888;
-            Bitmap bitmap = await BitmapFactory.DecodeFileAsync(filePath, options);
-            bitmap = await ThumbnailUtils.ExtractThumbnailAsync(bitmap, size, size);
-
-            using (var os = new System.IO.FileStream(thumbnailImageFile, System.IO.FileMode.Create))
-            {
-                await bitmap.CompressAsync(Bitmap.CompressFormat.Png, 100, os);
-            }
-            
-
-            return thumbnailImageFile;
         }
 
         public static class PicturesFiles
