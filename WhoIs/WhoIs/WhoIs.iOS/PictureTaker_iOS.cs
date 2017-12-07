@@ -5,7 +5,6 @@ using System.Text;
 
 using Foundation;
 using UIKit;
-using Xamarin.Media;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(WhoIs.iOS.PictureTaker_iOS))]
@@ -15,7 +14,7 @@ namespace WhoIs.iOS
     {
         public async void SnapPic(string folder,string name)
         {
-            var picker = new MediaPicker();
+            /*var picker = new MediaPicker();
             
             var mediaFile = await picker.PickPhotoAsync();
             string imageFile = mediaFile.Path;
@@ -23,7 +22,7 @@ namespace WhoIs.iOS
             string thumbnailImageFile = "";//TODO implement resize for iOS
 
             string[] imgFiles = { imageFile, thumbnailImageFile };
-            MessagingCenter.Send<IPictureTaker, string[]>(this, "pictureTaken", imgFiles);
+            MessagingCenter.Send<IPictureTaker, string[]>(this, "pictureTaken", imgFiles);*/
         }
     }
 }

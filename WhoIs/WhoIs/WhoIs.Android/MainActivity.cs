@@ -6,13 +6,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Xamarin.Media;
 using Xamarin.Forms;
 using Android.Media;
 using Android.Graphics;
 using Java.IO;
 using System.Threading.Tasks;
 using WhoIs.Configs;
+using Android.Content;
+using Android.Provider;
+using System.Collections.Generic;
+using WhoIs.Droid.Helpers;
 
 [assembly: Dependency(typeof(WhoIs.Droid.MainActivity))]
 namespace WhoIs.Droid
@@ -31,6 +34,8 @@ namespace WhoIs.Droid
 
             ResolveDependencies();
 
+            FileHelper.CreatePicturesDirectory();
+
             LoadApplication(new App());
         }
 
@@ -43,15 +48,12 @@ namespace WhoIs.Droid
         public void SnapPic(string folder,string name)
         {
             var activity = Forms.Context as Activity;
-
-            var picker = new MediaPicker(activity);
-            var intent = picker.GetTakePhotoUI(new StoreCameraMediaOptions
-            {
-                Name = name + ".jpg",
-                Directory = "WhoIsUsersHunted/" + folder
-            });
-
+            name +=".jpg";
+            Intent intent = new Intent(MediaStore.ActionImageCapture);
+            PicturesFiles._file = new File(FileHelper.GetFolderInsidePictureDirectory(folder), name);
+            intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(PicturesFiles._file));
             activity.StartActivityForResult(intent, 1);
+
         }
 
         protected override async void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
@@ -59,11 +61,9 @@ namespace WhoIs.Droid
             if (resultCode.Equals(Result.Canceled))
                 return;
 
-            var mediaFile = await data.GetMediaFileExtraAsync(Forms.Context);
+            string imageFile = PicturesFiles._file.Path;
 
-            string imageFile = mediaFile.Path;
-
-            string thumbnailImageFile = await resizeImage(imageFile);
+            string thumbnailImageFile = await ImageHelper.ResizeImage(imageFile);
 
             string[] imgFiles = { imageFile, thumbnailImageFile };
 
@@ -71,31 +71,11 @@ namespace WhoIs.Droid
 
         }
 
-        private async Task<string> resizeImage(string filePath) {
-
-            int size = Constants.THUMBNAIL_SIZE;
-
-            int lastIndex = filePath.LastIndexOf('.');
-            string name = filePath.Substring(0, lastIndex);
-            string extension = filePath.Substring(lastIndex + 1);
-
-            string thumbnailImageFile = name + size + "x"+ size + "."+ extension;
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.InPreferredConfig = Bitmap.Config.Argb8888;
-            Bitmap bitmap = await BitmapFactory.DecodeFileAsync(filePath, options);
-            bitmap = await ThumbnailUtils.ExtractThumbnailAsync(bitmap, size, size);
-
-            using (var os = new System.IO.FileStream(thumbnailImageFile, System.IO.FileMode.Create))
-            {
-                await bitmap.CompressAsync(Bitmap.CompressFormat.Png, 100, os);
-            }
-            
-
-            return thumbnailImageFile;
+        public static class PicturesFiles
+        {
+            public static File _file;
+            public static File _picturesDir;
         }
-
-
     }
 }
 

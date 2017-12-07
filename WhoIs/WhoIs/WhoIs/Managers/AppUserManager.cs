@@ -34,14 +34,12 @@ namespace WhoIs.Managers
 
         public async Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users)
         {
-            await Task.Delay(1);
-
-            List<AppUser> appUsers = users.Select(u =>
-                                                    new AppUser()
-                                                    {
-                                                        ExternalId =u.ExternalId,
-                                                        Name=u.Name
-                                                    }).ToList();
+            List<AppUser> appUsers = await Task.Run(() => users.Select(u =>
+                                                   new AppUser()
+                                                   {
+                                                       ExternalId = u.ExternalId,
+                                                       Name = u.Name
+                                                   }).ToList());
             return appUsers;
         }
 

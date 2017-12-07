@@ -11,6 +11,6 @@ namespace WhoIs.Repositories.Interface
     {
         Task<List<UserToHunt>> GetHuntedUsers(string appUserExternalId);
         Task<int> GetCountUsersHunted();
-        Task<int> HuntUser(UserToHunt userToHunt);
+        Task<int> InsertHuntedUser(UserToHunt userToHunt);
     }
 }

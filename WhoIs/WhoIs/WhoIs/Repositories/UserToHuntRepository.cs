@@ -31,7 +31,7 @@ namespace WhoIs.Repositories
             return await _database.GetCount();
         }
 
-        public async Task<int> HuntUser(UserToHunt userToHunt)
+        public async Task<int> InsertHuntedUser(UserToHunt userToHunt)
         {
             return await _database.Insert(userToHunt);
         }

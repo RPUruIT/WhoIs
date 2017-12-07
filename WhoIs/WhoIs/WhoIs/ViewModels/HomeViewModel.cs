@@ -72,18 +72,10 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-            try
-            {
-                AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
-                AppUserLogged = appUser.Name;
-                CmdLogout = new Command(async () => await Logout());
-                await Refresh();
-            }
-            catch (Exception ex)
-            {
-
-            }
-
+            AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
+            AppUserLogged = appUser.Name;
+            CmdLogout = new Command(async () => await Logout());
+            await Refresh();
         }
 
         public async Task Logout()
@@ -112,15 +104,15 @@ namespace WhoIs.ViewModels
             foreach (UserToHunt user in usersToHunt)
                 UsersToHunt.Add(user);
 
-            await UpdateHuntIndicator();
+            UpdateHuntIndicator();
 
             IsLoading = false;
         }
 
-        private async Task UpdateHuntIndicator()
+        private void UpdateHuntIndicator()
         {
-            int totalUsersToHunt = await _userToHuntManager.GetCountUsersToHunt();
-            int countUsersHunted = await _userToHuntManager.GetCountUsersHunted();
+            int totalUsersToHunt = _userToHuntManager.GetCountUsersToHunt();
+            int countUsersHunted = _userToHuntManager.GetCountUsersHunted();
             HuntIndicator = countUsersHunted + "/" + totalUsersToHunt;
         }
 
@@ -130,7 +122,11 @@ namespace WhoIs.ViewModels
             if (!userToHunt.HasImage())
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
+<<<<<<< HEAD
                 string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
+=======
+                string appUserExternalId =  _appUserManager.GetLoggedAppUserExternalId();
+>>>>>>> develop
                 
                 MessagingCenter.Subscribe<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, async (s, imageFiles) =>
                 {

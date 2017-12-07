@@ -26,17 +26,10 @@ namespace WhoIs.Services
         {
             List<User> users;
 
-            try
-            {
-                var uri = new Uri(Constants.URL_SERVICE_GET_USER);
-                var jsonUsers = await client.GetStringAsync(uri);
-                users = JsonConvert.DeserializeObject<List<User>>(jsonUsers);
-            }
-            catch(Exception ex)
-            {
-                users = null;
-            }
-
+            var uri = new Uri(Constants.URL_SERVICE_GET_USER);
+            var jsonUsers = await client.GetStringAsync(uri);
+            users = JsonConvert.DeserializeObject<List<User>>(jsonUsers);
+            
             return users;
         }
     }

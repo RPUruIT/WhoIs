@@ -81,14 +81,14 @@ namespace WhoIs.ViewModels
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual async Task InitializeAsync(object navigationData)
+        public virtual Task InitializeAsync(object navigationData)
         {
-            await Task.Delay(1);
+            return Task.FromResult(false);
         }
 
-        public virtual async Task Refresh()
+        public virtual Task Refresh()
         {
-            await Task.Delay(1);
+            return Task.FromResult(false);
         }
     }
 }
