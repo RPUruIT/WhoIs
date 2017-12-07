@@ -14,6 +14,11 @@ namespace WhoIs.Configs
 
         public const bool IS_TEST = false;
 
-        
+        public const int THUMBNAIL_SIZE= 64;
+
+        public const string PICTURE_TAKER_EVENT_NAME = "pictureTaken";
+
+
+
     }
 }

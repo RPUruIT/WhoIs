@@ -11,6 +11,8 @@ namespace WhoIs.Repositories.Interface
     {
         Task<int> Insert(T entity);
 
+        Task<int>  InsertOrReplace(T entity);
+
         Task<int> Delete(T entity);
 
         Task<T> Update(T item);

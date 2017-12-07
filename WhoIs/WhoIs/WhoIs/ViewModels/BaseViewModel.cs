@@ -22,6 +22,12 @@ namespace WhoIs.ViewModels
 
         }
 
+        protected bool _isLoading;
+        public bool IsLoading { get { return _isLoading; } set { SetPropertyValue(ref _isLoading, value); } }
+
+        protected bool _isEnabled;
+        public bool IsEnabled { get { return _isEnabled; } set { SetPropertyValue(ref _isEnabled, value); } }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetPropertyValue<T>(ref T storageField, T newValue, Expression<Func<T>> propExpr)
         {
@@ -67,10 +73,14 @@ namespace WhoIs.ViewModels
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual async Task InitializeAsync(object navigationData)
+        public virtual Task InitializeAsync(object navigationData)
         {
-            
+            return Task.FromResult(false);
         }
 
+        public virtual Task Refresh()
+        {
+            return Task.FromResult(false);
+        }
     }
 }

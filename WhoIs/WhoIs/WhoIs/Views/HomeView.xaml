@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.HomeView"
-             xmlns:behaviors="clr-namespace:WhoIs.Behaviors"
              xmlns:converters="clr-namespace:WhoIs.Converters"
-             xmlns:customcomponents="clr-namespace:WhoIs.CustomComponents">
+             xmlns:customcomponents="clr-namespace:WhoIs.CustomComponents"
+             Title="{Binding AppUserLogged}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -25,8 +25,12 @@
                 <Setter Property="HorizontalOptions" Value="Center"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
-            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter"/>
+            <Style  TargetType="ActivityIndicator">
+                <Setter Property="WidthRequest" Value="30"></Setter>
+                <Setter Property="HeightRequest" Value="30"></Setter>
+            </Style>
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
+            <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -37,23 +41,20 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
-                <Label Grid.Column="1" Text="{Binding HuntIndicator}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
+
+                <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
+                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
             </Grid>
             <customcomponents:CustomListView 
-                ItemsSource="{Binding UsersToHunt}">
-                <customcomponents:CustomListView.Behaviors>
-                    <behaviors:EventToCommandBehavior
-                        EventName="ItemSelected"
-                        Command="{Binding UserToHuntSelectedCommand}"
-                        Converter="{StaticResource SelectedItemConverter}"/>
-                </customcomponents:CustomListView.Behaviors>
+                ItemsSource="{Binding UsersToHunt}"
+                SelectedItem="{Binding ListSelectedItem}">
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell  Text="{Binding Name}"
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
-                                    ImageSource="{Binding ImgPath}"
+                                    ImageSource="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"
                                     >
                         </ImageCell>
 

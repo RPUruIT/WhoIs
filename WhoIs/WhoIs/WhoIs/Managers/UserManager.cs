@@ -22,6 +22,7 @@ namespace WhoIs.Managers
         {
             List<User> users = await _service.GetUsers();
             users.RemoveAll(u => u.Deleted);
+            users=users.OrderBy(u => u.Name).ToList();
             return users;
         }
 

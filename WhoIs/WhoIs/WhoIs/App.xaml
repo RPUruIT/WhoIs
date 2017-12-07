@@ -30,15 +30,25 @@
                 <Style TargetType="Label">
                     <Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>
                 </Style>
+                <Style TargetType="Editor">
+                    <Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>
+                    <Setter Property="TextColor">
+                        <Setter.Value>
+                            <OnPlatform x:TypeArguments="x:String"
+                                            iOS="Gray"
+                                            Android="#FFFFFF"></OnPlatform>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
                 <Style TargetType="Entry">
                     <Setter Property="FontFamily" Value="{DynamicResource SemiBold}"></Setter>
-                <Setter Property="TextColor">
-                    <Setter.Value>
-                        <OnPlatform x:TypeArguments="x:String"
-                                        iOS="Gray"
-                                        Android="#FFFFFF"></OnPlatform>
-                    </Setter.Value>
-                </Setter>
+                    <Setter Property="TextColor">
+                        <Setter.Value>
+                            <OnPlatform x:TypeArguments="x:String"
+                                            iOS="Gray"
+                                            Android="#FFFFFF"></OnPlatform>
+                        </Setter.Value>
+                    </Setter>
                 <Setter Property="PlaceholderColor" Value="{StaticResource LigthGrayColor}"></Setter>
                 </Style>
                 <Style TargetType="Button">
@@ -51,7 +61,13 @@
                     <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
                     
                 </Style>
-
+                <Style TargetType="ActivityIndicator">
+                    <Setter Property="Color" Value="{StaticResource SecondaryColor}"></Setter>
+                    <Setter Property="VerticalOptions" Value="Center"></Setter>
+                    <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                    <Setter Property="WidthRequest" Value="50"></Setter>
+                    <Setter Property="HeightRequest" Value="50"></Setter>
+            </Style>
             <!--Generic Views FIN-->
 
             <!--Generic Styles INI-->

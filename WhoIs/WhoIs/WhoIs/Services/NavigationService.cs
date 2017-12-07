@@ -17,7 +17,7 @@ namespace WhoIs.Services
 {
     public class NavigationService : INavigationService
     {
-        public BaseViewModel PreviousPageViewModel { get; set; }
+        public BaseViewModel PreviousPageViewModel {get;}
 
         public async Task InitializeAsync()
         {
@@ -45,24 +45,11 @@ namespace WhoIs.Services
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
-        public async Task RemoveBackStackAsync()
-        {
-
-            var navigationPage = Application.Current.MainPage as CustomNavigationView;
-            if (navigationPage != null)
-            {
-                await navigationPage.PopToRootAsync();
-            }   
-        }
-
-        public async Task RemoveLastFromBackStackAsync()
+        public async Task PopAsync()
         {
             var navigationPage = Application.Current.MainPage as CustomNavigationView;
-            if (navigationPage != null)
-            {
-                await navigationPage.PopAsync();
-            }
-          
+            await navigationPage.PopAsync();
+            await (navigationPage.CurrentPage.BindingContext as BaseViewModel).Refresh();
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)

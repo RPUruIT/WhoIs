@@ -38,13 +38,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Behaviors\BehaviorBase.cs" />
-    <Compile Include="Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Configs\Constants.cs" />
+    <Compile Include="Configs\ResourcesName.cs" />
     <Compile Include="Converters\HuntIndicatorColorConverter.cs" />
-    <Compile Include="Converters\SelectedItemEventArgsToSelectedItemConverter.cs" />
+    <Compile Include="Converters\UserToHuntImageConverter.cs" />
     <Compile Include="CustomComponents\CustomListView.cs" />
     <Compile Include="DependencyContainer.cs" />
+    <Compile Include="ViewModels\Helper\UserHuntedDetailsViewParameter.cs" />
+    <Compile Include="IPictureTaker.cs" />
     <Compile Include="Managers\AppUserManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Managers\Interface\IAppUserManager.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\UserHuntedDetailsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelContainer.cs" />
     <Compile Include="Views\CustomNavigationView.xaml.cs">
       <DependentUpon>CustomNavigationView.xaml</DependentUpon>
@@ -83,6 +85,9 @@
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserHuntedDetailsView.xaml.cs">
+      <DependentUpon>UserHuntedDetailsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +141,6 @@
     <None Include="packages.config" />
     <None Include="Services\OfflineResponses\users.json" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Views\CustomNavigationView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -151,6 +155,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\HomeView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\UserHuntedDetailsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

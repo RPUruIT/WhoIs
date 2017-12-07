@@ -26,6 +26,11 @@ namespace WhoIs.Repositories
             return await _database.InsertAsync(entity);
         }
 
+        public async Task<int> InsertOrReplace(T entity)
+        {
+            return await _database.InsertOrReplaceAsync(entity);
+        }
+
         public async Task<int> Delete(T entity)
         {
             return await _database.DeleteAsync(entity);
@@ -60,6 +65,8 @@ namespace WhoIs.Repositories
         {
             return await _database.Table<T>().CountAsync();
         }
+
+
     }
 }
 
