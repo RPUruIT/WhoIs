@@ -122,11 +122,8 @@ namespace WhoIs.ViewModels
             if (!userToHunt.HasImage())
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
-<<<<<<< HEAD
+
                 string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
-=======
-                string appUserExternalId =  _appUserManager.GetLoggedAppUserExternalId();
->>>>>>> develop
                 
                 MessagingCenter.Subscribe<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, async (s, imageFiles) =>
                 {
