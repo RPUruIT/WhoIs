@@ -16,7 +16,7 @@ namespace WhoIs.Managers.Interface
         Task LogoutFromApplication();
         Task<bool> IsUserLogged();
         Task<AppUser> GetAndSetLoggedAppUser();
-        Task<string> GetLoggedAppUserExternalId();
+        string GetLoggedAppUserExternalId();
         
 
     }

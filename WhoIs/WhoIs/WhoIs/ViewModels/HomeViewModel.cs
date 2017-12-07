@@ -74,11 +74,9 @@ namespace WhoIs.ViewModels
         {
             try
             {
-                CmdLogout = new Command(async () => await Logout());
-
-                AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
+                AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
                 AppUserLogged = appUser.Name;
-
+                CmdLogout = new Command(async () => await Logout());
                 await Refresh();
             }
             catch (Exception ex)
@@ -132,7 +130,7 @@ namespace WhoIs.ViewModels
             if (!userToHunt.HasImage())
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
-                string appUserExternalId = await _appUserManager.GetLoggedAppUserExternalId();
+                string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
                 
                 MessagingCenter.Subscribe<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, async (s, imageFiles) =>
                 {

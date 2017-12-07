@@ -55,6 +55,7 @@ namespace WhoIs.Managers
         public async Task LogoutFromApplication()
         {
             await _appUserRepository.DeleteAppUser(_appUser);
+            _appUser = null;
         }
 
         public async Task<bool> IsUserLogged()
@@ -72,11 +73,9 @@ namespace WhoIs.Managers
             return _appUser;
         }
 
-        public async Task<string> GetLoggedAppUserExternalId()
+        public string GetLoggedAppUserExternalId()
         {
-            await Task.Delay(1);
             return _appUser.ExternalId;
         }
-
     }
 }
