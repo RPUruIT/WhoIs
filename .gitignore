@@ -123,3 +123,6 @@ Thumbs.db
 
 #dotCover
 *.dotCover
+
+#others
+Components/
