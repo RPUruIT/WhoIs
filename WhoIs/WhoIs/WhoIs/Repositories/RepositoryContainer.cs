@@ -17,11 +17,11 @@ namespace WhoIs.Repositories
 
         public static void InitializeServices(IUnityContainer container)
         {
-            container.RegisterType<IDatabase<UserToHunt>, Database<UserToHunt>>(new ContainerControlledLifetimeManager(), new InjectionConstructor(Constants.DB_NAME));
-            container.RegisterType<IDatabase<AppUser>, Database<AppUser>>(new ContainerControlledLifetimeManager(), new InjectionConstructor(Constants.DB_NAME));
+            container.RegisterSingleton<IDatabase<UserToHunt>, Database<UserToHunt>>(new InjectionConstructor(Constants.DB_NAME));
+            container.RegisterSingleton<IDatabase<AppUser>, Database<AppUser>>(new InjectionConstructor(Constants.DB_NAME));
 
-            container.RegisterType<IUserToHuntRepository, UserToHuntRepository>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IAppUserRepository, AppUserRepository>(new ContainerControlledLifetimeManager());
+            container.RegisterSingleton<IUserToHuntRepository, UserToHuntRepository>();
+            container.RegisterSingleton<IAppUserRepository, AppUserRepository>();
         }
 
     }

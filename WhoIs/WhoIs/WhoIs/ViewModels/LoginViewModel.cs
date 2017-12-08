@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Unity;
+using WhoIs.Configs;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using WhoIs.Services.Interface;
@@ -17,8 +18,8 @@ namespace WhoIs.ViewModels
         private IUserManager _userManager;
         private IAppUserManager _appUserManager;
 
-        public string IconSource { get; } = "ic_uruit.png";
-        public string AppName { get;} = "Who Is?";
+        public string IconSource { get; } = ResourcesName.IMG_APP_ICON;
+        public string AppName { get;} = Constants.APP_NAME;
         public string UsersPlaceholder { get; } = "Usuario";
         public string BtnEnter { get; } = "Ingresar";
         public string TextFooterLeft { get; } = "http://uruit.com";

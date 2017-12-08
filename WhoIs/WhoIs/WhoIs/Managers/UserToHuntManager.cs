@@ -88,7 +88,9 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetHuntedUsers()
         {
-            string appUserExternalId =  _appUserManager.GetLoggedAppUserExternalId();
+
+            string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
+
             return await _userHuntedRepository.GetHuntedUsers(appUserExternalId);
         }
 

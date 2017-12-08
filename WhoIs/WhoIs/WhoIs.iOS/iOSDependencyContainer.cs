@@ -16,7 +16,7 @@ namespace WhoIs.iOS
 
         public static void Initialize(IUnityContainer container)
         {
-            container.RegisterType<IConnectionHelper, ConnectionHelper>(new ContainerControlledLifetimeManager());
+            container.RegisterSingleton<IConnectionHelper, ConnectionHelper>();
         }
     }
 }
