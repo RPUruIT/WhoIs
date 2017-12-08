@@ -19,7 +19,7 @@ namespace WhoIs.Repositories
             var helper = DependencyContainer.Container.Resolve<IConnectionHelper>();
             _database = helper.GetConnection(path);
             
-            Task.Run(() => _database.CreateTableAsync<T>());         
+            Task.Run(() => _database.CreateTableAsync<T>()).GetAwaiter().GetResult();         
         }
 
         public async Task<int> Insert(T entity)

@@ -21,16 +21,21 @@ namespace WhoIs.Services
 
         public async Task InitializeAsync()
         {
+            try { 
+                IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
 
-            IAppUserManager appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
-
-            bool isUserLoged = await appUserManager.IsUserLogged();
-            if (isUserLoged)
-            {
-                await NavigateToAsync<HomeViewModel>();
+                bool isUserLoged = await appUserManager.IsUserLogged();
+                if (isUserLoged)
+                {
+                    await NavigateToAsync<HomeViewModel>();
+                }
+                else
+                    await NavigateToAsync<LoginViewModel>();
             }
-            else
-                await NavigateToAsync<LoginViewModel>();
+            catch(Exception ex)
+            {
+
+            }
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
