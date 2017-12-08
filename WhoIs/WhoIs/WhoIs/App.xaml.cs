@@ -7,6 +7,9 @@ using WhoIs.Services.Interface;
 using Xamarin.Forms;
 using Unity;
 using WhoIs.Models;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace WhoIs
 {
@@ -27,7 +30,9 @@ namespace WhoIs
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            AppCenter.Start("android=16a452a5-debd-400e-9b47-c171438ea93a;" + "uwp={Your UWP App secret here};" +
+                   "ios={Your iOS App secret here}",
+                   typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
