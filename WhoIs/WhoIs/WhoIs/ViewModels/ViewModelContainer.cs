@@ -12,8 +12,9 @@ namespace WhoIs.ViewModels
     {
         public static void InitializeViewModels(IUnityContainer container)
         {
-            container.RegisterType<HomeViewModel>(new ContainerControlledLifetimeManager());
-            container.RegisterType<LoginViewModel>(new ContainerControlledLifetimeManager());
+            container.RegisterType<UserHuntedDetailsViewModel>();
+            container.RegisterType<HomeViewModel>();
+            container.RegisterType<LoginViewModel>();
         }
     }
 }

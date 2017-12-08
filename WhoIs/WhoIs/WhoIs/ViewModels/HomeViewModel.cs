@@ -18,6 +18,10 @@ namespace WhoIs.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+
+        private IUserToHuntManager _userToHuntManager;
+        private IAppUserManager _appUserManager;
+
         private string _appUserLogged;
         public string AppUserLogged
         {
@@ -25,6 +29,7 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _appUserLogged, value); }
         }
 
+        public string LogoutIcon { get; } = ResourcesName.IMG_LOGOUT;
         public string HomeTitle { get; } = "UruITers";
 
         private string _huntIndicator;
@@ -34,8 +39,12 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _huntIndicator, value); }
         }
 
-        private IUserToHuntManager _userToHuntManager;
-        private IAppUserManager _appUserManager;
+        private ICommand _cmdLogout;
+        public ICommand CmdLogout
+        {
+            get { return _cmdLogout; }
+            set { SetPropertyValue(ref _cmdLogout, value); }
+        }
 
         private ObservableCollection<UserToHunt> _usersToHunt;
         public ObservableCollection<UserToHunt> UsersToHunt
@@ -43,7 +52,6 @@ namespace WhoIs.ViewModels
             get { return _usersToHunt; }
             set { SetPropertyValue(ref _usersToHunt, value); }
         }
-
 
         private UserToHunt _listSelectedItem;
         public UserToHunt ListSelectedItem
@@ -64,11 +72,24 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
-
-            AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();//THIS BETTER TO BE IN NAVIGATION PAGE BEFORE LOAD HOMEVIEW BUT IT THROWS AN EXCEPTION
+            AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
             AppUserLogged = appUser.Name;
-
+            CmdLogout = new Command(async () => await Logout());
             await Refresh();
+        }
+
+        public async Task Logout()
+        {
+            bool accepted = await DisplayAlert(Constants.APP_NAME,
+                                "Está seguro que desea salir?",
+                                "Aceptar", "Cancelar");
+
+            if (accepted)
+            {
+                await _appUserManager.LogoutFromApplication();
+                await _navigationService.NavigateToAsync<LoginViewModel>();
+
+            }
 
         }
 
@@ -77,7 +98,6 @@ namespace WhoIs.ViewModels
             IsLoading = true;
 
             List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt();
-
             UsersToHunt = new ObservableCollection<UserToHunt>();
             foreach (UserToHunt user in usersToHunt)
                 UsersToHunt.Add(user);
@@ -100,7 +120,8 @@ namespace WhoIs.ViewModels
             if (!userToHunt.HasImage())
             {
                 IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
-                string appUserExternalId =  _appUserManager.GetLoggedAppUserExternalId();
+
+                string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
                 
                 MessagingCenter.Subscribe<IPictureTaker, string[]>(this, Constants.PICTURE_TAKER_EVENT_NAME, async (s, imageFiles) =>
                 {
