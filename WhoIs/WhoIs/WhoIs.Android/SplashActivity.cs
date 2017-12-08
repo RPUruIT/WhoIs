@@ -32,13 +32,11 @@ namespace WhoIs.Droid
         // Simulates background work that happens behind the splash screen
         async void SimulateStartup()
         {
-            try {
-                await Task.Delay(8000); // Simulate a bit of startup work.
+
+            await Task.Delay(8000); // Simulate a bit of startup work.
                 
-                StartActivity(new Intent(this, typeof(MainActivity)));
-            }
-            catch(Exception ex) { 
-            }
+            StartActivity(new Intent(this, typeof(MainActivity)));
+  
         }
 
         public override void OnBackPressed() { }

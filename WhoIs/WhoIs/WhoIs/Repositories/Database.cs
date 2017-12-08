@@ -18,13 +18,8 @@ namespace WhoIs.Repositories
         {
             var helper = DependencyContainer.Container.Resolve<IConnectionHelper>();
             _database = helper.GetConnection(path);
-            try { 
-            _database.CreateTableAsync<T>();
-            }
-            catch(Exception ex)
-            {
-
-            }
+            
+            Task.Run(() => _database.CreateTableAsync<T>());         
         }
 
         public async Task<int> Insert(T entity)

@@ -19,8 +19,8 @@ namespace WhoIs
         public static void InitializeCore()
         {
             DependencyContainer.Initialize();
-            Repositories.RepositoryContainer.InitializeServices(DependencyContainer.Container);
             Services.ServiceContainer.InitializeServices(DependencyContainer.Container);
+            Repositories.RepositoryContainer.InitializeServices(DependencyContainer.Container);
             Managers.ManagerContainer.InitializeServices(DependencyContainer.Container);
             ViewModels.ViewModelContainer.InitializeViewModels(DependencyContainer.Container);
         }

@@ -96,14 +96,12 @@ namespace WhoIs.ViewModels
         public override async Task Refresh()
         {
             IsLoading = true;
-
             List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt();
             UsersToHunt = new ObservableCollection<UserToHunt>();
             foreach (UserToHunt user in usersToHunt)
                 UsersToHunt.Add(user);
 
             UpdateHuntIndicator();
-
             IsLoading = false;
         }
 
