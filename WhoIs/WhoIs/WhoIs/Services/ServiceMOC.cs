@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WhoIs.Models;
@@ -13,7 +15,15 @@ namespace WhoIs.Services
     {
         public async Task<List<User>> GetUsers()
         {
-            List<User> users = await Task.Run(()=>JsonConvert.DeserializeObject<List<User>>(@"/OfflineResponses/users.json"));
+            var assembly = typeof(Service).GetTypeInfo().Assembly;
+            Stream stream = assembly.GetManifestResourceStream("WhoIs.Services.users.json");
+            string text = "";
+            using (var reader = new System.IO.StreamReader(stream))
+            {
+                text = reader.ReadToEnd();
+            }
+
+            List<User> users = await Task.Run(()=>JsonConvert.DeserializeObject<List<User>>(text));
 
             return users;
         }
