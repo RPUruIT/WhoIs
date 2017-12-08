@@ -46,14 +46,7 @@ namespace WhoIs.Managers
         public async Task EnterToApplication(AppUser appUser)
         {
             await _appUserRepository.SaveAppUser(appUser);
-            _appUser = appUser;//the appUser brings the Id value updated
-
-        }
-
-        public async Task LogoutFromApplication()
-        {
-            await _appUserRepository.DeleteAppUser(_appUser);
-            _appUser = null;
+            _appUser = appUser;
         }
 
         public async Task<bool> IsUserLogged()
@@ -65,7 +58,8 @@ namespace WhoIs.Managers
         {
             if (_appUser == null)
             {
-                _appUser = await _appUserRepository.GetLoggedUser();
+                AppUser appUser = await _appUserRepository.GetLoggedUser();
+                _appUser = appUser;
             }
 
             return _appUser;

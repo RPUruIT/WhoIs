@@ -13,7 +13,6 @@ namespace WhoIs.Managers.Interface
         Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users);
 
         Task EnterToApplication(AppUser appUser);
-        Task LogoutFromApplication();
         Task<bool> IsUserLogged();
         Task<AppUser> GetAndSetLoggedAppUser();
         string GetLoggedAppUserExternalId();

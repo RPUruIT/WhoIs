@@ -12,11 +12,6 @@ namespace WhoIs.Repositories
     {
         IDatabase<AppUser> _database;
 
-        public async Task DeleteAppUser(AppUser appUser)
-        {
-            await _database.Delete(appUser);
-        }
-
         public AppUserRepository(IDatabase<AppUser> database)
         {
             _database = database;

@@ -19,7 +19,7 @@ namespace WhoIs.Droid
     {
         public static void Initialize(IUnityContainer container)
         {
-            container.RegisterSingleton<IConnectionHelper, ConnectionHelper>();
+            container.RegisterType<IConnectionHelper, ConnectionHelper>(new ContainerControlledLifetimeManager());
         }
     }
 }

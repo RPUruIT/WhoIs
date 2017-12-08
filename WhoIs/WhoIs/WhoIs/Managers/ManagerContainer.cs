@@ -14,7 +14,8 @@ namespace WhoIs.Managers
     {
         public static void InitializeServices(IUnityContainer container)
         {
-            container.RegisterSingleton<IUserManager, UserManager>();
+            container.RegisterType<IUserManager, UserManager>(new ContainerControlledLifetimeManager());
+
             container.RegisterSingleton<IUserToHuntManager, UserToHuntManager>();
             container.RegisterSingleton<IAppUserManager, AppUserManager>();
             

@@ -66,7 +66,7 @@ namespace WhoIs.Repositories
             return await _database.Table<T>().CountAsync();
         }
 
-        
+
     }
 }
 

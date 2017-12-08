@@ -76,9 +76,7 @@ namespace WhoIs.Services
             }
 
             page.BindingContext = viewModel;
-            BaseViewModel baseViewModel = (page.BindingContext as BaseViewModel);
-            baseViewModel.Alert = page.DisplayAlert;
-            await baseViewModel.InitializeAsync(parameter);
+            await (page.BindingContext as BaseViewModel).InitializeAsync(parameter);
         }
 
         private Type GetPageTypeForViewModel(Type viewModelType)
