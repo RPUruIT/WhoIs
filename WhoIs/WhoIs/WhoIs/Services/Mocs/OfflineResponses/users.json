@@ -1,6 +1,6 @@
 ﻿[
   {
-    "_id": "551952b252a9d05f87e79b26",
+    "_id": "abc1",
     "name": "Marcelo Lopez",
     "username": "marcelol@carrasco.uruit.com",
     "mail": "marcelo.lopez@uruit.com",
@@ -8,7 +8,7 @@
     "deleted": false
   },
   {
-    "_id": "551952b252a9d05f87e79b27",
+    "_id": "abc2",
     "name": "Iang Yim",
     "username": "iang@carrasco.uruit.com",
     "mail": "iang.yim@uruit.com",
@@ -16,7 +16,7 @@
     "deleted": false
   },
   {
-    "_id": "551952b252a9d05f87e79b28",
+    "_id": "abc3",
     "name": "Matias Delgado",
     "username": "matiasd@carrasco.uruit.com",
     "mail": "matias.delgado@uruit.com",
@@ -24,7 +24,7 @@
     "deleted": false
   },
   {
-    "_id": "551952b252a9d05f87e79b29",
+    "_id": "abc4",
     "name": "Marcelo Martinez",
     "username": "mmartinez@carrasco.uruit.com",
     "mail": "marcelo.martinez@uruit.com",

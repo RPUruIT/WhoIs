@@ -10,24 +10,36 @@ namespace WhoIs.Repositories.Mocs
 {
     public class AppUserRepositoryMOC : IAppUserRepository
     {
+        AppUser _appUser;
+
+        public AppUserRepositoryMOC()
+        {
+            //when is user logged
+            //_appUser = new AppUser() { Id = 1, ExternalId = "abc1", Name = "Marcelo Lopez" };
+
+        }
         public Task DeleteAppUser(AppUser appUser)
         {
-            throw new NotImplementedException();
+            _appUser = null;
+            return null;
         }
 
         public Task<AppUser> GetLoggedUser()
         {
-            throw new NotImplementedException();
+            
+            return Task.Run(() => _appUser);
         }
 
         public Task<bool> IsUserLogged()
         {
-            throw new NotImplementedException();
+            
+            return Task.Run(() => _appUser!=null);
         }
 
         public Task SaveAppUser(AppUser appUser)
         {
-            throw new NotImplementedException();
+            _appUser = appUser;
+            return null;
         }
     }
 }
