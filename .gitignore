@@ -124,5 +124,6 @@ Thumbs.db
 #dotCover
 *.dotCover
 
-#ro manually added
-WhoIs/
+#WhoIS
+
+WhoIs/.vs/WhoIs/*

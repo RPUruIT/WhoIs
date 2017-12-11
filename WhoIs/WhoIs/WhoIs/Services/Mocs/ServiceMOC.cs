@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using WhoIs.Models;
 using WhoIs.Services.Interface;
 
-namespace WhoIs.Services
+namespace WhoIs.Services.Mocs
 {
     public class ServiceMOC : IService
     {
