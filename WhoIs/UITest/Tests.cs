@@ -48,14 +48,20 @@ namespace UITest
         {
             Login();
 
+            app.ScrollDownTo("Marcelo Lopez");
+            app.Tap(x => x.Text("Marcelo Lopez"));
+            app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
+            app.Back();
+            app.Tap(x => x.Text("Confirmar"));
+
             app.ScrollDownTo("Iang Yim");
             app.Tap(x => x.Text("Iang Yim"));
             app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
             app.Back();
             app.Tap(x => x.Text("Confirmar"));
 
-            app.ScrollDownTo("Marcelo Lopez");
-            app.Tap(x => x.Text("Marcelo Lopez"));
+            app.ScrollDownTo("Matias Delgado");
+            app.Tap(x => x.Text("Matias Delgado"));
             app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
             app.Back();
             app.Tap(x => x.Text("Confirmar"));
