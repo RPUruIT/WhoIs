@@ -117,7 +117,7 @@ namespace WhoIs.ViewModels
 
             if (!userToHunt.HasImage())
             {
-                IPictureTaker pictureTake = DependencyService.Get<IPictureTaker>();
+                IPictureTaker pictureTake = DependencyContainer.Container.Resolve<IPictureTaker>();
 
                 string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
                 

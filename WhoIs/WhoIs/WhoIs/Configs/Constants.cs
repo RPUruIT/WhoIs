@@ -9,7 +9,7 @@ namespace WhoIs.Configs
     public static class Constants
     {
 
-        public const bool IS_TEST = false;
+        public const bool IS_TEST = true;
 
         public const string URL_SERVICE_GET_USER = "http://kiosco-stage/users";
         public const string DB_NAME = "WhoIs.db3";

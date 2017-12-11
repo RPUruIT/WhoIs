@@ -17,6 +17,7 @@ namespace WhoIs.iOS
         public static void Initialize(IUnityContainer container)
         {
             container.RegisterSingleton<IConnectionHelper, ConnectionHelper>();
+            container.RegisterSingleton<IPictureTaker, PictureTaker_iOS>();
         }
     }
 }

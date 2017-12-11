@@ -148,7 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Services\OfflineResponses\users.json" />
+    <EmbeddedResource Include="Services\OfflineResponses\users.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\CustomNavigationView.xaml">

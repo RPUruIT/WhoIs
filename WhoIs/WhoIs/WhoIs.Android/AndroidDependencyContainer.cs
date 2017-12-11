@@ -10,8 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Unity;
-using WhoIs.Repositories.Interface;
 using Unity.Lifetime;
+using WhoIs.Configs;
+using WhoIs.Droid.Mocs;
+using WhoIs.Repositories.Interface;
 
 namespace WhoIs.Droid
 {
@@ -20,6 +22,10 @@ namespace WhoIs.Droid
         public static void Initialize(IUnityContainer container)
         {
             container.RegisterSingleton<IConnectionHelper, ConnectionHelper>();
+            if(Constants.IS_TEST)
+                container.RegisterSingleton<IPictureTaker, PictureTakerMOC>();
+            else
+                container.RegisterSingleton<IPictureTaker, MainActivity>();
         }
     }
 }

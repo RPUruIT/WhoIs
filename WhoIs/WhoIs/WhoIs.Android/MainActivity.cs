@@ -17,7 +17,6 @@ using Android.Provider;
 using System.Collections.Generic;
 using WhoIs.Droid.Helpers;
 
-[assembly: Dependency(typeof(WhoIs.Droid.MainActivity))]
 namespace WhoIs.Droid
 {
     [Activity(Label = "WhoIs", Icon = "@drawable/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]

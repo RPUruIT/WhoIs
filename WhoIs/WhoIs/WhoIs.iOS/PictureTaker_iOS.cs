@@ -7,7 +7,6 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(WhoIs.iOS.PictureTaker_iOS))]
 namespace WhoIs.iOS
 {
     public class PictureTaker_iOS : IPictureTaker
