@@ -72,11 +72,14 @@ namespace WhoIs.ViewModels
 
         public override async Task InitializeAsync(object navigationData)
         {
+            IsLoading = true;
             AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
             AppUserLogged = appUser.Name;
             CmdLogout = new Command(async () => await Logout());
             List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
             await LoadUsersToHunt(usersToHunt);
+            IsInitialized = true;
+            IsLoading = false;
         }
 
         private async Task LoadUsersToHunt(List<UserToHunt> usersToHunt)
@@ -97,6 +100,7 @@ namespace WhoIs.ViewModels
 
             if (accepted)
             {
+                IsInitialized = false;
                 UsersToHunt = null;
                 await _appUserManager.LogoutFromApplication();
                 await _navigationService.NavigateToAsync<LoginViewModel>();

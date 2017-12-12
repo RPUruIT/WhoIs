@@ -22,6 +22,9 @@ namespace WhoIs.ViewModels
 
         }
 
+        protected bool _isInitialized;
+        public bool IsInitialized { get { return _isInitialized; } set { SetPropertyValue(ref _isInitialized, value); } }
+
         protected bool _isLoading;
         public bool IsLoading { get { return _isLoading; } set { SetPropertyValue(ref _isLoading, value); } }
 

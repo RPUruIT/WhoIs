@@ -10,11 +10,10 @@ namespace WhoIs.Repositories.Mocs
 {
     public class UserToHuntRepositoryMOC : IUserToHuntRepository
     {
-        List<UserToHunt> _huntedUsers;
+        List<UserToHunt> _huntedUsers;//this list has huntedUsers from many Appusers
         public UserToHuntRepositoryMOC()
         {
             _huntedUsers = new List<UserToHunt>();
-            _huntedUsers.Add(CreateUserHunted(1, "abc2", "Iang Yim"));
         }
 
         private UserToHunt CreateUserHunted(int id, string externalId,string name)
@@ -31,19 +30,14 @@ namespace WhoIs.Repositories.Mocs
             return userHunted;
         }
 
-        public Task<int> GetCountUsersHunted()
-        {
-            return Task.Run(() => _huntedUsers.Count);
-        }
-
         public Task<List<UserToHunt>> GetHuntedUsers(string appUserExternalId)
         {
-            return Task.Run(() => _huntedUsers);
+            List<UserToHunt> usersToHunt = _huntedUsers.Where(u => u.HunterId == appUserExternalId).ToList();
+            return Task.Run(() => usersToHunt);
         }
 
         public Task<int> InsertHuntedUser(UserToHunt userToHunt)
         {
-
             _huntedUsers.Add(userToHunt);
             return Task.Run(() => 1);
         }

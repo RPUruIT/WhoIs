@@ -18,15 +18,14 @@ namespace WhoIs.Repositories
 
         public static void InitializeServices(IUnityContainer container)
         {
-            container.RegisterSingleton<IDatabase<UserToHunt>, Database<UserToHunt>>(new InjectionConstructor(Constants.DB_NAME));
-            container.RegisterSingleton<IDatabase<AppUser>, Database<AppUser>>(new InjectionConstructor(Constants.DB_NAME));
-
             if (Constants.IS_TEST) {
                 container.RegisterSingleton<IUserToHuntRepository, UserToHuntRepositoryMOC>();
                 container.RegisterSingleton<IAppUserRepository, AppUserRepositoryMOC>();
             }
             else
             {
+                container.RegisterSingleton<IDatabase<UserToHunt>, Database<UserToHunt>>(new InjectionConstructor(Constants.DB_NAME));
+                container.RegisterSingleton<IDatabase<AppUser>, Database<AppUser>>(new InjectionConstructor(Constants.DB_NAME));
                 container.RegisterSingleton<IUserToHuntRepository, UserToHuntRepository>();
                 container.RegisterSingleton<IAppUserRepository, AppUserRepository>();
 
