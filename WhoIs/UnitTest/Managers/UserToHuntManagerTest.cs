@@ -16,6 +16,7 @@ namespace UnitTest.Managers
 
         public UserToHuntManagerTest()
         {
+             DependencyContainer.InitializeCore();
             _userToHuntManager = DependencyContainer.Container.Resolve<IUserToHuntManager>();
         }
 

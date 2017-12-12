@@ -16,6 +16,7 @@ namespace UnitTest.Managers
 
         public AppUserManagerTest()
         {
+            DependencyContainer.InitializeCore();
             _appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
         }
 
@@ -23,12 +24,23 @@ namespace UnitTest.Managers
         public async Task AppUserManager_Login_Sucess()
         {
             AppUser appUser = new AppUser() {ExternalId = "abc1", Name = "Marcelo Lopez" };
-
             await _appUserManager.EnterToApplication(appUser);
+
             appUser = await _appUserManager.GetAndSetLoggedAppUser();
 
             Assert.IsTrue(await _appUserManager.IsUserLogged());
             Assert.IsNotNull(appUser);
+        }
+
+        [TestMethod]
+        public async Task AppUserManager_Logout_Sucess()
+        {
+            await _appUserManager.LogoutFromApplication();
+
+            AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
+
+            Assert.IsFalse(await _appUserManager.IsUserLogged());
+            Assert.IsNull(appUser);
         }
     }
 }
