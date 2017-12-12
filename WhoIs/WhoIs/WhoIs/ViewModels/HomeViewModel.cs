@@ -75,7 +75,18 @@ namespace WhoIs.ViewModels
             AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
             AppUserLogged = appUser.Name;
             CmdLogout = new Command(async () => await Logout());
-            await Refresh();
+            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+            await LoadUsersToHunt(usersToHunt);
+        }
+
+        private async Task LoadUsersToHunt(List<UserToHunt> usersToHunt)
+        {
+            await Task.Delay(1);
+            UsersToHunt = new ObservableCollection<UserToHunt>();
+            foreach (UserToHunt user in usersToHunt)
+                UsersToHunt.Add(user);
+            UpdateHuntIndicator();
+
         }
 
         public async Task Logout()
@@ -86,6 +97,7 @@ namespace WhoIs.ViewModels
 
             if (accepted)
             {
+                UsersToHunt = null;
                 await _appUserManager.LogoutFromApplication();
                 await _navigationService.NavigateToAsync<LoginViewModel>();
 
@@ -96,12 +108,8 @@ namespace WhoIs.ViewModels
         public override async Task Refresh()
         {
             IsLoading = true;
-            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt();
-            UsersToHunt = new ObservableCollection<UserToHunt>();
-            foreach (UserToHunt user in usersToHunt)
-                UsersToHunt.Add(user);
-
-            UpdateHuntIndicator();
+            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHuntUpdated(UsersToHunt.ToList());
+            await LoadUsersToHunt(usersToHunt);
             IsLoading = false;
         }
 

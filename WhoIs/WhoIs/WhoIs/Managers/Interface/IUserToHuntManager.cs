@@ -9,8 +9,8 @@ namespace WhoIs.Managers.Interface
 {
     public interface IUserToHuntManager
     {
-
         Task<List<UserToHunt>> GetUsersToHunt(List<User> users=null);
+        Task<List<UserToHunt>> GetUsersToHuntUpdated(List<UserToHunt> usersToHunt);
         int GetCountUsersToHunt();
         int GetCountUsersHunted();
         Task HuntUser(UserToHunt userToHunt);

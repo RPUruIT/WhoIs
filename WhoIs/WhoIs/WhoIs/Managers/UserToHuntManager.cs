@@ -28,9 +28,6 @@ namespace WhoIs.Managers
             _appUserManager = appUserManager;
         }
 
-        /// <summary>
-        ///  This method set _usersToHunt and _usersHunted and return the list of users to hunt
-        /// </summary>
         public async Task<List<UserToHunt>> GetUsersToHunt(List<User> users=null)
         {
             List<UserToHunt> usersToHunt = null;
@@ -40,13 +37,20 @@ namespace WhoIs.Managers
             else
                 usersToHunt = await this.GetSpecificUsersFromService();
 
+            return await GetUsersToHuntUpdated(usersToHunt);
+        }
+
+        /// <summary>
+        ///  This method set _usersToHunt and _usersHunted and return the list of users to hunt
+        /// </summary>
+        public async Task<List<UserToHunt>> GetUsersToHuntUpdated(List<UserToHunt> usersToHunt)
+        {
             List<UserToHunt> usersHunted = await this.GetHuntedUsers();
 
             _usersToHunt = usersToHunt.Count;
             _usersHunted = usersHunted.Count;
 
-            usersToHunt = MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
-       
+            usersToHunt = await MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
 
             return usersToHunt;
         }
@@ -66,6 +70,7 @@ namespace WhoIs.Managers
             await _userHuntedRepository.InsertHuntedUser(userToHunt);
             _usersHunted++;
         }
+
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromService()
         {
@@ -88,22 +93,20 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetHuntedUsers()
         {
-
             string appUserExternalId = _appUserManager.GetLoggedAppUserExternalId();
 
             return await _userHuntedRepository.GetHuntedUsers(appUserExternalId);
         }
 
-        private List<UserToHunt> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
+        private async Task<List<UserToHunt>> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
-            List<UserToHunt> allUsersToHunt = usersHunted.OrderBy(u=>u.Name).ToList();
-
-            usersToHunt.RemoveAll(u => allUsersToHunt.Contains(u));
-            allUsersToHunt.AddRange(usersToHunt);
+            List<UserToHunt> allUsersToHunt = await Task.Run(() => usersHunted.OrderBy(u => u.Name).ToList());
+            await Task.Run(() => usersToHunt.RemoveAll(u => allUsersToHunt.Contains(u)));
+            await Task.Run(() => allUsersToHunt.AddRange(usersToHunt));
 
             return allUsersToHunt;
         }
 
-       
+        
     }
 }

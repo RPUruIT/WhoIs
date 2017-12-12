@@ -13,7 +13,7 @@ namespace WhoIs.ViewModels
         public static void InitializeViewModels(IUnityContainer container)
         {
             container.RegisterType<UserHuntedDetailsViewModel>();
-            container.RegisterType<HomeViewModel>();
+            container.RegisterSingleton<HomeViewModel>();
             container.RegisterType<LoginViewModel>();
         }
     }
