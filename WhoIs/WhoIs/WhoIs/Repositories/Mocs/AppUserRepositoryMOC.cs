@@ -14,14 +14,15 @@ namespace WhoIs.Repositories.Mocs
 
         public AppUserRepositoryMOC()
         {
+            _appUser = null;
             //when is user logged
             //_appUser = new AppUser() { Id = 1, ExternalId = "abc1", Name = "Marcelo Lopez" };
 
         }
-        public Task DeleteAppUser(AppUser appUser)
+        public async Task DeleteAppUser(AppUser appUser)
         {
-            _appUser = null;
-            return null;
+            _appUser = await Task.Run(() => appUser);
+            
         }
 
         public Task<AppUser> GetLoggedUser()
@@ -36,10 +37,10 @@ namespace WhoIs.Repositories.Mocs
             return Task.Run(() => _appUser!=null);
         }
 
-        public Task SaveAppUser(AppUser appUser)
+        public async Task SaveAppUser(AppUser appUser)
         {
-            _appUser = appUser;
-            return null;
+            _appUser = await Task.Run(() => appUser);
+          
         }
     }
 }

@@ -25,47 +25,48 @@ namespace UITest
         {
             app = ConfigureApp.Android
                 .DeviceSerial("LGH811f5864ad3")
+                .DeviceSerial("5203756cee7d8413")
                 .ApkFile(@"C:\Proyectos\WhoIs\WhoIs\WhoIs\WhoIs.Android\bin\Release\WhoIs.Android.apk")
                 .StartApp();
         }
 
-        //[Test]
-        //public void AppLaunches()
-        //{
-        //    app.Screenshot("First screen.");
-        //}
+        [Test]
+        public void AppLaunches()
+        {
+            app.Screenshot("First screen.");
+        }
 
-        //[Test]
-        //public void Login()
-        //{
-        //    app.Tap(x => x.Class("EditText"));
-        //    app.Tap(x => x.Id("text1"));
-        //    app.Tap(x => x.Text("Ingresar"));
-        //}
+        [Test]
+        public void Login()
+        {
+            app.Tap(x => x.Class("EditText"));
+            app.Tap(x => x.Id("text1"));
+            app.Tap(x => x.Text("Ingresar"));
+        }
 
-        //[Test]
-        //public void TakePicture()
-        //{
-        //    Login();
+        [Test]
+        public void TakePicture()
+        {
+            Login();
 
-        //    app.ScrollDownTo("Marcelo Lopez");
-        //    app.Tap(x => x.Text("Marcelo Lopez"));
-        //    app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
-        //    app.Back();
-        //    app.Tap(x => x.Text("Confirmar"));
+            app.ScrollDownTo("Marcelo Lopez");
+            app.Tap(x => x.Text("Marcelo Lopez"));
+            app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
+            app.Back();
+            app.Tap(x => x.Text("Confirmar"));
 
-        //    app.ScrollDownTo("Iang Yim");
-        //    app.Tap(x => x.Text("Iang Yim"));
-        //    app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
-        //    app.Back();
-        //    app.Tap(x => x.Text("Confirmar"));
+            app.ScrollDownTo("Iang Yim");
+            app.Tap(x => x.Text("Iang Yim"));
+            app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
+            app.Back();
+            app.Tap(x => x.Text("Confirmar"));
 
-        //    app.ScrollDownTo("Matias Delgado");
-        //    app.Tap(x => x.Text("Matias Delgado"));
-        //    app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
-        //    app.Back();
-        //    app.Tap(x => x.Text("Confirmar"));
-        //}
+            app.ScrollDownTo("Matias Delgado");
+            app.Tap(x => x.Text("Matias Delgado"));
+            app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
+            app.Back();
+            app.Tap(x => x.Text("Confirmar"));
+        }
 
     }
 }

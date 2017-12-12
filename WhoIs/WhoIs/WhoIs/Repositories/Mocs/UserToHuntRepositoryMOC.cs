@@ -17,18 +17,18 @@ namespace WhoIs.Repositories.Mocs
             _huntedUsers.Add(CreateUserHunted(1, "abc2", "Iang Yim"));
         }
 
-        private UserToHunt CreateUserHunted(int id, string externalId,string nombre)
+        private UserToHunt CreateUserHunted(int id, string externalId,string name)
         {
-            UserToHunt userHunted_1 = new UserToHunt();
-            userHunted_1.Id = id;
-            userHunted_1.ExternalId = externalId;
-            userHunted_1.Name = nombre;
-            userHunted_1.Email = "xxxx@gmail.com";
-            userHunted_1.Comments = "Comentario";         
-            userHunted_1.ImgPath = "";
-            userHunted_1.ImgThumbnailPath = "";
-            userHunted_1.HunterId = "abc1";
-            return userHunted_1;
+            UserToHunt userHunted = new UserToHunt();
+            userHunted.Id = id;
+            userHunted.ExternalId = externalId;
+            userHunted.Name = name;
+            userHunted.Email = "xxxx@gmail.com";
+            userHunted.Comments = "Comentario";
+            userHunted.ImgPath = "";
+            userHunted.ImgThumbnailPath = "";
+            userHunted.HunterId = "abc1";
+            return userHunted;
         }
 
         public Task<int> GetCountUsersHunted()
