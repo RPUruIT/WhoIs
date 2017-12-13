@@ -43,7 +43,7 @@ namespace WhoIs.ViewModels
 
         public ICommand CmdEnterToApplication { get; set; }
 
-        public LoginViewModel(IUserManager userManager,IAppUserManager appUserManager)
+        public LoginViewModel(INavigationService navigationService, IUserManager userManager,IAppUserManager appUserManager):base(navigationService)
         {
             _userManager = userManager;
             _appUserManager = appUserManager;

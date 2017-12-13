@@ -81,7 +81,9 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
         {
-            List<UserToHunt> appUsers = await Task.Run(()=> users.Select(u =>
+            List<UserToHunt> appUsers = null;
+            if(users!=null)
+                appUsers = await Task.Run(()=> users.Select(u =>
                                                         new UserToHunt() {
                                                             ExternalId = u.ExternalId,
                                                             Name = u.Name,

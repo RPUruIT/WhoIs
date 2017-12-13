@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhoIs.Configs;
 using Xamarin.Forms;
 
 namespace WhoIs.Converters
@@ -24,7 +25,9 @@ namespace WhoIs.Converters
 
                     double percentaje = countHunted / totalCount;
 
-                    color = percentaje < 0.3 ? Color.Red : percentaje < 0.7 ? Color.Yellow : Color.Green;
+                    color = percentaje < 0.3 ? 
+                        Constants.HUNTERINDICATOR_COLOR_RED : percentaje < 0.7 ? 
+                        Constants.HUNTERINDICATOR_COLOR_YELLOW : Constants.HUNTERINDICATOR_COLOR_GREEN;
                 }
             }
             return color;

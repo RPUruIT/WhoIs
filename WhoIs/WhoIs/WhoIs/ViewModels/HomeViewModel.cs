@@ -64,7 +64,7 @@ namespace WhoIs.ViewModels
             }
         }
 
-        public HomeViewModel(IUserToHuntManager userToHuntManager, IAppUserManager appUserManager)
+        public HomeViewModel(INavigationService navigationService,IUserToHuntManager userToHuntManager, IAppUserManager appUserManager):base(navigationService)
         {
             _userToHuntManager = userToHuntManager;
             _appUserManager = appUserManager;

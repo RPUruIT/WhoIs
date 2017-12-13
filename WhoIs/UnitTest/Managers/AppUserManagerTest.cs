@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Unity;
 using WhoIs;
+using WhoIs.Managers;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
+using WhoIs.Repositories.Interface;
 
 namespace UnitTest.Managers
 {
@@ -12,35 +16,5 @@ namespace UnitTest.Managers
     public class AppUserManagerTest
     {
 
-        IAppUserManager _appUserManager;
-
-        public AppUserManagerTest()
-        {
-            DependencyContainer.InitializeCore();
-            _appUserManager = DependencyContainer.Container.Resolve<IAppUserManager>();
-        }
-
-        [TestMethod]
-        public async Task AppUserManager_Login_Sucess()
-        {
-            AppUser appUser = new AppUser() {ExternalId = "abc1", Name = "Marcelo Lopez" };
-            await _appUserManager.EnterToApplication(appUser);
-
-            appUser = await _appUserManager.GetAndSetLoggedAppUser();
-
-            Assert.IsTrue(await _appUserManager.IsUserLogged());
-            Assert.IsNotNull(appUser);
-        }
-
-        [TestMethod]
-        public async Task AppUserManager_Logout_Sucess()
-        {
-            await _appUserManager.LogoutFromApplication();
-
-            AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
-
-            Assert.IsFalse(await _appUserManager.IsUserLogged());
-            Assert.IsNull(appUser);
-        }
     }
 }
