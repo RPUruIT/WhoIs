@@ -35,7 +35,7 @@ namespace WhoIs.Managers
         public async Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users)
         {
             List<AppUser> appUsers = null;
-            if(appUsers!=null)
+            if(users != null)
                 appUsers = await Task.Run(() => users.Select(u =>
                                                    new AppUser()
                                                    {

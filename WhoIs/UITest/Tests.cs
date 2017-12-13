@@ -44,6 +44,9 @@ namespace UITest
             app.Tap(x => x.Text("Ingresar"));
         }
 
+        //This test use a moc which return a image taken with the app 
+        //by Andres Calaveri
+        //To Andres Calaveri
         [Test]
         public void TakePicture()
         {
