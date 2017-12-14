@@ -18,11 +18,9 @@ namespace WhoIs.Droid.Mocs
     {
         public void SnapPic(string folder, string name)
         {
-            string imagePath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures).AbsolutePath;
+            string imageFile = "lopez.jpg";
 
-            string imageFile = imagePath+"/Who Is?/551952b252a9d05f87e79b3e/Adrian Claveri.jpg";
-
-            string thumbnailImageFile = imagePath+"/Who Is?/551952b252a9d05f87e79b3e/Adrian Claveri64x64.jpg";
+            string thumbnailImageFile = "lopez64x64.jpg";
 
             string[] imgFiles = { imageFile, thumbnailImageFile };
 
