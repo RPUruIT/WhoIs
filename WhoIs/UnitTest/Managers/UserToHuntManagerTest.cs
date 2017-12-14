@@ -52,7 +52,6 @@ namespace UnitTest.Managers
             userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
                                             .ReturnsAsync(new List<UserToHunt>());
 
-            userManagerMock.Setup(x => x.GetUsersFromService()).ReturnsAsync(new List<User>());
 
             appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
 
@@ -65,6 +64,45 @@ namespace UnitTest.Managers
             userManagerMock.Verify(x => x.GetUsersFromService(), Times.Exactly(0));
         }
 
+        //This test lets test GetSpecificUsersFromService and GetSpecificUsersFromUsers
+        [TestMethod]
+        public async Task UserToHuntManager_GetUsersToHunt_CheckResultCount()
+        {
+            var userToHuntRepositoryMock = new Mock<IUserToHuntRepository>();
+            var userManagerMock = new Mock<IUserManager>();
+            var appUserManagerMock = new Mock<IAppUserManager>();
+
+
+            List<UserToHunt> usersHunted = new List<UserToHunt>()
+            { new UserToHunt() { ExternalId="abc1",ImgPath="img.png"},
+              new UserToHunt() { ExternalId="abc2",ImgPath="img.png"},
+              new UserToHunt() { ExternalId="abc5",ImgPath="img.png"}};
+
+            List<User> usersReturnedByUserManagerFromService = new List<User> 
+            {  new User() { ExternalId = "abc1"},
+               new User() { ExternalId = "abc2"},
+               new User() { ExternalId = "abc3"},
+               new User() { ExternalId = "abc4"},
+               new User() { ExternalId = "abc5"} };
+
+            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
+                                            .ReturnsAsync(usersHunted);
+
+            userManagerMock.Setup(x => x.GetUsersFromService()).ReturnsAsync(usersReturnedByUserManagerFromService);
+
+            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
+
+            UserToHuntManager userToHuntManager = new UserToHuntManager(
+                                            userToHuntRepositoryMock.Object,
+                                            userManagerMock.Object, appUserManagerMock.Object);
+
+            //param null
+            List<User> users = null;
+            List<UserToHunt> usersToHunt = await userToHuntManager.GetUsersToHunt(users);
+
+            Assert.AreEqual(5, usersToHunt.Count);
+
+        }
 
         [TestMethod]
         public async Task UserToHuntManager_GetUsersToHuntUpdated_NullParams()

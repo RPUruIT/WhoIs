@@ -86,8 +86,9 @@ namespace WhoIs.ViewModels
         {
             await Task.Delay(1);
             UsersToHunt = new ObservableCollection<UserToHunt>();
-            foreach (UserToHunt user in usersToHunt)
-                UsersToHunt.Add(user);
+            if(usersToHunt!=null)
+                foreach (UserToHunt user in usersToHunt)
+                    UsersToHunt.Add(user);
             UpdateHuntIndicator();
 
         }

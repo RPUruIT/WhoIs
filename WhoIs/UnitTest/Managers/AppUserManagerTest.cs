@@ -9,6 +9,7 @@ using WhoIs.Managers;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using WhoIs.Repositories.Interface;
+using System.Linq;
 
 namespace UnitTest.Managers
 {
@@ -31,6 +32,27 @@ namespace UnitTest.Managers
             Assert.IsTrue(appUsers.Count == 0);
         }
 
+        [TestMethod]
+        public async Task AppUserManager_GetSpecificUsersFromUsers_CheckResult()
+        {
+            AppUserManager appUserManager = new AppUserManager(null,null);
+            List<User> users = new List<User>
+            {
+                new User() { ExternalId = "abc1",Name="Arnulfo" },
+               new User() { ExternalId = "abc2",Name="Milton" },
+               new User() { ExternalId = "abc3",Name="Sergio" },
+               new User() { ExternalId = "abc4",Name="Pablo" },
+               new User() { ExternalId = "abc5",Name="Zofia" }
+            };
+
+            List<AppUser> appUsers = await appUserManager.GetSpecificUsersFromUsers(users);
+
+            //Check count
+            Assert.AreEqual(5, appUsers.Count);
+            //Check almost one AppUser load correctly
+            Assert.AreEqual("abc1", appUsers.First().ExternalId);
+            Assert.AreEqual("Arnulfo", appUsers.First().Name);
+        }
 
         [TestMethod]
         public async Task AppUserManager_GetLoggedAppUserExternalId_NotUserLogged()

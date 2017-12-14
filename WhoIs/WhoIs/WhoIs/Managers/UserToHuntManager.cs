@@ -81,7 +81,7 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
         {
-            if (users != null)
+            if (users == null)
                 users = new List<User>();
 
             List<UserToHunt> usersToHunt = await Task.Run(()=> users.Select(u =>
