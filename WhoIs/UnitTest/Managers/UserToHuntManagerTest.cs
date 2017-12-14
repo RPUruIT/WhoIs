@@ -65,6 +65,7 @@ namespace UnitTest.Managers
             userManagerMock.Verify(x => x.GetUsersFromService(), Times.Exactly(0));
         }
 
+
         [TestMethod]
         public async Task UserToHuntManager_GetUsersToHuntUpdated_NullParams()
         {
@@ -181,6 +182,42 @@ namespace UnitTest.Managers
 
         }
 
+        [TestMethod]
+        public async Task UserToHuntManager_GetUsersToHuntUpdated_CountUpdated()
+        {
+
+            var userToHuntRepositoryMock = new Mock<IUserToHuntRepository>();
+            var appUserManagerMock = new Mock<IAppUserManager>();
+
+            List<UserToHunt> usersHunted = new List<UserToHunt>()
+            { new UserToHunt() { ExternalId="abc1",ImgPath="img.png"},
+              new UserToHunt() { ExternalId="abc2",ImgPath="img.png"},
+              new UserToHunt() { ExternalId="abc5",ImgPath="img.png"}};
+
+
+            List<UserToHunt> usersToHunt = new List<UserToHunt>()
+             { new UserToHunt() { ExternalId="abc1",ImgPath="img.png"},
+               new UserToHunt() { ExternalId="abc2",ImgPath=""},
+               new UserToHunt() { ExternalId="abc3",ImgPath=""},
+               new UserToHunt() { ExternalId="abc4",ImgPath=""},
+               new UserToHunt() { ExternalId="abc5",ImgPath=""}};
+
+            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
+                                            .ReturnsAsync(usersHunted);
+
+            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
+
+            UserToHuntManager userToHuntManager =
+                new UserToHuntManager(userToHuntRepositoryMock.Object, null, appUserManagerMock.Object);
+
+
+            await userToHuntManager.GetUsersToHuntUpdated(usersToHunt);
+
+            Assert.AreEqual(3, userToHuntManager.GetCountUsersHunted());
+            Assert.AreEqual(5, userToHuntManager.GetCountUsersToHunt());
+
+        }
+
         //This method GetUsersToHuntUpdated return and updated list of usersToHunt, 
         //in which all users already hunted MUST be included despite they aren´t in the original list because they were removed
         [TestMethod]
@@ -222,5 +259,22 @@ namespace UnitTest.Managers
 
         }
 
+
+        [TestMethod]
+        public async Task UserToHuntManager_HuntUser_CheckCountHunted()
+        {
+            var userToHuntRepositoryMock = new Mock<IUserToHuntRepository>();
+
+            UserToHuntManager userToHuntManager =
+                new UserToHuntManager(userToHuntRepositoryMock.Object, null, null);
+
+            int countHuntedBeforeHunt = userToHuntManager.GetCountUsersHunted();
+
+            await userToHuntManager.HuntUser(new UserToHunt());
+
+            int countHuntedAfterHunt = userToHuntManager.GetCountUsersHunted();
+
+            Assert.AreEqual(countHuntedBeforeHunt + 1, countHuntedAfterHunt);
+        }
     }
 }
