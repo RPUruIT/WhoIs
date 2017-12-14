@@ -8,6 +8,7 @@ using WhoIs.Managers;
 using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using WhoIs.Repositories.Interface;
+using System.Linq;
 
 namespace UnitTest.Managers
 {
@@ -64,6 +65,31 @@ namespace UnitTest.Managers
             userManagerMock.Verify(x => x.GetUsersFromService(), Times.Exactly(0));
         }
 
+        [TestMethod]
+        public async Task UserToHuntManager_GetUsersToHuntUpdated_NullParams()
+        {
+
+            var userToHuntRepositoryMock = new Mock<IUserToHuntRepository>();
+            var appUserManagerMock = new Mock<IAppUserManager>();
+
+            List<UserToHunt> usersHunted = null;
+            List<UserToHunt> usersToHunt = null;
+
+            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
+                                            .ReturnsAsync(usersHunted);
+
+            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
+
+            UserToHuntManager userToHuntManager =
+                new UserToHuntManager(userToHuntRepositoryMock.Object, null, appUserManagerMock.Object);
+  
+
+            List<UserToHunt> usersToHuntResult = await userToHuntManager.GetUsersToHuntUpdated(usersToHunt);
+
+            Assert.IsNotNull(usersToHuntResult);
+            Assert.IsTrue(usersToHuntResult.Count == 0);
+        }
+
         //This method GetUsersToHuntUpdated MUST return and updated list of usersToHunt order by [hunted][no hunted yet]
         [TestMethod]
         public async Task UserToHuntManager_GetUsersToHuntUpdated_Order()
@@ -77,13 +103,6 @@ namespace UnitTest.Managers
               new UserToHunt() { ExternalId="abc2",ImgPath="img.png"},
               new UserToHunt() { ExternalId="abc5",ImgPath="img.png"}};
 
-            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
-                                            .ReturnsAsync(usersHunted);
-
-            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
-
-            UserToHuntManager userToHuntManager = 
-                new UserToHuntManager(userToHuntRepositoryMock.Object, null, appUserManagerMock.Object);
 
             List<UserToHunt> usersToHunt = new List<UserToHunt>()
              { new UserToHunt() { ExternalId="abc1",ImgPath="img.png"},
@@ -91,6 +110,15 @@ namespace UnitTest.Managers
                new UserToHunt() { ExternalId="abc3",ImgPath=""},
                new UserToHunt() { ExternalId="abc4",ImgPath=""},
                new UserToHunt() { ExternalId="abc5",ImgPath=""}};
+
+            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
+                                            .ReturnsAsync(usersHunted);
+
+            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
+
+            UserToHuntManager userToHuntManager =
+                new UserToHuntManager(userToHuntRepositoryMock.Object, null, appUserManagerMock.Object);
+
 
             List<UserToHunt> usersToHuntResult = await userToHuntManager.GetUsersToHuntUpdated(usersToHunt);
 
@@ -108,6 +136,91 @@ namespace UnitTest.Managers
 
         }
 
+        //This method GetUsersToHuntUpdated MUST return and updated list of usersToHunt
+        //order by [hunted][no hunted yet] both ordered by name
+        [TestMethod]
+        public async Task UserToHuntManager_GetUsersToHuntUpdated_OrderIndividualListsByName()
+        {
+
+            var userToHuntRepositoryMock = new Mock<IUserToHuntRepository>();
+            var appUserManagerMock = new Mock<IAppUserManager>();
+
+            List<UserToHunt> usersHunted = new List<UserToHunt>()
+            { new UserToHunt() { ExternalId="abc1",ImgPath="img.png",Name="Z"},
+              new UserToHunt() { ExternalId="abc2",ImgPath="img.png",Name="X"},
+              new UserToHunt() { ExternalId="abc5",ImgPath="img.png",Name="A"}};
+
+
+            List<UserToHunt> usersToHunt = new List<UserToHunt>()
+             { new UserToHunt() { ExternalId="abc1",ImgPath="img.png",Name="Z"},
+               new UserToHunt() { ExternalId="abc2",ImgPath="img.png",Name="X"},
+               new UserToHunt() { ExternalId="abc3",ImgPath="",Name="B"},
+               new UserToHunt() { ExternalId="abc4",ImgPath="",Name="C"},
+               new UserToHunt() { ExternalId="abc5",ImgPath="img.png",Name="A"}};
+
+            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
+                                            .ReturnsAsync(usersHunted);
+
+            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
+
+            UserToHuntManager userToHuntManager =
+                new UserToHuntManager(userToHuntRepositoryMock.Object, null, appUserManagerMock.Object);
+
+
+            List<UserToHunt> usersToHuntResult = await userToHuntManager.GetUsersToHuntUpdated(usersToHunt);
+
+            //hunted ordered by name
+            Assert.AreEqual(usersToHuntResult[0].Name, "A");
+            Assert.AreEqual(usersToHuntResult[1].Name, "X");
+            Assert.AreEqual(usersToHuntResult[2].Name, "Z");
+
+            //not hunted already orderd by name
+            Assert.AreEqual(usersToHuntResult[3].Name, "B");
+            Assert.AreEqual(usersToHuntResult[4].Name, "C");
+
+
+        }
+
+        //This method GetUsersToHuntUpdated return and updated list of usersToHunt, 
+        //in which all users already hunted MUST be included despite they aren´t in the original list because they were removed
+        [TestMethod]
+        public async Task UserToHuntManager_GetUsersToHuntUpdated_UsersRemovedFromOriginalList()
+        {
+
+            var userToHuntRepositoryMock = new Mock<IUserToHuntRepository>();
+            var appUserManagerMock = new Mock<IAppUserManager>();
+
+            string external_id_removed = "abc2";
+
+            //user abc2 is hunted
+            List<UserToHunt> usersHunted = new List<UserToHunt>()
+            { new UserToHunt() { ExternalId="abc1",ImgPath="img.png"},
+              new UserToHunt() { ExternalId=external_id_removed,ImgPath="img.png"},
+              new UserToHunt() { ExternalId="abc5",ImgPath="img.png"}};
+
+            //user abc2 is not in the original list
+            List<UserToHunt> usersToHunt = new List<UserToHunt>()
+             { new UserToHunt() { ExternalId="abc1",ImgPath="img.png"},
+               new UserToHunt() { ExternalId="abc3",ImgPath=""},
+               new UserToHunt() { ExternalId="abc4",ImgPath=""},
+               new UserToHunt() { ExternalId="abc5",ImgPath=""}};
+
+            userToHuntRepositoryMock.Setup(x => x.GetHuntedUsers(It.IsAny<string>()))
+                                            .ReturnsAsync(usersHunted);
+
+            appUserManagerMock.Setup(x => x.GetLoggedAppUserExternalId()).Returns("abc");
+
+            UserToHuntManager userToHuntManager =
+                new UserToHuntManager(userToHuntRepositoryMock.Object, null, appUserManagerMock.Object);
+
+
+            List<UserToHunt> usersToHuntResult = await userToHuntManager.GetUsersToHuntUpdated(usersToHunt);
+
+            //check abc2 is in the list 
+            Assert.AreEqual(1, usersToHuntResult.Where(u => u.ExternalId == external_id_removed).Count());
+
+
+        }
 
     }
 }

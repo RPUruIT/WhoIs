@@ -47,8 +47,8 @@ namespace WhoIs.Managers
         {
             List<UserToHunt> usersHunted = await this.GetHuntedUsers();
 
-            _usersToHunt = usersToHunt.Count;
-            _usersHunted = usersHunted.Count;
+            _usersToHunt = usersToHunt!=null?usersToHunt.Count:0;
+            _usersHunted = usersHunted!=null?usersHunted.Count:0;
 
             usersToHunt = await MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
 
@@ -102,8 +102,19 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
-            List<UserToHunt> allUsersToHunt = await Task.Run(() => usersHunted.OrderBy(u => u.Name).ToList());
+            //TODO this method should also update the information of the hunted users  
+
+            List<UserToHunt> allUsersToHunt = null;
+
+            //Defense programming
+            if (usersToHunt == null)
+                usersToHunt = new List<UserToHunt>();
+            if(usersHunted==null)
+                usersHunted = new List<UserToHunt>();
+
+            allUsersToHunt = await Task.Run(() => usersHunted.OrderBy(u => u.Name).ToList());
             await Task.Run(() => usersToHunt.RemoveAll(u => allUsersToHunt.Contains(u)));
+            usersToHunt= await Task.Run(() => usersToHunt.OrderBy(u => u.Name).ToList());
             await Task.Run(() => allUsersToHunt.AddRange(usersToHunt));
 
             return allUsersToHunt;
