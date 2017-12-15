@@ -38,7 +38,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Grid BackgroundColor="{StaticResource PrimaryColor}">
+            <Grid BackgroundColor="{StaticResource PrimaryColor}" Margin="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -48,9 +48,20 @@
                 <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
                 <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
             </Grid>
-            <customcomponents:CustomListView 
-                ItemsSource="{Binding UsersToHunt}"
-                SelectedItem="{Binding ListSelectedItem}">
+            <customcomponents:CustomListView
+                ItemsSource="{Binding UsersToHuntGrouped}"
+                SelectedItem="{Binding ListSelectedItem}"   
+                GroupDisplayBinding="{Binding Name}"
+                IsGroupingEnabled="true">
+                <!--<customcomponents:CustomListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="{StaticResource PrimaryColor}">
+                                <Label Text="{Binding Name}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </customcomponents:CustomListView.GroupHeaderTemplate>-->
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell  Text="{Binding Name}"

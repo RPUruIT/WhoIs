@@ -45,6 +45,7 @@
     <Compile Include="Converters\UserToHuntImageConverter.cs" />
     <Compile Include="CustomComponents\CustomListView.cs" />
     <Compile Include="DependencyContainer.cs" />
+    <Compile Include="Models\UserToHuntGroup.cs" />
     <Compile Include="Repositories\Mocs\AppUserRepositoryMOC.cs" />
     <Compile Include="Repositories\Mocs\UserToHuntRepositoryMOC.cs" />
     <Compile Include="ViewModels\Helper\UserHuntedDetailsViewParameter.cs" />

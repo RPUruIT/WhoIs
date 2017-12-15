@@ -164,12 +164,12 @@ namespace UnitTest.Managers
             //check the three first userToHunt are already hunted
             for (var i = 0; i < 3; i++)
             {
-                Assert.IsTrue(usersToHuntResult[i].HasImage());
+                Assert.IsTrue(usersToHuntResult[i].IsHunted);
             }
             //check the others are not hunted yet
             for (var i = 3; i < 5; i++)
             {
-                Assert.IsFalse(usersToHuntResult[i].HasImage());
+                Assert.IsFalse(usersToHuntResult[i].IsHunted);
             }
 
 

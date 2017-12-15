@@ -46,11 +46,12 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _cmdLogout, value); }
         }
 
-        private ObservableCollection<UserToHunt> _usersToHunt;
-        public ObservableCollection<UserToHunt> UsersToHunt
+        private List<UserToHunt> _usersToHunt;
+        private ObservableCollection<UserToHuntGroup> _usersToHuntGrouped;
+        public ObservableCollection<UserToHuntGroup> UsersToHuntGrouped
         {
-            get { return _usersToHunt; }
-            set { SetPropertyValue(ref _usersToHunt, value); }
+            get { return _usersToHuntGrouped; }
+            set { SetPropertyValue(ref _usersToHuntGrouped, value); }
         }
 
         private UserToHunt _listSelectedItem;
@@ -84,13 +85,30 @@ namespace WhoIs.ViewModels
 
         private async Task LoadUsersToHunt(List<UserToHunt> usersToHunt)
         {
-            await Task.Delay(1);
-            UsersToHunt = new ObservableCollection<UserToHunt>();
-            if(usersToHunt!=null)
-                foreach (UserToHunt user in usersToHunt)
-                    UsersToHunt.Add(user);
+            _usersToHunt = usersToHunt;
+            List<UserToHuntGroup> groupedToList = await CreateGroupedUsersToHuntCollection(usersToHunt);
+            UsersToHuntGrouped = null; 
+            if (groupedToList != null)
+            {
+                UsersToHuntGrouped= new ObservableCollection<UserToHuntGroup>();
+                foreach (UserToHuntGroup usersToHuntList in groupedToList)
+                    UsersToHuntGrouped.Add(usersToHuntList);
+            }
             UpdateHuntIndicator();
+        }
 
+        private async Task<List<UserToHuntGroup>> CreateGroupedUsersToHuntCollection(List<UserToHunt> usersToHunt)
+        {
+            int countUsersHunted = _userToHuntManager.GetCountUsersHunted();
+            List<UserToHunt> usersHunted = await Task.Run(()=> usersToHunt.GetRange(0, countUsersHunted));
+            List<UserToHunt> usersNotHuntedAlready = await Task.Run(() => usersToHunt.GetRange
+                                                (countUsersHunted, usersToHunt.Count - countUsersHunted));
+
+            List<UserToHuntGroup> groupedList = await Task.Run(()=>
+                new List<UserToHuntGroup>() {new UserToHuntGroup(usersHunted) {Name="Hunted" },
+                                             new UserToHuntGroup(usersNotHuntedAlready) {Name="Not Hunted" }});
+
+            return groupedList;
         }
 
         public async Task Logout()
@@ -102,7 +120,7 @@ namespace WhoIs.ViewModels
             if (accepted)
             {
                 IsInitialized = false;
-                UsersToHunt = null;
+                UsersToHuntGrouped = null;
                 await _appUserManager.LogoutFromApplication();
                 await _navigationService.NavigateToAsync<LoginViewModel>();
 
@@ -113,8 +131,8 @@ namespace WhoIs.ViewModels
         public override async Task Refresh()
         {
             IsLoading = true;
-            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHuntUpdated(UsersToHunt.ToList());
-            await LoadUsersToHunt(usersToHunt);
+            List<UserToHunt> updatedUsersToHunt = await _userToHuntManager.GetUsersToHuntUpdated(_usersToHunt);
+            await LoadUsersToHunt(updatedUsersToHunt);
             IsLoading = false;
         }
 
@@ -128,7 +146,7 @@ namespace WhoIs.ViewModels
         public async void UserToHuntSelected(UserToHunt userToHunt)
         {
 
-            if (!userToHunt.HasImage())
+            if (!userToHunt.IsHunted)
             {
                 IPictureTaker pictureTake = DependencyContainer.Container.Resolve<IPictureTaker>();
 

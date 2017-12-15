@@ -82,9 +82,9 @@ namespace WhoIs.Models
             set { _hunterId = value; }
         }
 
-        public bool HasImage()
+        public bool IsHunted
         {
-            return !String.IsNullOrEmpty(this.ImgPath);
+            get { return !String.IsNullOrEmpty(this.ImgPath); }
         }
 
 
