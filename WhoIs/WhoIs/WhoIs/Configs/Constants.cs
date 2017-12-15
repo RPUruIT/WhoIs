@@ -12,7 +12,7 @@ namespace WhoIs.Configs
 
         public const bool IS_TEST = false;
 
-        public const string URL_SERVICE_GET_USER = "http://kiosco-stage/users";
+        public const string URL_SERVICE_GET_USER = "http://172.20.3.161/users";//"http://kiosco-stage/users";
         public const string DB_NAME = "WhoIs.db3";
 
         public const string PICTURE_TAKER_EVENT_NAME = "pictureTaken";
