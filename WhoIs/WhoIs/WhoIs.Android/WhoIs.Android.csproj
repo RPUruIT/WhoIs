@@ -126,6 +126,7 @@
   <ItemGroup>
     <Compile Include="AndroidDependencyContainer.cs" />
     <Compile Include="ConnectionHelper.cs" />
+    <Compile Include="CustomRenderers\ImageCircleRenderer.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="MainActivity.cs" />

@@ -44,6 +44,7 @@
     <Compile Include="Converters\HuntIndicatorColorConverter.cs" />
     <Compile Include="Converters\UserToHuntImageConverter.cs" />
     <Compile Include="CustomComponents\CustomListView.cs" />
+    <Compile Include="CustomRenderes\ImageCircle.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Models\UserToHuntGroup.cs" />
     <Compile Include="Repositories\Mocs\AppUserRepositoryMOC.cs" />

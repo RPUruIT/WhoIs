@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:WhoIs.Converters"
+             xmlns:customrenderers="clr-namespace:WhoIs.CustomRenderes;assembly=WhoIs"
              x:Class="WhoIs.Views.UserHuntedDetailsView">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -46,7 +47,8 @@
                     <Label Style="{StaticResource ViewTitle}" Text="{Binding UserHunted.Name}"></Label>
                 </StackLayout>
                 <StackLayout>
-                    <Image  Source="{Binding UserHunted.ImgPath}"></Image>
+                    <!--<Image  Source="{Binding UserHunted.ImgPath}"></Image>-->
+                    <customrenderers:ImageCircle  Source="{Binding UserHunted.ImgPath}"></customrenderers:ImageCircle>
                     <StackLayout Style="{StaticResource CommentsWrapper}">
                         <Label  Style="{StaticResource CommentsLbl}" Text="{Binding Comments}"></Label>
                         <Editor Text="{Binding UserHunted.Comments, Mode=TwoWay}" Style="{StaticResource CommentsEditor}" HeightRequest="100"/>

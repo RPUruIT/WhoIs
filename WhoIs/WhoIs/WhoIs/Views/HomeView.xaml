@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.HomeView"
              xmlns:converters="clr-namespace:WhoIs.Converters"
+             xmlns:customrenderers="clr-namespace:WhoIs.CustomRenderes;assembly=WhoIs"
              xmlns:customcomponents="clr-namespace:WhoIs.CustomComponents"
              Title="{Binding AppUserLogged}">
 
@@ -29,6 +30,29 @@
                 <Setter Property="WidthRequest" Value="30"></Setter>
                 <Setter Property="HeightRequest" Value="30"></Setter>
             </Style>
+            <Style x:Key="ListItemContainer"  TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                <Setter Property="HeightRequest" Value="150"></Setter>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="Padding" Value="5"></Setter>
+            </Style>
+            <Style x:Key="ListItemImage" TargetType="customrenderers:ImageCircle">
+                <Setter Property="WidthRequest" Value="70"></Setter>
+                <Setter Property="HeightRequest" Value="70"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style x:Key="ListItemLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"></Setter>
+            </Style>
+            <Style x:Key="ListItemSubLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="12"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
+            </Style>
+            <Style x:Key="GroupHeader" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="WhiteSmoke"></Setter>
+            </Style>
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
             <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
         </ResourceDictionary>
@@ -52,25 +76,37 @@
                 ItemsSource="{Binding UsersToHuntGrouped}"
                 SelectedItem="{Binding ListSelectedItem}"   
                 GroupDisplayBinding="{Binding Name}"
-                IsGroupingEnabled="true">
-                <!--<customcomponents:CustomListView.GroupHeaderTemplate>
+                IsGroupingEnabled="true"
+                HasUnevenRows="True">
+                <customcomponents:CustomListView.GroupHeaderTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout BackgroundColor="{StaticResource PrimaryColor}">
-                                <Label Text="{Binding Name}"></Label>
+                            <StackLayout Style="{StaticResource GroupHeader}">
+                                <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalOptions="Center" FontSize="12"></Label>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
-                </customcomponents:CustomListView.GroupHeaderTemplate>-->
+                </customcomponents:CustomListView.GroupHeaderTemplate>
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell  Text="{Binding Name}"
+                        <!--<ImageCell  Text="{Binding Name}"
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
                                     ImageSource="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"
                                     >
-                        </ImageCell>
+                        </ImageCell>-->
+
+                        <ViewCell Height="80">
+                            <StackLayout Style="{StaticResource ListItemContainer}">
+                                <customrenderers:ImageCircle Style="{StaticResource ListItemImage}" Source="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"></customrenderers:ImageCircle>
+                                <StackLayout VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" Style="{StaticResource ListItemLabel}"></Label>
+                                    <Label Text="{Binding Name}" Style="{StaticResource ListItemSubLabel}"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+
 
                     </DataTemplate>
                 </customcomponents:CustomListView.ItemTemplate>

@@ -170,9 +170,11 @@
   <ItemGroup>
     <ImageAsset Include="Resources\ConnectionHelper.xcassets\AppIcons.appiconset\Contents.json">
       <Visible>false</Visible>
+      <InProject>false</InProject>
     </ImageAsset>
     <ImageAsset Include="Resources\ConnectionHelper.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
+      <InProject>false</InProject>
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace WhoIs.Configs
         public const string DB_NAME = "WhoIs.db3";
 
         public const string PICTURE_TAKER_EVENT_NAME = "pictureTaken";
-        public const int THUMBNAIL_SIZE = 64;
+        public const int THUMBNAIL_SIZE = 80;
 
         public const string APP_NAME = "Who Is?";
 

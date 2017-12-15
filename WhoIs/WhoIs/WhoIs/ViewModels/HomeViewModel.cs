@@ -105,8 +105,8 @@ namespace WhoIs.ViewModels
                                                 (countUsersHunted, usersToHunt.Count - countUsersHunted));
 
             List<UserToHuntGroup> groupedList = await Task.Run(()=>
-                new List<UserToHuntGroup>() {new UserToHuntGroup(usersHunted) {Name="Hunted" },
-                                             new UserToHuntGroup(usersNotHuntedAlready) {Name="Not Hunted" }});
+                new List<UserToHuntGroup>() {new UserToHuntGroup(usersHunted) {Name="CAPTURADOS" },
+                                             new UserToHuntGroup(usersNotHuntedAlready) {Name="PENDIENTES" }});
 
             return groupedList;
         }
