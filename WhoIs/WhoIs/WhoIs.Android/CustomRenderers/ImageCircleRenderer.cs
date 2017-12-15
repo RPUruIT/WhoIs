@@ -15,7 +15,6 @@ using WhoIs.Droid.CustomRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-//https://blog.xamarin.com/elegant-circle-images-in-xamarin-forms/
 [assembly: ExportRenderer(typeof(ImageCircle), typeof(ImageCircleRenderer))]
 namespace WhoIs.Droid.CustomRenderers
 {
