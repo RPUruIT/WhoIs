@@ -92,7 +92,8 @@ namespace WhoIs.ViewModels
             {
                 UsersToHuntGrouped= new ObservableCollection<UserToHuntGroup>();
                 foreach (UserToHuntGroup usersToHuntList in groupedToList)
-                    UsersToHuntGrouped.Add(usersToHuntList);
+                    if(usersToHuntList.Count>0)
+                        UsersToHuntGrouped.Add(usersToHuntList);
             }
             UpdateHuntIndicator();
         }
