@@ -11,5 +11,6 @@ namespace WhoIs.Configs
         public const string IMG_APP_ICON = "ic_uruit.png";
         public const string IMG_USER = "ic_user.png";
         public const string IMG_LOGOUT = "ic_logout.png";
+        public const string IMG_MAGNIFIER = "magnifier.png";
     }
 }

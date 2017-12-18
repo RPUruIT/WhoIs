@@ -32,6 +32,8 @@ namespace WhoIs.ViewModels
         public string LogoutIcon { get; } = ResourcesName.IMG_LOGOUT;
         public string HomeTitle { get; } = "UruITers";
 
+        public string ImgMagnifier { get; } = ResourcesName.IMG_MAGNIFIER;
+
         private string _huntIndicator;
         public string HuntIndicator
         {

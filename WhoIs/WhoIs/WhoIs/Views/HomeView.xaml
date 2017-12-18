@@ -9,12 +9,24 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            
+            <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
+            <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
+
+            <Style x:Key="MainGrid" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"></Setter>
+            </Style>
             <Style TargetType="ImageCell">
                 <Setter Property="TextColor" Value="{StaticResource LigthGrayColor}"></Setter>
             </Style>
             <Style TargetType="ListView">
                 <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
                 <Setter Property="IsPullToRefreshEnabled" Value="true"></Setter>
+            </Style>
+            <Style x:Key="ImgMagnifier"  TargetType="Image">
+                <Setter Property="WidthRequest" Value="20"></Setter>
+                <Setter Property="HeightRequest" Value="20"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
             <Style x:Key="ListTitle" TargetType="Label">
                 <Setter Property="FontSize" Value="25"></Setter>
@@ -25,6 +37,7 @@
             <Style x:Key="ListTitleIndicator" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="Center"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="TextColor" Value="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Setter>
             </Style>
             <Style  TargetType="ActivityIndicator">
                 <Setter Property="WidthRequest" Value="30"></Setter>
@@ -36,6 +49,9 @@
                 <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
+            </Style>
+            <Style x:Key="ListItemDetailContainer" TargetType="StackLayout">
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
             <Style x:Key="ListItemImage" TargetType="customrenderers:ImageCircle">
                 <Setter Property="WidthRequest" Value="70"></Setter>
@@ -53,8 +69,12 @@
             <Style x:Key="GroupHeader" TargetType="StackLayout">
                 <Setter Property="BackgroundColor" Value="WhiteSmoke"></Setter>
             </Style>
-            <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
-            <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
+            <Style x:Key="GroupHeaderLabel" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="12"></Setter>
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -62,27 +82,29 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Grid BackgroundColor="{StaticResource PrimaryColor}" Margin="0">
+            <Grid Style="{StaticResource MainGrid}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
-
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Image Source="{Binding ImgMagnifier}" Style="{StaticResource ImgMagnifier}"></Image>
+                    <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
+                </StackLayout>                
                 <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
-                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
+                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}"></Label>
             </Grid>
             <customcomponents:CustomListView
                 ItemsSource="{Binding UsersToHuntGrouped}"
                 SelectedItem="{Binding ListSelectedItem}"   
                 GroupDisplayBinding="{Binding Name}"
-                IsGroupingEnabled="true"
+                IsGroupingEnabled="True"
                 HasUnevenRows="True">
                 <customcomponents:CustomListView.GroupHeaderTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Style="{StaticResource GroupHeader}">
-                                <Label Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalOptions="Center" FontSize="12"></Label>
+                                <Label Text="{Binding Name}" Style="{StaticResource GroupHeaderLabel}"></Label>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
@@ -100,7 +122,7 @@
                         <ViewCell Height="80">
                             <StackLayout Style="{StaticResource ListItemContainer}">
                                 <customrenderers:ImageCircle Style="{StaticResource ListItemImage}" Source="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"></customrenderers:ImageCircle>
-                                <StackLayout VerticalOptions="Center">
+                                <StackLayout Style="{StaticResource ListItemDetailContainer}">
                                     <Label Text="{Binding Name}" Style="{StaticResource ListItemLabel}"></Label>
                                     <Label Text="{Binding Name}" Style="{StaticResource ListItemSubLabel}"></Label>
                                 </StackLayout>

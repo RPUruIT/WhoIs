@@ -207,6 +207,9 @@
   <ItemGroup>
     <BundleResource Include="Resources\splashscreen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\magnifier.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
