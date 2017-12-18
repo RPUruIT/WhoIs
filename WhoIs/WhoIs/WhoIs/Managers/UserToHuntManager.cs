@@ -47,8 +47,8 @@ namespace WhoIs.Managers
         {
             List<UserToHunt> usersHunted = await this.GetHuntedUsers();
 
-            _usersToHunt = usersToHunt.Count;
-            _usersHunted = usersHunted.Count;
+            _usersToHunt = usersToHunt!=null?usersToHunt.Count:0;
+            _usersHunted = usersHunted!=null?usersHunted.Count:0;
 
             usersToHunt = await MergeUsersToHuntWithUsersHunted(usersToHunt, usersHunted);
 
@@ -81,14 +81,17 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromUsers(List<User> users)
         {
-            List<UserToHunt> appUsers = await Task.Run(()=> users.Select(u =>
+            if (users == null)
+                users = new List<User>();
+
+            List<UserToHunt> usersToHunt = await Task.Run(()=> users.Select(u =>
                                                         new UserToHunt() {
                                                             ExternalId = u.ExternalId,
                                                             Name = u.Name,
                                                             Email = u.Email,
                                                                  
                                                         }).ToList());
-            return appUsers;
+            return usersToHunt;
         }
 
         private async Task<List<UserToHunt>> GetHuntedUsers()
@@ -100,8 +103,17 @@ namespace WhoIs.Managers
 
         private async Task<List<UserToHunt>> MergeUsersToHuntWithUsersHunted(List<UserToHunt> usersToHunt, List<UserToHunt> usersHunted)
         {
+            //TODO this method should also update the information of the hunted users  
+
+            //Defense programming
+            if (usersToHunt == null)
+                usersToHunt = new List<UserToHunt>();
+            if(usersHunted==null)
+                usersHunted = new List<UserToHunt>();
+
             List<UserToHunt> allUsersToHunt = await Task.Run(() => usersHunted.OrderBy(u => u.Name).ToList());
             await Task.Run(() => usersToHunt.RemoveAll(u => allUsersToHunt.Contains(u)));
+            usersToHunt= await Task.Run(() => usersToHunt.OrderBy(u => u.Name).ToList());
             await Task.Run(() => allUsersToHunt.AddRange(usersToHunt));
 
             return allUsersToHunt;

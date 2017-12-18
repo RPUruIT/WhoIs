@@ -25,6 +25,7 @@ namespace UITest
         {
             app = ConfigureApp.Android
                 .DeviceSerial("LGH811f5864ad3")
+                .DeviceSerial("5203756cee7d8413")
                 .ApkFile(@"C:\Proyectos\WhoIs\WhoIs\WhoIs\WhoIs.Android\bin\Release\WhoIs.Android.apk")
                 .StartApp();
         }
@@ -48,17 +49,23 @@ namespace UITest
         {
             Login();
 
+            Task.Delay(2000).GetAwaiter().GetResult();
+
             app.ScrollDownTo("Marcelo Lopez");
             app.Tap(x => x.Text("Marcelo Lopez"));
             app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
             app.Back();
             app.Tap(x => x.Text("Confirmar"));
 
+            Task.Delay(2000).GetAwaiter().GetResult();
+
             app.ScrollDownTo("Iang Yim");
             app.Tap(x => x.Text("Iang Yim"));
             app.EnterText(x => x.Class("EditorEditText"), "ufuffufufu");
             app.Back();
             app.Tap(x => x.Text("Confirmar"));
+
+            Task.Delay(2000).GetAwaiter().GetResult();
 
             app.ScrollDownTo("Matias Delgado");
             app.Tap(x => x.Text("Matias Delgado"));

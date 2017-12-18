@@ -16,11 +16,14 @@ namespace WhoIs.ViewModels
     {
         protected INavigationService _navigationService;
 
-        public BaseViewModel()
+        public BaseViewModel(INavigationService navigationService)
         {
-            _navigationService = DependencyContainer.Container.Resolve<INavigationService>();
+            _navigationService = navigationService;
 
         }
+
+        protected bool _isInitialized;
+        public bool IsInitialized { get { return _isInitialized; } set { SetPropertyValue(ref _isInitialized, value); } }
 
         protected bool _isLoading;
         public bool IsLoading { get { return _isLoading; } set { SetPropertyValue(ref _isLoading, value); } }
@@ -67,7 +70,8 @@ namespace WhoIs.ViewModels
         protected void RaiseAllPropertiesChanged()
         {
             // By convention, an empty string indicates all properties are invalid.
-            this.PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
+            if(this.PropertyChanged!=null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(string.Empty));
         }
 
         protected void RaisePropertyChanged<T>(Expression<Func<T>> propExpr)
@@ -78,7 +82,8 @@ namespace WhoIs.ViewModels
 
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
-            this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public virtual Task InitializeAsync(object navigationData)

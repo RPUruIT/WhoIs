@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace WhoIs.Configs
 {
-    public static class Constants
+    public class Constants
     {
 
-        public const bool IS_TEST = false;
+        public const bool IS_TEST = true;
 
         public const string URL_SERVICE_GET_USER = "http://kiosco-stage/users";
         public const string DB_NAME = "WhoIs.db3";
@@ -18,6 +19,10 @@ namespace WhoIs.Configs
         public const int THUMBNAIL_SIZE = 64;
 
         public const string APP_NAME = "Who Is?";
+
+        public static readonly Color HUNTERINDICATOR_COLOR_RED = Color.Red;
+        public static readonly Color HUNTERINDICATOR_COLOR_YELLOW = Color.Yellow;
+        public static readonly Color HUNTERINDICATOR_COLOR_GREEN = Color.Green;
 
     }
 }

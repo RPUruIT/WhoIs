@@ -34,6 +34,9 @@ namespace WhoIs.Managers
 
         public async Task<List<AppUser>> GetSpecificUsersFromUsers(List<User> users)
         {
+            if (users == null)
+                users = new List<User>();
+
             List<AppUser> appUsers = await Task.Run(() => users.Select(u =>
                                                    new AppUser()
                                                    {
@@ -73,7 +76,8 @@ namespace WhoIs.Managers
 
         public string GetLoggedAppUserExternalId()
         {
-            return _appUser.ExternalId;
+            string externalId = _appUser != null ? _appUser.ExternalId : "";
+            return externalId;
         }
     }
 }

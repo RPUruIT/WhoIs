@@ -17,8 +17,6 @@ namespace WhoIs.Services
 {
     public class NavigationService : INavigationService
     {
-        public BaseViewModel PreviousPageViewModel {get;}
-
         public async Task InitializeAsync()
         {
             try { 
@@ -81,7 +79,10 @@ namespace WhoIs.Services
             page.BindingContext = viewModel;
             BaseViewModel baseViewModel = (page.BindingContext as BaseViewModel);
             baseViewModel.Alert = page.DisplayAlert;
-            await baseViewModel.InitializeAsync(parameter);
+            if (!baseViewModel.IsInitialized)
+                await baseViewModel.InitializeAsync(parameter);
+            else
+                await baseViewModel.Refresh();
         }
 
         private Type GetPageTypeForViewModel(Type viewModelType)

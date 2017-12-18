@@ -10,7 +10,6 @@ namespace WhoIs.Repositories.Interface
     public interface IUserToHuntRepository
     {
         Task<List<UserToHunt>> GetHuntedUsers(string appUserExternalId);
-        Task<int> GetCountUsersHunted();
         Task<int> InsertHuntedUser(UserToHunt userToHunt);
     }
 }

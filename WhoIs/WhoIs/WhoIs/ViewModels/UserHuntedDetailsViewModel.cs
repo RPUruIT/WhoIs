@@ -8,6 +8,7 @@ using WhoIs.Managers.Interface;
 using WhoIs.Models;
 using System.Windows.Input;
 using Xamarin.Forms;
+using WhoIs.Services.Interface;
 
 namespace WhoIs.ViewModels
 {
@@ -53,7 +54,7 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _cmdConfirm, value); }
         }
 
-        public UserHuntedDetailsViewModel(IUserToHuntManager userToHuntManager) {
+        public UserHuntedDetailsViewModel(INavigationService navigationService,IUserToHuntManager userToHuntManager):base(navigationService) {
             _userToHuntManager = userToHuntManager;
         }
 
