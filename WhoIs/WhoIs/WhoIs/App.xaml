@@ -70,18 +70,6 @@
             </Style>
             <!--Generic Views FIN-->
 
-            <!--Generic Styles INI-->
-
-            
-            <!--Generic Styles FIN-->
-
-            <!--LoginView INI-->
-                <Style x:Key="LoginIcon" TargetType="Image">
-                    <Setter Property="WidthRequest" Value="100"></Setter>
-                </Style>
-            <!--LoginView FIN-->
-
-
         </ResourceDictionary>
 
     </Application.Resources>
