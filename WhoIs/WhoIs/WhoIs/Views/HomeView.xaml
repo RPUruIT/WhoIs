@@ -110,7 +110,7 @@
                 <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}"></Label>
             </Grid>
             <StackLayout IsVisible="{Binding SearchVisibility}">
-                <customrenderers:MySearchBar BackgroundColor="{StaticResource WhiteColor}" Text="{Binding SearchText,Mode=TwoWay}">
+                <customrenderers:MySearchBar Text="{Binding SearchText,Mode=TwoWay}" Placeholder="Buscar...">
                     <customrenderers:MySearchBar.Behaviors>
                         <behaviors:EventToCommandBehavior
                             EventName="TextChanged"

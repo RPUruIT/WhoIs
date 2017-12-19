@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="ConnectionHelper.cs" />
     <Compile Include="CustomRenderer\ImageCircleRenderer.cs" />
+    <Compile Include="CustomRenderer\MySearchBarRenderer.cs" />
     <Compile Include="iOSDependencyContainer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
