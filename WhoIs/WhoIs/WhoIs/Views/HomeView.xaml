@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.HomeView"
              xmlns:converters="clr-namespace:WhoIs.Converters"
+             xmlns:behaviors="clr-namespace:WhoIs.Behaviors"
              xmlns:customrenderers="clr-namespace:WhoIs.CustomRenderes;assembly=WhoIs"
              xmlns:customcomponents="clr-namespace:WhoIs.CustomComponents"
              Title="{Binding AppUserLogged}">
@@ -12,8 +13,9 @@
             
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
             <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
-
-            <Style x:Key="MainGrid" TargetType="Grid">
+            <converters:BoolInverterConverter x:Key="BoolInverterConverter"/>
+            
+            <Style x:Key="HeaderGrid" TargetType="Grid">
                 <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"></Setter>
             </Style>
             <Style TargetType="ImageCell">
@@ -27,6 +29,10 @@
                 <Setter Property="WidthRequest" Value="20"></Setter>
                 <Setter Property="HeightRequest" Value="20"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+            <Style x:Key="ListTitleContainer"  TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
             </Style>
             <Style x:Key="ListTitle" TargetType="Label">
                 <Setter Property="FontSize" Value="25"></Setter>
@@ -82,18 +88,35 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Grid Style="{StaticResource MainGrid}">
+            <Grid Style="{StaticResource HeaderGrid}" IsVisible="{Binding SearchVisibility,Converter={StaticResource BoolInverterConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Image Source="{Binding ImgMagnifier}" Style="{StaticResource ImgMagnifier}"></Image>
-                    <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
+                <StackLayout Style="{StaticResource ListTitleContainer}">
+                    <!--<Image Source="{Binding ImgMagnifier}" Style="{StaticResource ImgMagnifier}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdToggleSearch}"/>
+                        </Image.GestureRecognizers>
+                    </Image>-->
+                    <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}">
+                        <!--<Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdToggleSearch}"/>
+                        </Label.GestureRecognizers>-->
+                    </Label>
                 </StackLayout>                
                 <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
                 <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}"></Label>
             </Grid>
+            <StackLayout IsVisible="{Binding SearchVisibility}">
+                <SearchBar BackgroundColor="{StaticResource WhiteColor}">
+                    <SearchBar.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding CmdSearchTextChanged}"/>
+                    </SearchBar.Behaviors>
+                </SearchBar>
+            </StackLayout>
             <customcomponents:CustomListView
                 ItemsSource="{Binding UsersToHuntGrouped}"
                 SelectedItem="{Binding ListSelectedItem}"   

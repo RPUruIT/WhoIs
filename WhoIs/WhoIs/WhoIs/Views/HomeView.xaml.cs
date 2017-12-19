@@ -14,7 +14,14 @@ namespace WhoIs.Views
     {
         public HomeView()
         {
-            InitializeComponent();
+            try { 
+
+                InitializeComponent();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

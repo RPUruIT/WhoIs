@@ -48,6 +48,27 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _cmdLogout, value); }
         }
 
+        private bool _searchVisibility;
+        public bool SearchVisibility
+        {
+            get { return _searchVisibility; }
+            set { SetPropertyValue(ref _searchVisibility, value); }
+        }
+
+        private ICommand _cmdToggleSearch;
+        public ICommand CmdToggleSearch
+        {
+            get { return _cmdToggleSearch; }
+            set { SetPropertyValue(ref _cmdToggleSearch, value); }
+        }
+
+        private ICommand _cmdSearchTextChanged;
+        public ICommand CmdSearchTextChanged
+        {
+            get { return _cmdSearchTextChanged; }
+            set { SetPropertyValue(ref _cmdSearchTextChanged, value); }
+        }
+
         private List<UserToHunt> _usersToHunt;
         private ObservableCollection<UserToHuntGroup> _usersToHuntGrouped;
         public ObservableCollection<UserToHuntGroup> UsersToHuntGrouped
@@ -79,7 +100,9 @@ namespace WhoIs.ViewModels
             AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
             AppUserLogged = appUser.Name;
             CmdLogout = new Command(async () => await Logout());
-            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+            CmdToggleSearch = new Command(async () => await ToggleSearch());
+            CmdSearchTextChanged = new Command<string>(async(search) => await SearchTextChanged(search));
+            List <UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
             await LoadUsersToHunt(usersToHunt);
             IsInitialized = true;
             IsLoading = false;
@@ -122,13 +145,26 @@ namespace WhoIs.ViewModels
 
             if (accepted)
             {
-                IsInitialized = false;
+                SearchVisibility = false;
                 UsersToHuntGrouped = null;
+                IsInitialized = false;
                 await _appUserManager.LogoutFromApplication();
                 await _navigationService.NavigateToAsync<LoginViewModel>();
 
             }
 
+        }
+
+        private async Task ToggleSearch()
+        {
+            await Task.Delay(1);
+            SearchVisibility = !SearchVisibility;
+        }
+
+        private async Task SearchTextChanged(string search)
+        {
+            await Task.Delay(1);
+            AppUserLogged = search;
         }
 
         public override async Task Refresh()
