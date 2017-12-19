@@ -139,15 +139,15 @@
                 </customcomponents:CustomListView.GroupHeaderTemplate>
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell  Text="{Binding Name}"
+                        <!--<ImageCell  Text="{Binding Name}"
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
                                     ImageSource="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"
                                     >
-                        </ImageCell>
+                        </ImageCell>-->
 
-                        <!--<ViewCell Height="80">
+                        <ViewCell Height="80">
                             <StackLayout Style="{StaticResource ListItemContainer}">
                                 <customrenderers:ImageCircle Style="{StaticResource ListItemImage}" Source="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"></customrenderers:ImageCircle>
                                 <StackLayout Style="{StaticResource ListItemDetailContainer}">
@@ -155,7 +155,7 @@
                                     <Label Text="{Binding Name}" Style="{StaticResource ListItemSubLabel}"></Label>
                                 </StackLayout>
                             </StackLayout>
-                        </ViewCell>-->
+                        </ViewCell>
 
 
                     </DataTemplate>
