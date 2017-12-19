@@ -14,7 +14,8 @@
             <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
             <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
             <converters:BoolInverterConverter x:Key="BoolInverterConverter"/>
-            
+            <converters:TextChangeEventArgsToString x:Key="TextChangeEventArgsToString"/>
+
             <Style x:Key="HeaderGrid" TargetType="Grid">
                 <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"></Setter>
             </Style>
@@ -94,28 +95,32 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackLayout Style="{StaticResource ListTitleContainer}">
-                    <!--<Image Source="{Binding ImgMagnifier}" Style="{StaticResource ImgMagnifier}">
+                    <Image Source="{Binding ImgMagnifier}" Style="{StaticResource ImgMagnifier}">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CmdToggleSearch}"/>
                         </Image.GestureRecognizers>
-                    </Image>-->
+                    </Image>
                     <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}">
-                        <!--<Label.GestureRecognizers>
+                        <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CmdToggleSearch}"/>
-                        </Label.GestureRecognizers>-->
+                        </Label.GestureRecognizers>
                     </Label>
-                </StackLayout>                
+                </StackLayout>
                 <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
                 <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}"></Label>
             </Grid>
             <StackLayout IsVisible="{Binding SearchVisibility}">
-                <SearchBar BackgroundColor="{StaticResource WhiteColor}">
-                    <SearchBar.Behaviors>
+                <customrenderers:MySearchBar BackgroundColor="{StaticResource WhiteColor}" Text="{Binding SearchText,Mode=TwoWay}">
+                    <customrenderers:MySearchBar.Behaviors>
                         <behaviors:EventToCommandBehavior
                             EventName="TextChanged"
-                            Command="{Binding CmdSearchTextChanged}"/>
-                    </SearchBar.Behaviors>
-                </SearchBar>
+                            Command="{Binding CmdSearchTextChanged}"
+                            Converter="{StaticResource TextChangeEventArgsToString}"/>
+                        <behaviors:EventToCommandBehavior
+                            EventName="Unfocused"
+                            Command="{Binding CmdCloseSearch}"/>
+                    </customrenderers:MySearchBar.Behaviors>
+                </customrenderers:MySearchBar>
             </StackLayout>
             <customcomponents:CustomListView
                 ItemsSource="{Binding UsersToHuntGrouped}"
@@ -134,15 +139,15 @@
                 </customcomponents:CustomListView.GroupHeaderTemplate>
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
-                        <!--<ImageCell  Text="{Binding Name}"
+                        <ImageCell  Text="{Binding Name}"
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
                                     ImageSource="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"
                                     >
-                        </ImageCell>-->
+                        </ImageCell>
 
-                        <ViewCell Height="80">
+                        <!--<ViewCell Height="80">
                             <StackLayout Style="{StaticResource ListItemContainer}">
                                 <customrenderers:ImageCircle Style="{StaticResource ListItemImage}" Source="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"></customrenderers:ImageCircle>
                                 <StackLayout Style="{StaticResource ListItemDetailContainer}">
@@ -150,7 +155,7 @@
                                     <Label Text="{Binding Name}" Style="{StaticResource ListItemSubLabel}"></Label>
                                 </StackLayout>
                             </StackLayout>
-                        </ViewCell>
+                        </ViewCell>-->
 
 
                     </DataTemplate>

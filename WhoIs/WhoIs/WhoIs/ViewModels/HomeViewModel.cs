@@ -55,6 +55,13 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _searchVisibility, value); }
         }
 
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set { SetPropertyValue(ref _searchText, value); }
+        }
+
         private ICommand _cmdToggleSearch;
         public ICommand CmdToggleSearch
         {
@@ -67,6 +74,13 @@ namespace WhoIs.ViewModels
         {
             get { return _cmdSearchTextChanged; }
             set { SetPropertyValue(ref _cmdSearchTextChanged, value); }
+        }
+
+        private ICommand _cmdCloseSearch;
+        public ICommand CmdCloseSearch
+        {
+            get { return _cmdCloseSearch; }
+            set { SetPropertyValue(ref _cmdCloseSearch, value); }
         }
 
         private List<UserToHunt> _usersToHunt;
@@ -102,7 +116,9 @@ namespace WhoIs.ViewModels
             CmdLogout = new Command(async () => await Logout());
             CmdToggleSearch = new Command(async () => await ToggleSearch());
             CmdSearchTextChanged = new Command<string>(async(search) => await SearchTextChanged(search));
-            List <UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+            CmdCloseSearch = new Command(async () => await Task.Run(() => ResetSearch()));
+            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+            _usersToHunt = usersToHunt;
             await LoadUsersToHunt(usersToHunt);
             IsInitialized = true;
             IsLoading = false;
@@ -110,7 +126,6 @@ namespace WhoIs.ViewModels
 
         private async Task LoadUsersToHunt(List<UserToHunt> usersToHunt)
         {
-            _usersToHunt = usersToHunt;
             List<UserToHuntGroup> groupedToList = await CreateGroupedUsersToHuntCollection(usersToHunt);
             UsersToHuntGrouped = null; 
             if (groupedToList != null)
@@ -123,9 +138,17 @@ namespace WhoIs.ViewModels
             UpdateHuntIndicator();
         }
 
+        private async Task FilterUserToHunt(string filter)
+        {
+            IsLoading = true;
+            List<UserToHunt> filteredUsersToHunt = await _userToHuntManager.FilterUserToHuntByName(_usersToHunt,filter); 
+            await LoadUsersToHunt(filteredUsersToHunt);
+            IsLoading = false;
+        }
+
         private async Task<List<UserToHuntGroup>> CreateGroupedUsersToHuntCollection(List<UserToHunt> usersToHunt)
         {
-            int countUsersHunted = _userToHuntManager.GetCountUsersHunted();
+            int countUsersHunted = usersToHunt.Where(u => u.IsHunted).Count();
             List<UserToHunt> usersHunted = await Task.Run(()=> usersToHunt.GetRange(0, countUsersHunted));
             List<UserToHunt> usersNotHuntedAlready = await Task.Run(() => usersToHunt.GetRange
                                                 (countUsersHunted, usersToHunt.Count - countUsersHunted));
@@ -145,7 +168,7 @@ namespace WhoIs.ViewModels
 
             if (accepted)
             {
-                SearchVisibility = false;
+                ResetSearch();
                 UsersToHuntGrouped = null;
                 IsInitialized = false;
                 await _appUserManager.LogoutFromApplication();
@@ -163,14 +186,15 @@ namespace WhoIs.ViewModels
 
         private async Task SearchTextChanged(string search)
         {
-            await Task.Delay(1);
-            AppUserLogged = search;
+            await FilterUserToHunt(search);
         }
 
         public override async Task Refresh()
         {
             IsLoading = true;
+            ResetSearch();
             List<UserToHunt> updatedUsersToHunt = await _userToHuntManager.GetUsersToHuntUpdated(_usersToHunt);
+            _usersToHunt = updatedUsersToHunt;
             await LoadUsersToHunt(updatedUsersToHunt);
             IsLoading = false;
         }
@@ -180,6 +204,12 @@ namespace WhoIs.ViewModels
             int totalUsersToHunt = _userToHuntManager.GetCountUsersToHunt();
             int countUsersHunted = _userToHuntManager.GetCountUsersHunted();
             HuntIndicator = countUsersHunted + "/" + totalUsersToHunt;
+        }
+
+        private void ResetSearch()
+        {
+            SearchText = "";
+            SearchVisibility = false;
         }
 
         public async void UserToHuntSelected(UserToHunt userToHunt)

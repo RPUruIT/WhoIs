@@ -44,9 +44,11 @@
     <Compile Include="Configs\ResourcesName.cs" />
     <Compile Include="Converters\BoolInverterConverter.cs" />
     <Compile Include="Converters\HuntIndicatorColorConverter.cs" />
+    <Compile Include="Converters\TextChangeEventArgsToString.cs" />
     <Compile Include="Converters\UserToHuntImageConverter.cs" />
     <Compile Include="CustomComponents\CustomListView.cs" />
     <Compile Include="CustomRenderes\ImageCircle.cs" />
+    <Compile Include="CustomRenderes\MySearchBar.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="Models\UserToHuntGroup.cs" />
     <Compile Include="Repositories\Mocs\AppUserRepositoryMOC.cs" />

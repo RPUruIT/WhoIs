@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace WhoIs.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginView : ContentPage
     {
         public LoginView()

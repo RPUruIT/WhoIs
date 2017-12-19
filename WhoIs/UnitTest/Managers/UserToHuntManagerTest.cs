@@ -314,5 +314,7 @@ namespace UnitTest.Managers
 
             Assert.AreEqual(countHuntedBeforeHunt + 1, countHuntedAfterHunt);
         }
+
+        //TODO add test FilterUserToHuntByName
     }
 }

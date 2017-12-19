@@ -47,8 +47,8 @@
                     <Label Style="{StaticResource ViewTitle}" Text="{Binding UserHunted.Name}"></Label>
                 </StackLayout>
                 <StackLayout>
-                    <!--<Image  Source="{Binding UserHunted.ImgPath}"></Image>-->
-                    <customrenderers:ImageCircle  Source="{Binding UserHunted.ImgPath}"></customrenderers:ImageCircle>
+                    <Image  Source="{Binding UserHunted.ImgPath}"></Image>
+                    <!--<customrenderers:ImageCircle  Source="{Binding UserHunted.ImgPath}"></customrenderers:ImageCircle>-->
                     <StackLayout Style="{StaticResource CommentsWrapper}">
                         <Label  Style="{StaticResource CommentsLbl}" Text="{Binding Comments}"></Label>
                         <Editor Text="{Binding UserHunted.Comments, Mode=TwoWay}" Style="{StaticResource CommentsEditor}" HeightRequest="100"/>
