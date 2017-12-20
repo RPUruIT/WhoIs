@@ -11,16 +11,16 @@ namespace WhoIs.Managers
 {
     public class UserManager:IUserManager
     {
-        IService _service;
+        IUserService _userService;
 
-        public UserManager(IService service)
+        public UserManager(IUserService userService)
         {
-            _service = service;
+            _userService = userService;
         }
 
         public async Task<List<User>> GetUsersFromService()
         {
-            List<User> users = await _service.GetUsers();
+            List<User> users = await _userService.GetAll();
             users.RemoveAll(u => u.Deleted);
             users=users.OrderBy(u => u.Name).ToList();
             return users;

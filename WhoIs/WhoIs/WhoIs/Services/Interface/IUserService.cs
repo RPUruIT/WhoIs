@@ -7,8 +7,8 @@ using WhoIs.Models;
 
 namespace WhoIs.Services.Interface
 {
-    public interface IService
+    public interface IUserService
     {
-        Task<List<User>> GetUsers();
+        Task<List<User>> GetAll();
     }
 }

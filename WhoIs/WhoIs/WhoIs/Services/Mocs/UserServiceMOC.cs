@@ -11,11 +11,11 @@ using WhoIs.Services.Interface;
 
 namespace WhoIs.Services.Mocs
 {
-    public class ServiceMOC : IService
+    public class UserServiceMOC : IUserService
     {
-        public async Task<List<User>> GetUsers()
+        public async Task<List<User>> GetAll()
         {
-            var assembly = typeof(Service).GetTypeInfo().Assembly;
+            var assembly = typeof(UserService).GetTypeInfo().Assembly;
             Stream stream = assembly.GetManifestResourceStream("WhoIs.Services.Mocs.OfflineResponses.users.json");
             string text = "";
             using (var reader = new System.IO.StreamReader(stream))
@@ -23,7 +23,7 @@ namespace WhoIs.Services.Mocs
                 text = reader.ReadToEnd();
             }
 
-            List<User> users = await Task.Run(()=>JsonConvert.DeserializeObject<List<User>>(text));
+            List<User> users = await Task.Run(() => JsonConvert.DeserializeObject<List<User>>(text));
 
             return users;
         }
