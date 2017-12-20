@@ -17,7 +17,7 @@
                 <Setter Property="AutoCompleteMode" Value="Suggest"></Setter>
                 <Setter Property="SuggestionMode" Value="StartsWith"></Setter>
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
-                <Setter Property="VerticalOptions" Value="End"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
             </Style>
             <Style x:Key="LoginLabels"  TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
@@ -40,11 +40,10 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackLayout Orientation="Vertical">
@@ -56,9 +55,9 @@
                                          DataSource="{Binding AppUsers}"
                                          SelectedItem="{Binding AppUserSelected, Mode=TwoWay}"></autocomplete:SfAutoComplete>
 
-            <Button Grid.Row="3" Text="{Binding BtnEnter}" Command="{Binding CmdEnterToApplication}"></Button>
-            <Label Grid.Row="4" Text="{Binding TextFooterLeft}"  Style="{StaticResource FooterLeftLabel}"></Label>
-            <Label Grid.Row="4" Text="{Binding TextFooterRight}" Style="{StaticResource FooterRightLabel}"></Label>
+            <Button Grid.Row="2" Text="{Binding BtnEnter}" Command="{Binding CmdEnterToApplication}"></Button>
+            <Label Grid.Row="3" Text="{Binding TextFooterLeft}"  Style="{StaticResource FooterLeftLabel}"></Label>
+            <Label Grid.Row="3" Text="{Binding TextFooterRight}" Style="{StaticResource FooterRightLabel}"></Label>
 
         </Grid>
     </ContentPage.Content>
