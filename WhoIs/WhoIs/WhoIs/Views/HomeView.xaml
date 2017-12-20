@@ -11,7 +11,6 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             
-            <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
             <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
             <converters:BoolInverterConverter x:Key="BoolInverterConverter"/>
             <converters:TextChangeEventArgsToString x:Key="TextChangeEventArgsToString"/>
@@ -41,15 +40,10 @@
                 <Setter Property="FontFamily" Value="{StaticResource Pacifico-Regular}"></Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
             </Style>
-            <Style x:Key="ListTitleIndicator" TargetType="Label">
-                <Setter Property="HorizontalOptions" Value="Center"></Setter>
-                <Setter Property="VerticalOptions" Value="Center"></Setter>
-                <Setter Property="TextColor" Value="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Setter>
-            </Style>
             <Style  TargetType="ActivityIndicator">
                 <Setter Property="WidthRequest" Value="30"></Setter>
                 <Setter Property="HeightRequest" Value="30"></Setter>
-            </Style>
+            </Style>s
             <Style x:Key="ListItemContainer"  TargetType="StackLayout">
                 <Setter Property="Orientation" Value="Horizontal"></Setter>
                 <Setter Property="HeightRequest" Value="150"></Setter>
@@ -107,7 +101,11 @@
                     </Label>
                 </StackLayout>
                 <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
-                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}"></Label>
+                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}">
+                    <Label.Behaviors>
+                        <behaviors:HuntIndicatorBehavior/>
+                    </Label.Behaviors>
+                </Label>
             </Grid>
             <StackLayout IsVisible="{Binding SearchVisibility}">
                 <customrenderers:MySearchBar Text="{Binding SearchText,Mode=TwoWay}" Placeholder="Buscar...">

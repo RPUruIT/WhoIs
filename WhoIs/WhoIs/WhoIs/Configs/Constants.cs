@@ -20,9 +20,5 @@ namespace WhoIs.Configs
 
         public const string APP_NAME = "Who Is?";
 
-        public static readonly Color HUNTERINDICATOR_COLOR_RED = Color.Red;
-        public static readonly Color HUNTERINDICATOR_COLOR_YELLOW = Color.Yellow;
-        public static readonly Color HUNTERINDICATOR_COLOR_GREEN = Color.Green;
-
     }
 }
