@@ -69,19 +69,21 @@
                     <Setter Property="HeightRequest" Value="50"></Setter>
             </Style>
             <!--Generic Views FIN-->
-
-            <!--Generic Styles INI-->
-
             
-            <!--Generic Styles FIN-->
-
-            <!--LoginView INI-->
-                <Style x:Key="LoginIcon" TargetType="Image">
-                    <Setter Property="WidthRequest" Value="100"></Setter>
-                </Style>
-            <!--LoginView FIN-->
-
-
+            <Style x:Key="ListTitleIndicator" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+            <Style x:Key="ListTitleIndicatorMinorAdvance" TargetType="Label" BasedOn="{StaticResource ListTitleIndicator}">
+                <Setter Property="TextColor" Value="Red"></Setter>
+            </Style>
+            <Style x:Key="ListTitleIndicatorMediumAdvance" TargetType="Label" BasedOn="{StaticResource ListTitleIndicator}">
+                <Setter Property="TextColor" Value="Yellow"></Setter>
+            </Style>
+            <Style x:Key="ListTitleIndicatorMaxAdvance" TargetType="Label" BasedOn="{StaticResource ListTitleIndicator}">
+                <Setter Property="TextColor" Value="Green"></Setter>
+            </Style>
+            
         </ResourceDictionary>
 
     </Application.Resources>

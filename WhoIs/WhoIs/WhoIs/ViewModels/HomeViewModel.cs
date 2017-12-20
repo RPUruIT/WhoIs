@@ -32,6 +32,8 @@ namespace WhoIs.ViewModels
         public string LogoutIcon { get; } = ResourcesName.IMG_LOGOUT;
         public string HomeTitle { get; } = "UruITers";
 
+        public string ImgMagnifier { get; } = ResourcesName.IMG_MAGNIFIER;
+
         private string _huntIndicator;
         public string HuntIndicator
         {
@@ -46,11 +48,47 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _cmdLogout, value); }
         }
 
-        private ObservableCollection<UserToHunt> _usersToHunt;
-        public ObservableCollection<UserToHunt> UsersToHunt
+        private bool _searchVisibility;
+        public bool SearchVisibility
         {
-            get { return _usersToHunt; }
-            set { SetPropertyValue(ref _usersToHunt, value); }
+            get { return _searchVisibility; }
+            set { SetPropertyValue(ref _searchVisibility, value); }
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set { SetPropertyValue(ref _searchText, value); }
+        }
+
+        private ICommand _cmdToggleSearch;
+        public ICommand CmdToggleSearch
+        {
+            get { return _cmdToggleSearch; }
+            set { SetPropertyValue(ref _cmdToggleSearch, value); }
+        }
+
+        private ICommand _cmdSearchTextChanged;
+        public ICommand CmdSearchTextChanged
+        {
+            get { return _cmdSearchTextChanged; }
+            set { SetPropertyValue(ref _cmdSearchTextChanged, value); }
+        }
+
+        private ICommand _cmdCloseSearch;
+        public ICommand CmdCloseSearch
+        {
+            get { return _cmdCloseSearch; }
+            set { SetPropertyValue(ref _cmdCloseSearch, value); }
+        }
+
+        private List<UserToHunt> _usersToHunt;
+        private ObservableCollection<UserToHuntGroup> _usersToHuntGrouped;
+        public ObservableCollection<UserToHuntGroup> UsersToHuntGrouped
+        {
+            get { return _usersToHuntGrouped; }
+            set { SetPropertyValue(ref _usersToHuntGrouped, value); }
         }
 
         private UserToHunt _listSelectedItem;
@@ -76,7 +114,11 @@ namespace WhoIs.ViewModels
             AppUser appUser = await _appUserManager.GetAndSetLoggedAppUser();
             AppUserLogged = appUser.Name;
             CmdLogout = new Command(async () => await Logout());
+            CmdToggleSearch = new Command(async () => await ToggleSearch());
+            CmdSearchTextChanged = new Command<string>(async(search) => await SearchTextChanged(search));
+            CmdCloseSearch = new Command(async () => await Task.Run(() => ResetSearch()));
             List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHunt(navigationData as List<User>);
+            _usersToHunt = usersToHunt;
             await LoadUsersToHunt(usersToHunt);
             IsInitialized = true;
             IsLoading = false;
@@ -84,13 +126,38 @@ namespace WhoIs.ViewModels
 
         private async Task LoadUsersToHunt(List<UserToHunt> usersToHunt)
         {
-            await Task.Delay(1);
-            UsersToHunt = new ObservableCollection<UserToHunt>();
-            if(usersToHunt!=null)
-                foreach (UserToHunt user in usersToHunt)
-                    UsersToHunt.Add(user);
+            List<UserToHuntGroup> groupedToList = await CreateGroupedUsersToHuntCollection(usersToHunt);
+            UsersToHuntGrouped = null; 
+            if (groupedToList != null)
+            {
+                UsersToHuntGrouped= new ObservableCollection<UserToHuntGroup>();
+                foreach (UserToHuntGroup usersToHuntList in groupedToList)
+                    if(usersToHuntList.Count>0)
+                        UsersToHuntGrouped.Add(usersToHuntList);
+            }
             UpdateHuntIndicator();
+        }
 
+        private async Task FilterUserToHunt(string filter)
+        {
+            IsLoading = true;
+            List<UserToHunt> filteredUsersToHunt = await _userToHuntManager.FilterUserToHuntByName(_usersToHunt,filter); 
+            await LoadUsersToHunt(filteredUsersToHunt);
+            IsLoading = false;
+        }
+
+        private async Task<List<UserToHuntGroup>> CreateGroupedUsersToHuntCollection(List<UserToHunt> usersToHunt)
+        {
+            int countUsersHunted = usersToHunt.Where(u => u.IsHunted).Count();
+            List<UserToHunt> usersHunted = await Task.Run(()=> usersToHunt.GetRange(0, countUsersHunted));
+            List<UserToHunt> usersNotHuntedAlready = await Task.Run(() => usersToHunt.GetRange
+                                                (countUsersHunted, usersToHunt.Count - countUsersHunted));
+
+            List<UserToHuntGroup> groupedList = await Task.Run(()=>
+                new List<UserToHuntGroup>() {new UserToHuntGroup(usersHunted) {Name="CAPTURADOS" },
+                                             new UserToHuntGroup(usersNotHuntedAlready) {Name="PENDIENTES" }});
+
+            return groupedList;
         }
 
         public async Task Logout()
@@ -101,8 +168,9 @@ namespace WhoIs.ViewModels
 
             if (accepted)
             {
+                ResetSearch();
+                UsersToHuntGrouped = null;
                 IsInitialized = false;
-                UsersToHunt = null;
                 await _appUserManager.LogoutFromApplication();
                 await _navigationService.NavigateToAsync<LoginViewModel>();
 
@@ -110,11 +178,24 @@ namespace WhoIs.ViewModels
 
         }
 
+        private async Task ToggleSearch()
+        {
+            await Task.Delay(1);
+            SearchVisibility = !SearchVisibility;
+        }
+
+        private async Task SearchTextChanged(string search)
+        {
+            await FilterUserToHunt(search);
+        }
+
         public override async Task Refresh()
         {
             IsLoading = true;
-            List<UserToHunt> usersToHunt = await _userToHuntManager.GetUsersToHuntUpdated(UsersToHunt.ToList());
-            await LoadUsersToHunt(usersToHunt);
+            ResetSearch();
+            List<UserToHunt> updatedUsersToHunt = await _userToHuntManager.GetUsersToHuntUpdated(_usersToHunt);
+            _usersToHunt = updatedUsersToHunt;
+            await LoadUsersToHunt(updatedUsersToHunt);
             IsLoading = false;
         }
 
@@ -125,10 +206,16 @@ namespace WhoIs.ViewModels
             HuntIndicator = countUsersHunted + "/" + totalUsersToHunt;
         }
 
+        private void ResetSearch()
+        {
+            SearchText = "";
+            SearchVisibility = false;
+        }
+
         public async void UserToHuntSelected(UserToHunt userToHunt)
         {
 
-            if (!userToHunt.HasImage())
+            if (!userToHunt.IsHunted)
             {
                 IPictureTaker pictureTake = DependencyContainer.Container.Resolve<IPictureTaker>();
 

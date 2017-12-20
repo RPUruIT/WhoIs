@@ -71,6 +71,10 @@ namespace WhoIs.Managers
             _usersHunted++;
         }
 
+        public async Task<List<UserToHunt>> FilterUserToHuntByName(List<UserToHunt> usersToHunt, string name)
+        {
+           return  await Task.Run(() => usersToHunt.Where(u => u.Name.ToUpper().Contains(name.ToUpper())).ToList());
+        }
 
         private async Task<List<UserToHunt>> GetSpecificUsersFromService()
         {
@@ -118,7 +122,5 @@ namespace WhoIs.Managers
 
             return allUsersToHunt;
         }
-
-        
     }
 }

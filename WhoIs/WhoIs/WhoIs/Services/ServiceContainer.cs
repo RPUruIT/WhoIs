@@ -16,10 +16,11 @@ namespace WhoIs.Services
         public static void InitializeServices(IUnityContainer container)
         {
             container.RegisterSingleton<INavigationService, NavigationService>();
+            container.RegisterSingleton<IRequestProvider, RequestProvider>();
             if (Constants.IS_TEST)
-                container.RegisterSingleton<IService, ServiceMOC>();
+                container.RegisterSingleton<IUserService, UserServiceMOC>();
             else
-                container.RegisterSingleton<IService, Service>();
+                container.RegisterSingleton<IUserService, UserService>();
         }
     }
 }

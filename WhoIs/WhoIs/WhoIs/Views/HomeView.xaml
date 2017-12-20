@@ -3,11 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.HomeView"
              xmlns:converters="clr-namespace:WhoIs.Converters"
+             xmlns:behaviors="clr-namespace:WhoIs.Behaviors"
+             xmlns:customrenderers="clr-namespace:WhoIs.CustomRenderes;assembly=WhoIs"
              xmlns:customcomponents="clr-namespace:WhoIs.CustomComponents"
              Title="{Binding AppUserLogged}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            
+            <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
+            <converters:BoolInverterConverter x:Key="BoolInverterConverter"/>
+            <converters:TextChangeEventArgsToString x:Key="TextChangeEventArgsToString"/>
+
+            <Style x:Key="HeaderGrid" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"></Setter>
+            </Style>
             <Style TargetType="ImageCell">
                 <Setter Property="TextColor" Value="{StaticResource LigthGrayColor}"></Setter>
             </Style>
@@ -15,22 +25,57 @@
                 <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
                 <Setter Property="IsPullToRefreshEnabled" Value="true"></Setter>
             </Style>
+            <Style x:Key="ImgMagnifier"  TargetType="Image">
+                <Setter Property="WidthRequest" Value="20"></Setter>
+                <Setter Property="HeightRequest" Value="20"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+            <Style x:Key="ListTitleContainer"  TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
+            </Style>
             <Style x:Key="ListTitle" TargetType="Label">
                 <Setter Property="FontSize" Value="25"></Setter>
                 <Setter Property="HorizontalOptions" Value="Center"></Setter>
                 <Setter Property="FontFamily" Value="{StaticResource Pacifico-Regular}"></Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
             </Style>
-            <Style x:Key="ListTitleIndicator" TargetType="Label">
-                <Setter Property="HorizontalOptions" Value="Center"></Setter>
-                <Setter Property="VerticalOptions" Value="Center"></Setter>
-            </Style>
             <Style  TargetType="ActivityIndicator">
                 <Setter Property="WidthRequest" Value="30"></Setter>
                 <Setter Property="HeightRequest" Value="30"></Setter>
+            </Style>s
+            <Style x:Key="ListItemContainer"  TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                <Setter Property="HeightRequest" Value="150"></Setter>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <converters:HuntIndicatorColorConverter x:Key="HuntIndicatorColorConverter"/>
-            <converters:UserToHuntImageConverter x:Key="UserToHuntImageConverter"/>
+            <Style x:Key="ListItemDetailContainer" TargetType="StackLayout">
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+            </Style>
+            <Style x:Key="ListItemImage" TargetType="customrenderers:ImageCircle">
+                <Setter Property="WidthRequest" Value="70"></Setter>
+                <Setter Property="HeightRequest" Value="70"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="HorizontalOptions" Value="Start"></Setter>
+            </Style>
+            <Style x:Key="ListItemLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}"></Setter>
+            </Style>
+            <Style x:Key="ListItemSubLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="12"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"></Setter>
+            </Style>
+            <Style x:Key="GroupHeader" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="WhiteSmoke"></Setter>
+            </Style>
+            <Style x:Key="GroupHeaderLabel" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="12"></Setter>
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -38,28 +83,78 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Grid BackgroundColor="{StaticResource PrimaryColor}">
+            <Grid Style="{StaticResource HeaderGrid}" IsVisible="{Binding SearchVisibility,Converter={StaticResource BoolInverterConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}"></Label>
-
+                <StackLayout Style="{StaticResource ListTitleContainer}">
+                    <Image Source="{Binding ImgMagnifier}" Style="{StaticResource ImgMagnifier}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdToggleSearch}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="{Binding HomeTitle}" Style="{StaticResource ListTitle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CmdToggleSearch}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
                 <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsLoading}"></ActivityIndicator>
-                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}" TextColor="{Binding Converter={StaticResource HuntIndicatorColorConverter}}"></Label>
+                <Label Grid.Column="1" BindingContext="{Binding HuntIndicator}" Text="{Binding}" Style="{StaticResource ListTitleIndicator}">
+                    <Label.Behaviors>
+                        <behaviors:HuntIndicatorBehavior/>
+                    </Label.Behaviors>
+                </Label>
             </Grid>
-            <customcomponents:CustomListView 
-                ItemsSource="{Binding UsersToHunt}"
-                SelectedItem="{Binding ListSelectedItem}">
+            <StackLayout IsVisible="{Binding SearchVisibility}">
+                <customrenderers:MySearchBar Text="{Binding SearchText,Mode=TwoWay}" Placeholder="Buscar...">
+                    <customrenderers:MySearchBar.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding CmdSearchTextChanged}"
+                            Converter="{StaticResource TextChangeEventArgsToString}"/>
+                        <behaviors:EventToCommandBehavior
+                            EventName="Unfocused"
+                            Command="{Binding CmdCloseSearch}"/>
+                    </customrenderers:MySearchBar.Behaviors>
+                </customrenderers:MySearchBar>
+            </StackLayout>
+            <customcomponents:CustomListView
+                ItemsSource="{Binding UsersToHuntGrouped}"
+                SelectedItem="{Binding ListSelectedItem}"   
+                GroupDisplayBinding="{Binding Name}"
+                IsGroupingEnabled="True"
+                HasUnevenRows="True">
+                <customcomponents:CustomListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Style="{StaticResource GroupHeader}">
+                                <Label Text="{Binding Name}" Style="{StaticResource GroupHeaderLabel}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </customcomponents:CustomListView.GroupHeaderTemplate>
                 <customcomponents:CustomListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell  Text="{Binding Name}"
+                        <!--<ImageCell  Text="{Binding Name}"
                                     TextColor="{StaticResource PrimaryColor}"
                                     Detail="{Binding Name}"
                                     DetailColor="{StaticResource SecondaryColor}"
                                     ImageSource="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"
                                     >
-                        </ImageCell>
+                        </ImageCell>-->
+
+                        <ViewCell Height="80">
+                            <StackLayout Style="{StaticResource ListItemContainer}">
+                                <customrenderers:ImageCircle Style="{StaticResource ListItemImage}" Source="{Binding ImgThumbnailPath,Converter={StaticResource UserToHuntImageConverter}}"></customrenderers:ImageCircle>
+                                <StackLayout Style="{StaticResource ListItemDetailContainer}">
+                                    <Label Text="{Binding Name}" Style="{StaticResource ListItemLabel}"></Label>
+                                    <Label Text="{Binding Name}" Style="{StaticResource ListItemSubLabel}"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+
 
                     </DataTemplate>
                 </customcomponents:CustomListView.ItemTemplate>

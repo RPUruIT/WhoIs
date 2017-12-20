@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace WhoIs.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomeView : ContentPage
     {
         public HomeView()

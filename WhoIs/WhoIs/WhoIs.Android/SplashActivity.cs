@@ -33,7 +33,7 @@ namespace WhoIs.Droid
         async void SimulateStartup()
         {
 
-            await Task.Delay(8000); // Simulate a bit of startup work.
+            await Task.Delay(4000); // Simulate a bit of startup work.
                 
             StartActivity(new Intent(this, typeof(MainActivity)));
   

@@ -48,9 +48,14 @@ namespace UnitTest.ViewModels
 
             await homeViewModel.InitializeAsync(null);
 
+
+            int huntedUsersListed = homeViewModel.UsersToHuntGrouped[0].Count();
+            int notHuntedUsersAlready = homeViewModel.UsersToHuntGrouped[1].Count();
+
             Assert.AreEqual("Pelopincho", homeViewModel.AppUserLogged);
-            Assert.AreEqual(usersHunted.Count+"/"+ usersToHunt.Count, homeViewModel.HuntIndicator);
-            Assert.AreEqual(usersToHunt.Count, homeViewModel.UsersToHunt.Count());
+            Assert.AreEqual(usersHunted.Count + "/" + usersToHunt.Count, homeViewModel.HuntIndicator);
+            Assert.AreEqual(usersHunted.Count, huntedUsersListed);
+            Assert.AreEqual(usersToHunt.Count, huntedUsersListed+ notHuntedUsersAlready);
 
 
         }

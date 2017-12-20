@@ -26,6 +26,7 @@ namespace WhoIs
         {
             var navigationService = DependencyContainer.Container.Resolve<INavigationService>();
             return navigationService.InitializeAsync();
+
         }
 
         protected override void OnStart()

@@ -23,7 +23,7 @@ namespace WhoIs.ViewModels
         public string UsersPlaceholder { get; } = "Usuario";
         public string BtnEnter { get; } = "Ingresar";
         public string TextFooterLeft { get; } = "http://uruit.com";
-        public string TextFooterRigth { get; } = "@People Care";
+        public string TextFooterRight { get; } = "@People Care";
 
         private List<User> _users;
 
@@ -34,11 +34,11 @@ namespace WhoIs.ViewModels
             set { SetPropertyValue(ref _appUsers, value); }
         }
 
-        private int _appUserSelectedIndex;
-        public int AppUserSelectedIndex
+        private AppUser _appUserSelected;
+        public AppUser AppUserSelected
         {
-            get { return _appUserSelectedIndex; }
-            set { SetPropertyValue(ref _appUserSelectedIndex, value); }
+            get { return _appUserSelected; }
+            set { SetPropertyValue(ref _appUserSelected, value); }
         }
 
         public ICommand CmdEnterToApplication { get; set; }
@@ -62,10 +62,9 @@ namespace WhoIs.ViewModels
 
         public async Task EnterToApplication()
         {
-            if (AppUserSelectedIndex >= 0)
-            {
-                AppUser appUser = AppUsers[AppUserSelectedIndex];
-                await _appUserManager.EnterToApplication(appUser);
+            if (AppUserSelected!=null)
+            {                
+                await _appUserManager.EnterToApplication(AppUserSelected);
 
                 await _navigationService.NavigateToAsync<HomeViewModel>(_users);
 

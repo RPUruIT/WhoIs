@@ -2,30 +2,65 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhoIs.Views.LoginView"
+             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
              BackgroundColor="{StaticResource PrimaryColor}"
              Padding="20,30,20,30"
              Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LoginIcon" TargetType="Image">
+                <Setter Property="WidthRequest" Value="100"></Setter>
+            </Style>
+            <Style x:Key="AppUsersAutoComplete"  TargetType="autocomplete:SfAutoComplete">
+                <Setter Property="DisplayMemberPath" Value="Name"></Setter>
+                <Setter Property="AutoCompleteMode" Value="Suggest"></Setter>
+                <Setter Property="SuggestionMode" Value="StartsWith"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="BorderColor" Value="{StaticResource WhiteColor}"></Setter>
+                <Setter Property="Watermark" Value="Seleccione..."></Setter>
+                <Setter Property="WatermarkColor" Value="LightGray"></Setter>
+            </Style>
+            <Style x:Key="LoginLabels"  TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
+            </Style>
+            <Style x:Key="AppNameKey"  TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="40"></Setter>
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}}"></Setter>
+                <Setter Property="FontFamily" Value="{StaticResource Pacifico-Regular}"></Setter>
+            </Style>
+            <Style x:Key="FooterLeftLabel" TargetType="Label" BasedOn="{StaticResource LoginLabels}">
+                <Setter Property="VerticalOptions" Value="End"></Setter>
+            </Style>
+            <Style x:Key="FooterRightLabel"  TargetType="Label"  BasedOn="{StaticResource LoginLabels}">
+                <Setter Property="VerticalOptions" Value="End"></Setter>
+                <Setter Property="HorizontalOptions" Value="End"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackLayout Orientation="Vertical">
-                <Label Text="{Binding AppName}" HorizontalOptions="Center" FontSize="40" TextColor="{StaticResource WhiteColor}}" FontFamily="{StaticResource Pacifico-Regular}"></Label>
+                <Label Text="{Binding AppName}" Style="{StaticResource AppNameKey}"></Label>
                 <Image Source="{Binding IconSource}" Style="{StaticResource LoginIcon}" ></Image>
             </StackLayout>
-            <Picker Grid.Row="1" ItemsSource="{Binding AppUsers}"  ItemDisplayBinding="{Binding Name}" SelectedIndex="{Binding AppUserSelectedIndex, Mode=TwoWay}" VerticalOptions="End">
+            <autocomplete:SfAutoComplete Grid.Row="1" 
+                                         Style="{StaticResource AppUsersAutoComplete}"
+                                         DataSource="{Binding AppUsers}"
+                                         SelectedItem="{Binding AppUserSelected, Mode=TwoWay}"></autocomplete:SfAutoComplete>
 
-            </Picker>
-
-            <Button Grid.Row="3" Text="{Binding BtnEnter}" Command="{Binding CmdEnterToApplication}"></Button>
-            <Label Grid.Row="4" Text="{Binding TextFooterLeft}"  TextColor="{StaticResource WhiteColor}}" VerticalOptions="End"></Label>
-            <Label Grid.Row="4" Text="{Binding TextFooterRigth}" TextColor="{StaticResource WhiteColor}}" VerticalOptions="End" HorizontalOptions="End"></Label>
+            <Button Grid.Row="2" Text="{Binding BtnEnter}" Command="{Binding CmdEnterToApplication}"></Button>
+            <Label Grid.Row="3" Text="{Binding TextFooterLeft}"  Style="{StaticResource FooterLeftLabel}"></Label>
+            <Label Grid.Row="3" Text="{Binding TextFooterRight}" Style="{StaticResource FooterRightLabel}"></Label>
 
         </Grid>
     </ContentPage.Content>
