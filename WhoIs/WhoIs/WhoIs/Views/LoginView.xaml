@@ -18,6 +18,9 @@
                 <Setter Property="SuggestionMode" Value="StartsWith"></Setter>
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
                 <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="BorderColor" Value="{StaticResource WhiteColor}"></Setter>
+                <Setter Property="Watermark" Value="Seleccione..."></Setter>
+                <Setter Property="WatermarkColor" Value="LightGray"></Setter>
             </Style>
             <Style x:Key="LoginLabels"  TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}"></Setter>
