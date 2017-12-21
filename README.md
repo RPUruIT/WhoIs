@@ -24,4 +24,6 @@ The xamarin forms solution includes almost, most of the best practices of the te
                                                 
 ------------------------------------------------------------------------------------------------------------------------------------------
                                                 
- The contributors were the members of the team who collaborated by reviewing all the pull request.
+We followed the Git Flow having one develop branch and features branches per each story. The contributors were the members of the team who collaborated by reviewing all the pull request.
+
+We also integrated this repository with AppCenter in order to make the corresponding builds and distributions.
