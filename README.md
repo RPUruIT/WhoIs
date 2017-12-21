@@ -13,14 +13,16 @@ It was developed as and induction process to xamarin forms by a new member of th
 The solution consist in a mobile application and a REST service that gives all the employees of UruIT.
 
 The xamarin forms solution includes almost, most of the best practices of the team like, Unit Testing, Ui Testing, Dependency Injections, Navigation Service and the following presented architecture:
+                                              
+                        MVVM                      Views   
 
-                                               ViewModels
+                                                ViewModels
 
-                                                Managers
+                                                 Managers
 
                                     Services              Repositories
 
-                                                 Models
+                                                 Models                                   
                                                 
 ------------------------------------------------------------------------------------------------------------------------------------------
                                                 
