@@ -8,25 +8,14 @@ using Xamarin.Forms;
 
 namespace WhoIs.Behaviors
 {
-    public class HuntIndicatorBehavior:Behavior<Label>
+    public class HuntIndicatorBehavior:BehaviorBase<Label>
     {
-        protected override void OnAttachedTo(Label label)
+   
+        protected override void OnBindingContextChanged()
         {
-            label.BindingContextChanged += Label_BindingContextChanged;
-            base.OnAttachedTo(label);
-        }
+            base.OnBindingContextChanged();
 
-        protected override void OnDetachingFrom(Label label)
-        {
-            label.BindingContextChanged -= Label_BindingContextChanged;
-            base.OnDetachingFrom(label);
-        }
-
-        private void Label_BindingContextChanged(object sender, EventArgs e)
-        {
-            Label label = ((Label)sender);
-            string indicator = label.BindingContext as string;
-
+            string indicator = BindingContext as string;
 
             if (!String.IsNullOrEmpty(indicator))
             {
@@ -38,8 +27,8 @@ namespace WhoIs.Behaviors
                     double totalCount = Int64.Parse(indicatorSplited[1]);
 
                     double percentaje = countHunted / totalCount;
-                    
-                    label.Style = ((percentaje < 0.3 ?
+
+                    AssociatedObject.Style = ((percentaje < 0.3 ?
                         Application.Current.Resources["ListTitleIndicatorMinorAdvance"] : percentaje < 0.7 ?
                         Application.Current.Resources["ListTitleIndicatorMediumAdvance"] : 
                         Application.Current.Resources["ListTitleIndicatorMaxAdvance"])) as Style;
